@@ -1,0 +1,100 @@
+# https://taskfile.dev
+
+version: "3"
+
+vars:
+  PROJECT: masha
+  DEMONDIR: /Library/LaunchDaemons
+
+tasks:
+  default:
+    desc: run flask cli
+    cmds:
+      - direnv exec . mamba run --live-stream -n {{.PROJECT}} python -m {{.PROJECT}} {{.CLI_ARGS}}
+
+  env:
+    desc: run in env
+    cmds:
+      - direnv exec . mamba run --live-stream -n {{.PROJECT}} {{.CLI_ARGS}}
+
+  run:
+    desc: systemd exec
+    dir: $WORKDIR
+    cmds:
+      - sudo -u Alex ./run.sh
+
+  face2img:
+    desc: face tasks
+    cmds:
+      - direnv exec . mamba run --live-stream -n {{.PROJECT}} python -m {{.PROJECT}} image face2img {{.CLI_ARGS}}
+  txt:
+    desc: text to image
+    cmds:
+      - direnv exec . mamba run --live-stream -n {{.PROJECT}} python -m {{.PROJECT}} image txt2img {{.CLI_ARGS}}
+
+  img2img:
+    desc: text to image
+    cmds:
+      - direnv exec . mamba run --live-stream -n {{.PROJECT}} python -m {{.PROJECT}} image img2img {{.CLI_ARGS}}
+
+  retrain:
+    desc: retrain
+    vars:
+      TRAIN_CONFIG: "{{.CLI_ARGS}}c"
+      INDEX_C: "{{.CLI_ARGS}}c"
+      INDEX_E: "{{.CLI_ARGS}}e"
+      INDEX_EL2: "{{.CLI_ARGS}}c"
+    cmds:
+      # - mamba run --live-stream -n {{.PROJECT}} flask face train {{.TRAIN_CONFIG}}
+      - direnv exec . mamba run --live-stream -n {{.PROJECT}} flask --app {{.PROJECT}} face index -c {{.INDEX_C}}
+      - direnv exec . mamba run --live-stream -n {{.PROJECT}} flask --app {{.PROJECT}} face index -c {{.INDEX_E}}
+      - direnv exec . mamba run --live-stream -n {{.PROJECT}} flask --app {{.PROJECT}} face index -c {{.INDEX_EL2}}
+
+  redis:
+    desc: open redis-cli
+    cmds:
+      - keydb-cli $REDIS_CLI
+
+  redis-face:
+    cmds:
+      - redis-cli $FACE_REDIS_CLI
+
+  logs:
+    desc: logs
+    cmds:
+      - pm2 logs masha
+
+  export:
+    desc: export env
+    cmds:
+      - direnv exec . mamba env export --no-builds -n {{.PROJECT}} > environment.yml
+
+  start:
+    desc: start
+    cmds:
+      - pm2 restart masha
+
+  stop:
+    desc: stop
+    cmds:
+      - pm2 stop masha
+
+  push:
+    desc: commit and pushes current changes
+    cmds:
+      - git add .  || true
+      - gcom || true
+      - git push || true
+
+  restart-botyo:
+    desc: restart restart-botyo
+    dir: /Volume/Devo/Code/botyo
+    cmds:
+      - task restart
+
+  rehash:
+    desc: rehash the image oiptions
+    cmds:
+      - task: restart
+      - sleep 10
+      - task: restart-botyo

@@ -1,0 +1,10 @@
+summarization:
+  model: T5-commit-message-generator
+instruct:
+  model: CodeLlama-7b-Instruct-hf
+instruct_python:
+  model: CodeLlama-7b-Instruct-hf
+instruct_php:
+  model: CodeLlama-7b-Instruct-hf
+instruct_javascript:
+  model: CodeLlama-7b-Instruct-hf

@@ -1,0 +1,91 @@
+ac_neg1:
+  token:
+    - ac_neg1 # text watermark signature,low-quality,moiré pattern, downsampling, aliasing, blurry blur, glossy, jpeg artifacts, compression artifacts,poorly drawn,low-resolution bad ,error,pattern,beginner, grainy, glitch (More on poor quality image errors)
+    - ac_neg2 # distorted, distortion, twisted, excessive, exaggerated pose, exaggerated limbs, symmetrical,duplicate, pixelated, fake, hyper, overexposed, high-contrast, bad-contrast (More on style, composition and colors)
+    - ZipRealism # UHD, 8k, F2.8, RAW Photo, ultra detailed, sharp focus
+    - ZipRealism_Neg # weird eyes, mutated hands, ugly, drawing, illustration, low quality, watermark, tiling, mutation, poorly drawn hands, poorly drawn face, bad anatomy, missing fingers, crooked teeth, extra fingers, disfigured, error, abstract, 3d render, cgi, fused fingers (sometimes when I type "deformed pupil, deformed iris" like I normally do in SD15, it often makes things worse...so they are not in the list)
+    - Zip2D # masterpiece, best quality, ultra-detailed, sharp image, high resolution
+    - Zip2D_Neg # worst quality, low quality, lowres, poorly drawn hands, poorly drawn face, bad hands, bad anatomy, 3d, blurry, watermark, signature, ugly, jpeg artifacts
+negativeXL_D:
+  token:
+    - negativeXL_D
+negativeXL:
+  token:
+    - negativeXL
+unaestheticXL2v10:
+  token:
+    - unaestheticXL2v10
+FastNegativeV2-SDXL:
+  token:
+    - FastNegativeV2
+    - FastNegative
+bad-hands-5-SDXL:
+  token:
+    - bad-hands-5
+bad_prompt_version2-SDXL:
+  token:
+    - bad_prompt_version2-neg
+EasyNegativeV2-SDXL:
+  token:
+    - easynegative
+BeyondSDXLv3:
+  token:
+    - BeyondSDXLv3
+    - BeyondSDXL
+bad_pictures:
+  token:
+    - bad_pictures
+bad_prompt:
+  token:
+    - bad_prompt
+BadDream:
+  token:
+    - BadDream
+badhandv4:
+  token:
+    - badhandv4
+CyberRealistic_Negative_neg:
+  token:
+    - CyberRealistic
+EasyNegative:
+  token:
+    - EasyNegative
+    - easy_negative
+EasyNegativeV2:
+  token:
+    - EasyNegativeV2
+UnrealisticDream:
+  token:
+    - UnrealisticDream
+FastNegativeV2:
+  token:
+    - FastNegativeV2
+zPDXL-neg:
+  token:
+    - zPDXL-neg
+fcNeg-neg:
+  token:
+    - fcNeg-neg
+epiCPhotoGasm-colorfulPhoto-neg:
+  token:
+    - epiCPhotoGasm-colorfulPhoto-neg
+bombshell_v2:
+  token:
+     - large breasts
+     - big boobs
+     - huge tits
+ImgFixerPre0.3:
+  token:
+    - ImgFixerPre0.3
+bad_prompt_version2-neg:
+  token:
+    - bad_promt_version25
+ng_deepnegative_v1_75t:
+  token:
+    - ng_deepnegative_v1_75t
+bad-hands-5:
+  token:
+    - bad-hands-5
+bad-picture-chill-75v:
+  token:
+    - bad-picture-chill-75v

@@ -1,0 +1,39 @@
+classify:
+  model: vit-base-patch16-224
+  tokenizer: vit-base-patch16-224
+  attraction_model: attractive_faces_celebs_detection
+  age_model: photo_age_detection
+  ethnicity_model: trained-race
+  gender_model: gender-classification-2
+age:
+  age_model: age_net.caffemodel
+  age_proto: age_deploy.prototxt
+  root_path: /Volumes/Devo/mldata/age_gender
+gender:
+  gender_model: gender_net.caffemodel
+  gender_proto: gender_deploy.prototxt
+  root_path: /Volumes/Devo/mldata/age_gender
+variation:
+  model: sd-image-variations-diffusers
+upscale:
+  root: upscalers
+lora:
+  root: LORA
+  root_xl: LORAXL
+  root_3: LORA3
+textual_inversion:
+  root: TI
+  root_2: TI2
+  root_xl: TIXL
+  root_3: TI3
+face2img:
+  default_model: vision
+  face_store: /Volumes/Devo/mldata/faces
+img2caption:
+  model: blip-image-captioning-large
+deepface:
+  age: age_model_weights.h5
+  race: race_model_single_batch.h5
+image2text:
+  model: sk_invoice_receipts
+  tokenizer: sk_invoice_receipts

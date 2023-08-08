@@ -1,0 +1,85 @@
+default:
+  model: dreamlight
+  control_net: control_v1p_sdxl_qrcode_monster
+  negative_prompt: blurry
+baroque:
+  model: dreamlight
+  control_net: control_v1p_sdxl_qrcode_monster
+  prompt: >
+    A RAW photo of Baroque rococo architecture, architectural photography, 
+    post apocalyptic New York, hyperrealism, [roots], hyperrealistic, 
+    octane render, cinematic, hyper detailed, 8K
+  negative_prompt: blurry
+castle:
+  model: tvxl
+  control_net: control_v1p_sdxl_qrcode_monster
+  prompt: >
+    RAW photo of an Medievil castle surrounded by water and nature, village, 
+    volumetric lighting, photorealistic, insanely detailed and intricate, 
+    Fantasy, epic cinematic shot, trending on ArtStation, mountains, 
+    8k ultra hd
+  negative_prompt: blurry
+landscape:
+  model: tvxl
+  control_net: control_v1p_sdxl_qrcode_monster
+  prompt: >
+    (masterpiece:1.2, best quality), (ultra-detailed), (illustration), 
+    (ultra highres), (delicate illustration), (hyper-detailed), 
+    (super detail:1.3), professional lighting, cinematic lighting, 
+    (nostalgia and peacefulness:1.3), professional (landscape painting) of natures, 
+    moon lighting, moon light on trees leaves, (dark cloud, dark night, full moon, dark lighting)
+  negative_prompt: >
+    human, man, woman, people, person, (worst quality:1.4), (low quality:1.4), 
+    (EasyNegative:1.0), paintings, sketches, (normal quality:2), lowres, 
+    normal quality, ((monochrome)), ((grayscale)), 
+    jpeg artifacts, signature, watermark, username, 
+    Multiple people, bad, text, error, ugly
+tito:
+  model: tvxl
+  control_net: control_v1p_sdxl_qrcode_monster
+  prompt: >
+    highres, extremely detailed, 8k photo,  best quality, beautiful lighting, 
+    soft morning light, curtains, natural light, intricate details, realistic, 
+    detailed face and eyes, young wife wearing erotic lingerie, naughty negligee, sexy nightie, 
+    looking at viewer
+  negative_prompt: >
+    text, close up, cropped, out of frame, worst quality, low quality, jpeg artifacts, 
+    ugly, duplicate, morbid, mutilated, extra fingers, mutated hands, poorly drawn hands, 
+    poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, 
+    extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, 
+    missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck
+food:
+  model: tvxl
+  control_net: control_v1p_sdxl_qrcode_monster
+  prompt: >
+    breathtaking,perfect composition, high quality, best quality, 
+    noodles with rice, deep plate, beautiful light, studio light, 
+    masterpiece, Fujifilm XTaward-winning, professional, highly detailed
+  negative_prompt: >
+    ugly, deformed, noisy, blurry, distorted, grainy, low quality, 
+    worst quality, monochrome, lowres, text
+waterfall:
+  model: tvxl
+  control_net: control_v1p_sdxl_qrcode_monster
+  prompt: >
+    masterpiece,best quality,close up,Elven Queen, Waterfall, Bathing,
+    Nature, Serene, Tranquil, Refreshing, Enchanting, Graceful, Majestic,
+    Fantasy, Magical, Ethereal, Mystical, Fairy tale, Grace, Beauty, Elegance,
+    Royal, Ruler, Opulence, Bliss, Relaxation, Rejuvenation, Pure, Immersion, 
+    Nature's embrace, Cascading waters, Elemental, Serenity, Nymph, Enigmatic, 
+    Mystique, Enthralling, Legend, Mythical, Timeless, Fairyland
+  negative_prompt: >
+    EasyNegative, drawn by bad-artist, sketch by bad-artist-anime, 
+    (bad_prompt:0.8), (artist name, signature, watermark:1.4), 
+    (ugly:1.2), (worst quality, poor details:1.4), 
+    bad-hands-5, badhandv4, blurry
+animal:
+  model: dyna
+  control_net: control_v1p_sdxl_qrcode_monster
+  num_inference_steps: 30
+  guidance_scale: 4.5
+  prompt: >
+    zhibi, chibi, cute, styled like DreamWorks character, 
+    <lora:zhibi-sdxl:0.8>
+  negative_prompt: >
+    nsfw,lowres,{bad},error,fewer,extra,missing,worst quality,jpeg artifacts,bad quality,watermark,unfinished,displeasing,chromatic aberration,signature,extra digits,artistic error,username,scan,[abstract],mutated hands,poorly drawn hands,{{{missing toes}}},extra fingers,fused fingers,{{{extra toes}}},{{{fused toes}}},{{{mutated toes}}},{{{bad foot}}},{{{mutated foot}}},lowres,{bad},error,fewer,extra,missing,worst quality,jpeg artifacts,bad quality,watermark,unfinished,displeasing,chromatic aberration,signature,extra digits,artistic error,username,scan,[abstract],lowres,{bad},error,fewer,extra,missing,worst quality,jpeg artifacts,bad quality,watermark,unfinished,displeasing,chromatic aberration,signature,extra digits,username,scan,[abstract],lowres,{bad},fewer,extra,{{{{worst quality}}}}

@@ -1,0 +1,517 @@
+realisticVisionV60B1_v51HyperVAE.safetensors:
+  option: vision
+  scheduler_class: DPMSolverSinglestepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+  sd_type: sd
+  category: realistic,nsfw,porn,lora,sd1,qr,face
+  custom_params:
+    clip_skip: 2
+    guidance_scale: 2
+    num_inference_steps: 10
+    width: 512
+    height: 768
+    negative_prompt: >
+      (deformed iris, deformed pupils, semi-realistic, cgi, 3d, render,
+        sketch, cartoon, drawing, anime:1.3), cropped, out of frame, 
+        worst quality, low quality, jpeg artifacts, mutation, blurry, 
+        bad anatomy, bad proportions, extra limbs, b&w
+sexyToonCartoon_v420.safetensors:
+  option: sexytoon
+  scheduler_class: DPMSolverMultistepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+  sd_type: sd
+  category: realistic,nsfw,lora,sd1,face-nsfw
+  custom_params:
+    clip_skip: 2
+    guidance_scale: 7
+    num_inference_steps: 30
+    width: 512
+    height: 768
+    negative_prompt: easynegative, bad-hands-5, loli, child, children, kid
+cuteCartoon_v10.safetensors:
+  option: cutecartoon
+  scheduler_class: EulerAncestralDiscreteScheduler
+  sd_type: sd
+  category: cartoon,lora,sd1,qr,face
+  custom_params:
+    num_inference_steps: 25
+    guidance_scale: 7
+    clip_skip: 2
+    width: 512
+    height: 768
+    negative_prompt: >
+      EasyNegative, drawn by bad-artist, sketch by bad-artist-anime, (bad_prompt:0.8),
+      (artist name, signature, watermark:1.4), (ugly:1.2),
+      (worst quality, poor details:1.4), bad-hands-5, badhandv4, blurry,
+AnythingXL_v50.safetensors:
+  option: anything
+  scheduler_class: EulerAncestralDiscreteScheduler
+  sd_type: sd
+  category: cartoon,lora,sd1,qr
+  custom_params:
+    num_inference_steps: 30
+    guidance_scale: 7
+    clip_skip: 2
+    width: 512
+    height: 768
+    negative_prompt: easy_negative
+toonyou_beta6.safetensors:
+  option: toonyou
+  scheduler_class: DPMSolverSinglestepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+  sd_type: sd
+  category: cartoon,lora,sd1,qr
+  custom_params:
+    num_inference_steps: 30
+    guidance_scale: 8
+    clip_skip: 2
+    width: 512
+    height: 768
+    negative_prompt: (worst quality, low quality, letterboxed)
+epicrealism_naturalSinRC1VAE.safetensors:
+  option: epic
+  scheduler_class: DPMSolverMultistepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+  sd_type: sd
+  category: realistic,nsfw,lora,sd,face
+  custom_params:
+    num_inference_steps: 30
+    guidance_scale: 5
+    clip_skip: 1
+    width: 512
+    height: 768
+    negative_prompt: cartoon, painting, illustration, (worst quality, low quality, normal quality:2)
+clarity_3.safetensors:
+  option: clarity
+  scheduler_class: DPMSolverSinglestepSchedulerv
+  scheduler_args:
+    use_karras_sigmas: True
+  sd_type: sd
+  category: realistic,nsfw,lora,sd,face
+  custom_params:
+    num_inference_steps: 50
+    guidance_scale: 7.5
+    clip_skip: 2
+    width: 512
+    height: 768
+    negative_prompt: (kid, child, childlike, loli), BadDream UnrealisticDream
+xtoons_v10.safetensors:
+  option: xtoons
+  scheduler_class: DPMSolverMultistepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+  sd_type: sd
+  category: nsfw,lora,sd,face,cartoon
+  custom_params:
+    num_inference_steps: 25
+    guidance_scale: 4
+    clip_skip: 2
+    width: 512
+    height: 768
+    negative_prompt: > 
+      (conjoined fingers, bad hands, poorly drawn hands, malformed hands, mutated hands, 
+      mutated fingers, deformed hands, deformed fingers), (bad anatomy, extra limb, missing limbs, 
+      long body, long neck, imperfect, unnatural face, unnatural body), ng_deepnegative_v1_75t, 
+      bad-hands-5, bad-picture-chill-75v,
+icomixFp16Cleaned_50.safetensors:
+  option: icomix
+  scheduler_class: DPMSolverMultistepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+  sd_type: sd
+  category: nsfw,lora,sd,face,cartoon
+  custom_params:
+    num_inference_steps: 25
+    guidance_scale: 7
+    clip_skip: 2
+    width: 512
+    height: 768
+    negative_prompt: > 
+      (worst quality:1.4), (low quality:1.4), malformed hands, bad hands, mutated fingers, 
+      extra limbs, blurry, bad anatomy, bad proportions, gross, disfigured, jpeg artifacts, 
+      text, child, depth of field, missing pupils and iris
+sdvn53dcutewave_v1VAE.safetensors:
+  option: cutewave
+  scheduler_class: EulerAncestralDiscreteScheduler
+  sd_type: sd
+  category: cartoon,lora,sd1,qr
+  custom_params:
+    prefix: (masterpiece,best quality:1.5),waves,3dcutecharacter
+    num_inference_steps: 32
+    guidance_scale: 7.5
+    clip_skip: 2
+    width: 512
+    height: 768
+    negative_prompt: >
+      (worst quality, low quality,nsfw,nipple, pussy:1.5)
+animatix_v1LCM.safetensors:
+  option: animatix
+  scheduler_class: LCMScheduler
+  sd_type: sd
+  category: cartoon,lora,sd1,lcm,qr
+  custom_params:
+    num_inference_steps: 10
+    guidance_scale: 2
+    clip_skip: 2
+    width: 512
+    height: 768
+    negative_prompt: >
+      EasyNegative, drawn by bad-artist, sketch by bad-artist-anime, (bad_prompt:0.8),
+      (artist name, signature, watermark:1.4), (ugly:1.2),
+      (worst quality, poor details:1.4), bad-hands-5, badhandv4, blurry,
+dreamshaper_8LCM.safetensors:
+  option: dreamlcm
+  scheduler_class: LCMScheduler
+  sd_type: sd
+  category: cartoon,lora,sd1,lcm,qr,face
+  custom_params:
+    num_inference_steps: 15
+    guidance_scale: 2
+    clip_skip: 2
+    width: 512
+    height: 768
+    negative_prompt: (kid, child, childlike, loli), BadDream UnrealisticDream
+absolutereality_lcm.safetensors:
+  option: absolute
+  scheduler_class: LCMScheduler
+  sd_type: sd
+  category: cartoon,lora,sd1,lcm,qr`
+  custom_params:
+    num_inference_steps: 15
+    guidance_scale: 2
+    clip_skip: 2
+    width: 512
+    height: 768
+    negative_prompt: BadDream, UnrealisticDream
+sd_xl_base_1.0.safetensors:
+  option: xl
+  sd_type: sdxl
+  category: general,art,wall,loraxl,xl,face
+  img2img_model: sd_xl_refiner_1.0.safetensors
+  scheduler_class: DPMSolverMultistepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+    algorithm_type: sde-dpmsolver++
+  custom_params:
+    width: 1024
+    height: 1024
+    guidance_scale: 7
+    num_inference_steps: 20
+    negative_prompt: text, watermark, blur, blurry
+sdxlFixedvaeFp16Remove_baseFxiedVaeV2Fp16.safetensors:
+  option: xlvae
+  sd_type: sdxl
+  category: general,art,wall,loraxl,xl,face
+  img2img_model: sdXL_v10RefinerVAEFix
+  scheduler_class: DPMSolverMultistepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+    algorithm_type: sde-dpmsolver++
+  custom_params:
+    width: 1024
+    height: 1024
+    guidance_scale: 7
+    num_inference_steps: 20
+    negative_prompt: text, watermark, blur, blurry
+realvisxlV40_v40LightningBakedvae.safetensors:
+  option: realvisxl-light
+  sd_type: sdxl
+  category: loraxl,realistic,xl,vision,nsfw,face,lightning
+  scheduler_class: DPMSolverSinglestepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+  custom_params:
+    guidance_scale: 2
+    num_inference_steps: 6
+    negative_prompt: negativeXL_D
+    width: 768
+    height: 1162
+SDXLFaetastic_v24.safetensors:
+  option: faetastic
+  sd_type: sdxl
+  category: loraxl,xl,art,helloween,horror,face
+  scheduler_class: DPMSolverMultistepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+    algorithm_type: sde-dpmsolver++
+  custom_params:
+    negative_prompt: text, watermark, blur, blurry
+    width: 768
+    height: 1162
+PixArt-XL-2-1024-MS:
+  option: pixart
+  sd_type: pixart
+  category: pixart
+  custom_params:
+    width: 1024
+    height: 1024
+    num_inference_steps: 20
+    guidance_scale: 4.5
+dynavisionXLAllInOneStylized_releaseV0610Bakedvae.safetensors:
+  option: dyna
+  sd_type: sdxl
+  category: nsfw,loraxl,xl,cartoon,wall,face
+  scheduler_class: DPMSolverSinglestepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+  custom_params:
+    width: 1024
+    height: 1024
+    guidance_scale: 4.5
+    num_inference_steps: 20
+    negative_prompt: text, watermark, blur, blurry
+paradox3SDXL10_paradox3SDXL10.safetensors:
+  option: paradox
+  sd_type: sdxl
+  category: nsfw,loraxl,xl,cartoon,wall
+  scheduler_class: DPMSolverMultistepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+    algorithm_type: sde-dpmsolver++
+  custom_params:
+    guidance_scale: 3
+    num_inference_steps: 30
+    clip_skip: 2
+    height: 768
+    width: 1162
+    negative_prompt: text, watermark, blur, blurry
+turbovisionxlSuperFastXLBasedOnNew_tvxlV431Bakedvae.safetensors:
+  option: tvxl
+  sd_type: sdxl
+  category: general,art,wall,loraxl,xl,turbo,face
+  scheduler_class: DPMSolverSinglestepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+  custom_params:
+    num_inference_steps: 10
+    clip_skip: 2
+    height: 1024
+    width: 1024
+    guidance_scale: 2.5
+    negative_prompt: text, watermark, blur, blurry
+nightvisionxl_v0811.safetensors:
+  option: nightvision
+  sd_type: sdxl
+  category: general,art,wall,loraxl,xl,face
+  scheduler_class: DPMSolverSinglestepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+  custom_params:
+    num_inference_steps: 20
+    height: 1024
+    width: 1024
+    guidance_scale: 4
+    negative_prompt: text, logos, watermarks, labels
+envyStarlightXL01Lightning_galaxy.safetensors:
+  option: starlight
+  sd_type: sdxl
+  category: loraxl,xl,general,wall,face,lightning
+  scheduler_class: DPMSolverMultistepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+    algorithm_type: sde-dpmsolver++
+  custom_params:
+    width: 768
+    height: 1024
+    guidance_scale: 2.2
+    num_inference_steps: 7
+    negative_prompt: text, logos, watermarks, labels
+copaxTimelessxlSDXL1_v11Lightning.safetensors:
+  option: copax
+  sd_type: sdxl
+  category: loraxl,xl,general,wall,face,lightning
+  scheduler_class: DPMSolverMultistepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+    algorithm_type: sde-dpmsolver++
+  custom_params:
+    width: 768
+    height: 1024
+    clip_skip: 2
+    guidance_scale: 1
+    num_inference_steps: 10
+    negative_prompt: text, logos, watermarks, labels
+Juggernaut_X_RunDiffusion.safetensors:
+  option: jugrun
+  sd_type: sdxl
+  category: loraxl,xl,general,nsfw,face,wall
+  scheduler_class: DPMSolverSinglestepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+  custom_params:
+    width: 1024
+    height: 1024
+    num_inference_steps: 50
+    guidance_scale: 7
+    negative_prompt: text, logos, watermarks, labels
+Juggernaut_X_RunDiffusion_Hyper.safetensors:
+  option: juglight
+  sd_type: sdxl
+  category: loraxl,xl,general,nsfw,face,lightning,wall
+  scheduler_class: DPMSolverSinglestepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+  custom_params:
+    width: 1024
+    height: 1024
+    num_inference_steps: 8
+    guidance_scale: 2
+    negative_prompt: text, logos, watermarks, labels
+dreamshaperXL_v21TurboDPMSDE.safetensors:
+  option: dreamturbo
+  sd_type: sdxl
+  category: turbo,xl,loraxl,art,general,face,wall
+  scheduler_class: DPMSolverSinglestepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+  custom_params:
+    num_inference_steps: 8
+    guidance_scale: 2
+    width: 768
+    height: 1024
+    negative_prompt: >
+      (worst quality, low quality, normal quality, lowres, low details, oversaturated, undersaturated, 
+      overexposed, underexposed, grayscale, bw, bad photo, bad photography, bad art:1.4), 
+      (watermark, signature, text font, username, error, logo, words, letters, digits, autograph, 
+      trademark, name:1.2)
+dreamshaperXL_lightningDPMSDE.safetensors:
+  option: dreamlight
+  sd_type: sdxl
+  category: lightning,xl,loraxl,art,general,face,wall
+  scheduler_class: DPMSolverSinglestepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+  custom_params:
+    num_inference_steps: 6
+    guidance_scale: 2
+    width: 768
+    height: 1024
+    negative_prompt: >
+      (worst quality, low quality, normal quality, lowres, low details, oversaturated, undersaturated, 
+      overexposed, underexposed, grayscale, bw, bad photo, bad photography, bad art:1.4), 
+      (watermark, signature, text font, username, error, logo, words, letters, digits, autograph, 
+      trademark, name:1.2)
+socafaeXL_20.safetensors:
+  option: socafae
+  sd_type: sdxl
+  category: xl,loraxl,art,general,face,wall
+  scheduler_class: DPMSolverMultistepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+    algorithm_type: sde-dpmsolver++
+  custom_params:
+    num_inference_steps: 50
+    guidance_scale: 5
+    width: 832
+    height: 1218
+    negative_prompt: text, logos, watermarks, labels
+zbaseXLHighQualityAesthetic_v11.safetensors:
+  option: zbase
+  sd_type: sdxl
+  category: xl,loraxl,disney,cartoon,face,logo,wall
+  scheduler_class: DPMSolverMultistepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+    algorithm_type: sde-dpmsolver++
+  custom_params:
+    num_inference_steps: 40
+    guidance_scale: 7
+    height: 1216
+    width: 768
+    negative_prompt: text, logos, watermarks, labels
+    clip_skip: 2
+socababesTurboXL_v12Hybrid.safetensors:
+  option: socaturbo
+  sd_type: sdxl
+  category: turbo,xl,loraxl,art,general,face
+  scheduler_class: DPMSolverSinglestepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+  custom_params:
+    num_inference_steps: 10
+    guidance_scale: 2
+    width: 768
+    height: 1024
+    negative_prompt: >
+      (worst quality, low quality, normal quality, lowres, low details, oversaturated, undersaturated, 
+      overexposed, underexposed, grayscale, bw, bad photo, bad photography, bad art:1.4), 
+      (watermark, signature, text font, username, error, logo, words, letters, digits, autograph, 
+      trademark, name:1.2)
+fitcordermix_fcturbosdxl.safetensors:
+  option: fc-turbo
+  sd_type: sdxl
+  category: turbo,xl,loraxl,art,general,face,logo,wall
+  scheduler_class: DPMSolverSinglestepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+  custom_params:
+    num_inference_steps: 5
+    guidance_scale: 2
+    width: 768
+    height: 1024
+    negative_prompt: >
+      (worst quality, low quality, normal quality, lowres, low details, oversaturated, undersaturated, 
+      overexposed, underexposed, grayscale, bw, bad photo, bad photography, bad art:1.4), 
+      (watermark, signature, text font, username, error, logo, words, letters, digits, autograph, 
+      trademark, name:1.2)
+wildcardxXLTURBO_wildcardxXLTURBOV10.safetensors:
+  option: wc-turbo
+  sd_type: sdxl
+  category: turbo,xl,loraxl,art,general,face,logo,wall
+  scheduler_class: DPMSolverSinglestepScheduler
+  scheduler_args:
+    use_karras_sigmas: True 
+  custom_params:
+    num_inference_steps: 10
+    guidance_scale: 4
+    width: 832
+    height: 1216
+    negative_prompt: >
+      (worst quality, low quality, normal quality, lowres, low details, oversaturated, undersaturated, 
+      overexposed, underexposed, grayscale, bw, bad photo, bad photography, bad art:1.4), 
+      (watermark, signature, text font, username, error, logo, words, letters, digits, autograph, 
+      trademark, name:1.2)
+wildcardxXLLIGHTNING_wildcardxXL.safetensors:
+  option: wc-light
+  sd_type: sdxl
+  category: lightning,xl,loraxl,art,general,face,logo,wall
+  scheduler_class: DPMSolverSinglestepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+  custom_params:
+    num_inference_steps: 7
+    guidance_scale: 2
+    width: 832
+    clip_skip: 2
+    height: 1216
+    negative_prompt: >
+      worst quality, low quality, normal quality, lowres, low details,
+      oversaturated, undersaturated, overexposed, underexposed, grayscale, 
+      bw, bad photo, bad photography, bad art, watermark, signature, text font,
+      username, error, logo, words, letters, digits, autograph, trademark, name
+ultraspice_v18.safetensors:
+  option: ultraspice
+  sd_type: sdxl
+  category: turbo,xl,loraxl,art,general,face,logo
+  scheduler_class: DPMSolverSinglestepScheduler
+  scheduler_args:
+    use_karras_sigmas: True
+  custom_params:
+    num_inference_steps: 5
+    guidance_scale: 2
+    width: 768
+    height: 1024
+sd3_medium_incl_clips_t5xxlfp16.safetensors:
+  option: xl3
+  sd_type: sd3
+  category: general,art,wall,xl3
+  custom_params:
+    width: 1024
+    height: 1024
+    guidance_scale: 4.5
+    num_inference_steps: 40
+    negative_prompt: 

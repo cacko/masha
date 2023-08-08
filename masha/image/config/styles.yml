@@ -1,0 +1,169 @@
+flat:
+  model: dreamlcm
+  prompt: <lora:Vector_illustration:1>
+  guidance_scale: 2
+  strength: 0.3
+  num_inference_steps: 30
+  upscale: 4
+  negative_prompt: (worst quality, low quality:1.4), (bad_prompt_version2:0.8), EasyNegative, badhandv4, text, name, letters, watermark
+water:
+  model: wc-light
+  prompt: > 
+    concept art, award winning, wearing ral-wtrclr,
+    <lora:ral-wtrclr-sdxl:1>, gorgeous, dramatic, cinematic light, 
+    dynamic cinematic perfect background, winning, inspired
+  guidance_scale: 2
+  strength: 0.6
+  upscale: 2
+  num_inference_steps: 10
+oil:
+  model: tvxl
+  prompt:  dark black oil theme, dark noir style, Greg Rutkowski, (oil painting) <lora:ClassipeintXL2_0:1>
+  guidance_scale: 2
+  strength: 0.6
+  num_inference_steps: 10
+illustration:
+  model: jugrun
+  prompt: <lora:Illustration_style:0.9>,illustrStyle
+  guidance_scale: 12
+  strength: 0.6
+  upscale: 2
+  num_inference_steps: 10
+  negative_prompt: (worst quality:2), (low quality:2), (normal quality:2), lowres, bad anatomy, bad hands, normal quality, ((monochrome)), ((grayscale)
+cyberpunk:
+  model: ultraspice
+  prompt: >
+    (DORLA), nighttime, cyberpunk, dark, raining, neon lights , (<lora:cybergraphic_sdxl:1>), 
+    synthwave, 1980s, futurism, brutalism, neuromancer, palette knife soft brushstrokes, 
+    highly detailed,art by Adrian Tomine
+  guidance_scale: 5
+  strength: 0.6
+  upscale: 2
+  num_inference_steps: 10
+cartoon:
+  model: ultraspice
+  prompt: cartoon, striking, balanced, perfect composition, pristine, high resolution quality, high detailed,(Quentin Blake Style) <lora:QuentinBlakeStyle:1>
+  guidance_scale: 5
+  strength: 0.45
+  upscale: 2
+  num_inference_steps: 20
+drawing:
+  model: dreamturbo
+  prompt: Inkdrawing by Kr355e <lora:SDXL_Inkdrawing_Directors_Cut_E:1>
+  guidance_scale: 15
+  strength: 0.45
+  clip_skip: 2
+  num_inference_steps: 20
+  negative_prompt: ""
+pixar:
+  prompt: (disney pixar style:1.2) 
+  guidance_scale: 7
+  strength: 0.5
+  num_inference_steps: 80
+  model: dyna
+silhouette:
+  prompt: Lotte Reiniger Style - A Lotte Reiniger animation <lora:LotteReinigerStyle:1>
+  guidance_scale: 15
+  strength: 0.5
+  num_inference_steps: 20
+  model: dreamturbo
+chalk:
+  prompt: ChalkBoardDrawing <lora:SDXL_ChalkBoardDrawing_LoRA_r8:1>
+  guidance_scale: 2
+  strength: 0.59
+  num_inference_steps: 7
+  model: ultraspice
+  clip_skip: 1
+colorswirl:
+  prompt: ral-colorswirl <lora:ral-colorswirl-sd15:1>
+  guidance_scale: 2
+  strength: 0.3
+  num_inference_steps: 20
+  clip_skip: 2
+  model: dreamlcm
+linedraw:
+  prompt: vivid colors, vibrant colors, intricate details,intricate line drawing <lora:zenodoXL:0.6>
+  guidance_scale: 8
+  strength: 0.6
+  num_inference_steps: 9
+  clip_skip: 1
+  model: dreamturbo
+  negative_prompt: (worst quality:1.4), (bad artist:1.4), simple background, out of frame, (bad proportions:1.4), underage, child, symmetric, monochrome, (blurry:1), nipples
+dissolve:
+  prompt: > 
+    painting, [:style of vincent van gogh and leonardo da vinci:0.4] 
+    <lora:ral-dissolve-sdxl:1> ral-dissolve
+  guidance_scale: 7
+  strength: 0.5
+  num_inference_steps: 20
+  clip_skip: 2
+  model: dreamturbo
+dante:
+  prompt: (Gustave Dore Style) illustration using only black white and red colors <lora:GustaveDoreStyle:1>
+  guidance_scale: 7
+  strength: 0.5
+  num_inference_steps: 30
+  clip_skip: 2
+  model: dreamturbo
+woodblock:
+  prompt: woodblock print <lora:EldritchWoodblockPrint:1>
+  model: dreamturbo
+  guidance_scale: 7
+  num_inference_steps: 30
+  clip_skip: 2
+  strength: 0.5
+  negative_prompt: 4k, uhd, masterpiece
+colorfull:
+  prompt: >
+    (cartoon:1.5), colourful drawing, colourful
+  guidance_scale: 2
+  strength: 0.5
+  num_inference_steps: 10
+  clip_skip: 2
+  model: juglight
+  negative_prompt: (low quality, bad quality, worst quality:1.2)
+tshirt:
+  prompt: >
+    Illustrated T-shirt, Fabric Texture, Bold Lineart, Dynamic Perspective, Sketch Style,
+    ,T shirt design,TshirtDesignAF, <lora:TShirtDesignRedmondV2-Tshirtdesign-TshirtDesignAF:1>
+  guidance_scale: 8
+  strength: 0.5
+  num_inference_steps: 16
+  clip_skip: 2
+  model: juglight
+  negative_prompt: bad art, ugly, deformed, watermark, duplicated
+heavy-brush:
+  prompt: >
+    a hyper abstract painting using very heavy brush strokes, 
+    cracking paint, very heavy pallet knife work, thick paint, dried up paint, abstract
+  guidance_scale: 3
+  strength: 0.5
+  num_inference_steps: 30
+  clip_skip: 2
+  model: paradox
+soap:
+  prompt: >
+    made of ral-dshwshsop, by Zdzislaw Beksinski and by Marc Simonetti, (terragenous , Faded Polaroid Photo but extremely beautiful:1.4), (intricate details, masterpiece, best quality:1.4) , Fortnite Art Style, 3D cartoon, colorful, Fortnite Art Style <lora:ral-dshwshsop-sdxl:1>
+  guidance_scale: 3
+  strength: 0.5
+  num_inference_steps: 30
+  clip_skip: 2
+  model: ultraspice
+  negative_prompt: >
+    hair,base, plate,unaestheticXL_hk1,negativeXL_D,
+    (worst quality, greyscale), watermark, username, signature, text, 
+    bad anatomy, bad hands, text, error, missing fingers, extra digit, 
+    fewer digits, cropped, jpeg artifacts, bad feet, extra fingers, 
+    mutated hands, poorly drawn hands, bad proportions, extra limbs, 
+    disfigured, bad anatomy, gross proportions, malformed limbs, 
+    missing arms, missing legs, extra arms, extra legs, mutated hands, 
+    fused fingers, too many fingers, long neck
+frenchart:
+  model: realvisxl-light
+  prompt: >
+    frenchlineart, pencil drawing, very detailed, dark shadows 
+    <lora:d2839b61-1150-499f-a75d-48632f217c95:1>
+  strength: 0.6
+  guidance_scale: 6
+  num_inference_steps: 20
+  negative_prompt: photo, ((color)), text

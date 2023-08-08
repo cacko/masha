@@ -1,0 +1,15 @@
+prompt1:
+  model: stable_diffusion_prompts
+  tokenizer: stable_diffusion_prompts
+prompt2:
+  model: MagicPrompt-Stable-Diffusion
+  tokenizer: MagicPrompt-Stable-Diffusion
+prompt3: 
+  model: bloom-560m-RLHF-SD2-prompter-aesthetic
+  tokenizer: bloom-560m-RLHF-SD2-prompter-aesthetic
+promp4:
+  model: PixelPerfect_StableDiffusion_AutoCompleteModel
+  tokenizer: PixelPerfect_StableDiffusion_AutoCompleteModel
+prompt5:
+  model: promptgen-lexart
+  tokenizer: promptgen-lexart
