@@ -167,3 +167,10 @@ frenchart:
   guidance_scale: 6
   num_inference_steps: 20
   negative_prompt: photo, ((color)), text
+wlad:
+  model: tvxl
+  prompt: masterpiece,best quality,<lora:tbh203-sdxl:0.9>,illustration,style of Wlad Safronow
+  guidance_scale: 5
+  num_inference_steps: 10
+  clip_skip: 2
+  negative_prompt: lowres,bad anatomy,bad hands,text,error,missing fingers,extra digit,fewer digits,cropped,worst quality,low quality,normal quality,jpeg artifacts,signature,watermark,username,blurry,nsfw,

@@ -1113,7 +1113,7 @@ frenchart:
 wlad:
   category: face, style
   models:
-    - ultraspice
+    - tvxl
   prompt: //, masterpiece,best quality,<lora:tbh203-sdxl:0.9>,illustration,style of Wlad Safronow
   custom_params:
     guidance_scale: 5
