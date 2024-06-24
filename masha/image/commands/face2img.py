@@ -96,7 +96,7 @@ def face2img(
     category: Annotated[
         Diffusers.categories_enum, typer.Option("-ct", "--categories")
     ] = None,
-    scale: Annotated[float, typer.Option("-sc", "--scale")] = 1.0,
+    scale: Annotated[float, typer.Option("-sc", "--scale")] = None,
     template: Annotated[
         Diffusers.templates_enum, typer.Option("-t", "--template")
     ] = None,

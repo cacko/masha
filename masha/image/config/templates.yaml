@@ -1111,14 +1111,34 @@ frenchart:
     height: 1216
     negative_prompt: (((colour))), (((photo))), painting, deformed hands, color, ((2girls,)) (((extra arms)))(((extra legs))), Easynegative, ugly legs, ugly feet, text,bad-hands-5, deformed body, ng_deepnegative_v1_75t, fake eyebrows,  blurry, duplicate, deformed belly button, blurry, abstract, disfigured, deformed, cartoon, animated, toy, cartoon, 3d, disfigured, bad art, deformed, poorly drawn, deformed mouth
 wlad:
-  category: face, style
+  category: face
   models:
-    - tvxl
-  prompt: //, masterpiece,best quality,<lora:tbh203-sdxl:0.9>,illustration,style of Wlad Safronow
+    - rev
+  prompt: //, masterpiece,best quality,<lora:tbh203-:0.9>,illustration,style of Wlad Safronow, decaying peonies
   custom_params:
-    guidance_scale: 5
-    num_inference_steps: 10
+    guidance_scale: 7
+    num_inference_steps: 35
     clip_skip: 2
-    width: 832
-    height: 1216
-    negative_prompt: lowres,bad anatomy,bad hands,text,error,missing fingers,extra digit,fewer digits,cropped,worst quality,low quality,normal quality,jpeg artifacts,signature,watermark,username,blurry,nsfw,
+    scale: 0.4
+    width: 640
+    height: 1024
+    negative_prompt: >
+      lowres,bad anatomy,bad hands,text,error,missing fingers,extra digit,fewer digits,
+      cropped,worst quality,low quality,normal quality,jpeg artifacts,signature,watermark,
+      username,blurry,nsfw,
+exposed:
+  category: face-nsfw
+  for_gender: female
+  models:
+    - epic
+  prompt: > 
+    town park (slim petite body:1.2), horny looking at viewer, large breasted, sitting,
+     spread legs, exposed pussy,  <lora:more_details:0.8>,    <lora:Exposed Pussy:0.8>
+  custom_params:
+    negative_prompts: easynegative, ng_deepnegative_v1_75t, out of frame
+    clip_skip: 2
+    width: 512
+    height: 768
+    guidance_scale: 5
+    scale: 0.6
+    num_inferance_steps: 40

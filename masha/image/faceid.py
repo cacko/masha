@@ -44,7 +44,7 @@ class FaceId:
     @classmethod
     def create(cls, input: Path, output: Path = None, overwrite = True):
         try:
-            obj = cls(image_path=input)
+            obj = cls(image_path=input, out_path=output)
             assert obj.__create(overwrite=overwrite)
             return obj
         except AssertionError:

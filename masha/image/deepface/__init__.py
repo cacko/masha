@@ -132,9 +132,6 @@ class BaseClient(object, metaclass=DeepfaceMeta):
     def __init__(self) -> None:
         tf.config.set_visible_devices(tf.config.get_visible_devices("CPU"))
         self.model = self.load_model()
-        
-    def __del__(self):
-        tf.config.set_visible_devices(tf.config.list_physical_devices())
 
 
     def get_result(self, image_path: Path):
