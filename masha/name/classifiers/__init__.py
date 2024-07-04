@@ -1,3 +1,4 @@
+from typing import Any
 from corestring import split_with_quotes
 from masha.pipelines.text_classifier import TextClassifier
 from enum import StrEnum
@@ -38,6 +39,15 @@ class Ethnicity(StrEnum):
     MIDDLE_EASTERN="middle_eastern",
     LATINO_HISPANIC="latino_hispanic",
     SOUTHEAST_ASIAN="southeast_asian"
+    
+    @classmethod
+    def _missing_(cls, value: object) -> Any:
+        value = value.lower()
+        match value:
+            case "black":
+                return cls.BLACK
+            case _:
+                return cls.WHITE
 
 class GenderClassifier:
 

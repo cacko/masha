@@ -474,7 +474,7 @@ feathers:
     ais-featherz // <lora:Feathers_Glue_SDXL:1>
   custom_params:
     num_inference_steps: 40
-selfie_yacht:
+selfie-yacht:
   category: face-nsfw
   for_gender: female
   no_race: True
@@ -491,7 +491,7 @@ selfie_yacht:
     height: 1216
     upscale: 2
     negative_prompt: CGI, Unreal, Airbrushed, Digital
-red_sweater:
+red_-sweater:
   category: face
   for_gender: female
   no_race: True
@@ -508,7 +508,7 @@ red_sweater:
     width: 832
     upscale: 2
     height: 1216
-mediterranean_photo:
+mediterranean-photo:
   category: face
   no_race: True
   models:
@@ -545,15 +545,14 @@ anime:
     guidance_scale: 7
     num_inference_steps: 30
     negative_prompt: CGI, Unreal, Airbrushed, Digital
-cute_drawing:
+cute-drawing:
   category: style, cartoon, drawing, face
   models:
     - tvxl
   prompt: >
     impactful color paint of cute drawing of // <lora:Cute_Drawing:0.8>,
     vibrant background,
-    highly detailed,8k,sharp,professional,hi
-  no_race: True
+    highly detailed,8k,sharp,professional
   custom_params:
     width: 1024
     height: 1024
@@ -563,7 +562,7 @@ cute_drawing:
     num_inference_steps: 8
     negative_prompt: >
       noisy, grainy, low contrast, low resolution, out of focus
-vector_portrait:
+vector-portrait:
   category: style, cartoon, vector, drawing, face
   models:
     - wc-turbo
@@ -582,7 +581,7 @@ vector_portrait:
     num_inference_steps: 8
     negative_prompt: >
       realistic, 3d, realism, photographic, octane render, anime, cartoon
-children_illustration:
+children-illustration:
   category: style, cartoon, drawing, face
   models:
     - toonyou
@@ -693,7 +692,7 @@ witch:
     clip_skip: 2
     upscale: 2
 
-into_darkness:
+into-darkness:
   category: face
   models:
     - nightvision
@@ -712,7 +711,7 @@ into_darkness:
       big hands, fake, fake hands, distorted, drawing, painting, crayon, 
       sketch, impressionist , big hands, fake, fake hands, distorted, drawing, 
       painting, crayon, sketch, impressionist
-western_comic:
+western-comic:
   category: face, style
   models:
     - tvxl
