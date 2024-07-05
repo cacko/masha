@@ -36,7 +36,7 @@ def commit(patch_file: Annotated[Path, typer.Argument()]):
 async def route_tag(request: Request):
     diff = await request.body()
     try:
-        msg = CodeSummarization.summarization(diff.decode())
+        msg = CodeSummarization.summarization(diff.decode(errors='replace'))
         return {"message": msg}
     except AttributeError:
         pass
