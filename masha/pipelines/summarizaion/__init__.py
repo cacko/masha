@@ -74,7 +74,10 @@ class Summarization(BasePipeline):
     def pipeline(self):
         if not self._pipeline:
             self._pipeline = pipeline(
-                task="summarization", model=self.model, tokenizer=self.tokenizer
+                task="summarization",
+                model=self.model,
+                tokenizer=self.tokenizer,
+                device=self.__class__.device,
             )
         return self._pipeline
 

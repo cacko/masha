@@ -21,7 +21,7 @@ tasks:
     desc: systemd exec
     dir: $WORKDIR
     cmds:
-      - sudo -u Alex ./run.sh
+      - ./run.sh
 
   face2img:
     desc: face tasks
@@ -62,7 +62,7 @@ tasks:
   logs:
     desc: logs
     cmds:
-      - pm2 logs masha
+      - tail -f ~/Library/Logs/net.cacko.masha/masha.log
 
   export:
     desc: export env

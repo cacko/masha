@@ -24,9 +24,9 @@
 	<key>UserName</key>
 	<string>Alex</string>
 	<key>StandardErrorPath</key>
-	<string>/Users/jago/log/masha.log</string>
+	<string>/Users/jago/Library/Logs/net.cacko.masha/masha.log</string>
 	<key>StandardOutPath</key>
-	<string>/Users/jago/log/masha.log</string>
+	<string>/Users/jago/Library/Logs/net.cacko.masha/masha.log</string>
 	<key>WorkingDirectory</key>
 	<string>/Users/jago/Code/masha</string>
 </dict>
