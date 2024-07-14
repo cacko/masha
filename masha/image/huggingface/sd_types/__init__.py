@@ -27,7 +27,7 @@ def register_models():
             case SDModelType.PIXART:
                 return StableDiffusionPixArt
             case SDModelType.LCM:
-                return StableDiffusionLCM 
+                return StableDiffusionLCM
             case SDModelType.OPENDALLE:
                 return StableDiffusionOpenDalle
             case _:
@@ -36,6 +36,6 @@ def register_models():
     for sd in image_config.txt2img:
         cls = sd.model if isinstance(sd.model, str) else sd.model[0]
         if sd.option != sd.model:
-            cls += f'_{sd.option}'
+            cls += f"_{sd.option}"
         inst = type(cls, (get_model_type_class(sd.sd_type),), sd.model_dump())
         inst.register(sd.model)

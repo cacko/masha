@@ -37,3 +37,6 @@ deepface:
 image2text:
   model: sk_invoice_receipts
   tokenizer: sk_invoice_receipts
+streetview:
+  local_url: http://127.0.0.1:21234/
+  url: https://geo.cacko.net/

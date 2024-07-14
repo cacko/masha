@@ -285,6 +285,10 @@ class Img2CaptionConfig(BaseModel):
 class DeepfaceConfig(BaseModel):
     age: str
     race: str
+    
+class StreetViewConfig(BaseModel):
+    local_url: str
+    url: str
 
 
 class ImageConfig(BaseModel):
@@ -305,6 +309,7 @@ class ImageConfig(BaseModel):
     img2caption: Img2CaptionConfig
     deepface: DeepfaceConfig
     image2text: Image2TextConfig = None
+    streetview: StreetViewConfig
 
     def get_sd_config(self, name: str) -> Optional[SDConfig]:
         try:

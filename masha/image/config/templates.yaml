@@ -32,7 +32,7 @@ artlogo:
     artlg, logo of //, <lora:artfullyLOGO_SDXL_V1_1:1>
   models:
     - socafae
-  category: logo
+  category: logo,appicon
   custom_params:
     width: 1024
     height: 1024
@@ -510,7 +510,6 @@ red_-sweater:
     height: 1216
 mediterranean-photo:
   category: face
-  no_race: True
   models:
     - tvxl
   prompt: >
@@ -1141,3 +1140,20 @@ exposed:
     guidance_scale: 5
     scale: 0.6
     num_inferance_steps: 40
+shadybug:
+  category: face
+  for_gender: female
+  models:
+    - epic
+  prompt: >
+    ((masterpiece)), ((ultra-detailed)),  //, high_resolution, 1girl, imtdshadybug, 
+    red hair, two tone hair, multicolored hair, bodysuit, mask, red eyes, double buns, very tight bodysuit, polka dot, domino mask, black lips, streaked hair, short hair, swept bangs, perfect hands.
+  custom_params:
+    negative_prompt: >
+      bad-artist, bad-hands-5, badhandv4, bad hands, out of frame, cape, red background, deformed hands, extra fingers, gloves, deformed fingers, muscular, ng_deepnegative_v1_75t, (worst quality:2), (low quality:2), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, glans, text, signature, skin spots, child, petite, age spots, moles, text, mutated hands, deformed fingers, small body, girlish face, Less detail,
+    clip_skip: 2
+    width: 512
+    height: 768
+    guidance_scale: 5
+    num_inferance_steps: 30
+    scale: 0.6

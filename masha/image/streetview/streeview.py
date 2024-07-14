@@ -16,6 +16,7 @@ import rich.repr
 from corestring import string_hash
 import re
 from rich import print
+from masha.image.config import image_config
 
 PATTERN_GPS = re.compile(r"(-?\d+\.\d+)[,\s]+(-?\d+\.\d+)")
 
@@ -95,7 +96,11 @@ class StreeViewMeta(type):
             if m_gps := PATTERN_GPS.search(query):
                 lat, lng = m_gps.groups()
                 url = f"https://geo.cacko.net/api/gps/{lat}/{lng}"
-            geo_res = Request(url)
+            geo_res = Request(
+                url.replace(
+                    image_config.streetview.url, image_config.streetview.local_url
+                )
+            )
             geo = GeoLocation(**geo_res.json)
             print(geo)
             return geo
@@ -115,7 +120,7 @@ class StreetView(object, metaclass=StreeViewMeta):
     @property
     def location(self) -> GeoLocation:
         return self.__location
-    
+
     @property
     def is_panorama(self) -> bool:
         return self.__is_panorama
@@ -161,7 +166,7 @@ class StreetView(object, metaclass=StreeViewMeta):
             assert signed_url
             img_path = StreetViewImage(signed_url).path
             return img_path
-        
+
     @property
     def s3key(self):
         return S3.src_key(self.image.name)
