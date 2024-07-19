@@ -110,7 +110,7 @@ pepo:
 rembrandt:
   category: style
   scheduler_class: DPMSolverSDEScheduler
-  scheduler_args: 
+  scheduler_args:
     use_karras_sigmas: True
   prompt: >
     cinematic film still of  <lora:Rembrandt Lighting Style:1>
@@ -1023,7 +1023,7 @@ watercolor:
     width: 832
     clip_skip: 2
     upscale: 2
-    negative_prompt: > 
+    negative_prompt: >
       lowres,bad anatomy,bad hands,text,error,missing fingers,extra digit,fewer digits,
       cropped,worst quality,low quality,normal quality,jpeg artifacts,signature,watermark,
       username,blurry,lowres,bad anatomy,bad hands,text,error,extra digit,fewer digits,
@@ -1129,7 +1129,7 @@ exposed:
   for_gender: female
   models:
     - epic
-  prompt: > 
+  prompt: >
     town park (slim petite body:1.2), horny looking at viewer, large breasted, sitting,
      spread legs, exposed pussy,  <lora:more_details:0.8>,    <lora:Exposed Pussy:0.8>
   custom_params:
@@ -1139,7 +1139,7 @@ exposed:
     height: 768
     guidance_scale: 5
     scale: 0.6
-    num_inferance_steps: 40
+    num_inference_steps: 40
 shadybug:
   category: face
   for_gender: female
@@ -1155,5 +1155,6 @@ shadybug:
     width: 512
     height: 768
     guidance_scale: 5
-    num_inferance_steps: 30
+    num_inference_steps: 30
     scale: 0.6
+    upscale: 2

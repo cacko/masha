@@ -100,7 +100,6 @@ class StableDiffusionLCM(BaseStableDiffusion):
         logging.info(f"MEM LORA - {format_size(current_allocated_memory())}")
         return pytorch_pipe
 
-
     def loadLoraWeights(self, lora_path: Path):
         try:
             assert self.params

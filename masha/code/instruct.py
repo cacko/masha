@@ -70,16 +70,17 @@ class Instruct(object, metaclass=InstructMeta):
         if not self.__model:
             model_path = DATA_ROOT / self.__modelId
             self.__model = AutoModelForCausalLM.from_pretrained(
-                model_path.as_posix(), torch_dtype=torch.float16
+                model_path.as_posix(), torch_dtype=torch.float16, trust_remote_code=True
             ).to(TORCH_DEVICE)
         return self.__model
-
 
     @property
     def tokenizer(self):
         if not self.__tokenizer:
             model_path = DATA_ROOT / self.__modelId
-            self.__tokenizer = AutoTokenizer.from_pretrained(model_path.as_posix())
+            self.__tokenizer = AutoTokenizer.from_pretrained(
+                model_path.as_posix(), trust_remote_code=True
+            )
         return self.__tokenizer
 
     @property
