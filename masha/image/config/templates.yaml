@@ -103,6 +103,7 @@ fake_poster:
     - cutecartoon
 pepo:
   category: style, face
+  for_genrder: female
   prompt: >
     <lora:P2p0:0.8> 1girl, white mini skirt, as pvc figure, looking at viewer, perfect hands, big breast, wide hips, thick thighs, upper body, cowboy shot, clean scene, white background, high detailed, masterpiece
   models:

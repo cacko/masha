@@ -1,4 +1,5 @@
 import logging
+from masha.core.term import TermColor, ccze
 from masha.text.cover_letter import CoverLetter
 from masha.text.detector import TextDetector
 from masha.text.generator import TextGenerator
@@ -18,6 +19,7 @@ import requests
 import rich
 from fastapi import APIRouter, Request, HTTPException
 import typer
+import click
 from typing_extensions import Annotated
 from masha.text.config import text_config
 
@@ -25,7 +27,6 @@ Gemini.register(text_config.gemini)
 TextGenerator.register(text_config.generator)
 SkillExtractor.register(text_config.skills)
 CoverLetter.register(text_config.cover_letter)
-
 
 
 router = APIRouter()
@@ -92,7 +93,7 @@ def gemini(text: Annotated[list[str], typer.Argument()]):
 
 @cli.command()
 def skills(text: Annotated[list[str], typer.Argument()]):
-    res = SkillExtractor.getSkills(' '.join(text))
+    res = SkillExtractor.getSkills(" ".join(text))
     rich.print(res)
 
 
@@ -103,19 +104,22 @@ def init_textacy():
     LangIdentifier(version=2.0).download()
 
 
-# @bp.cli.command("cover_letter")
-# @click.option("-n", "--name", default="Alexander Spasov")
-# @click.option("-j", "--job", default="Full stack developer")
-# @click.option("-c", "--company", default="Amazon AWS")
-# @click.option(
-#     "-b", "--background", default="Master of science in Information techologies"
-# )
-# @click.option(
-#     "-e",
-#     "--experiences",
-#     default="I am the Author of Book and MTech in Machine Learning and achievement-driven professional with an experience of 3+ years in Data Science/Machine Learning/NLP/ Deep Learning/Data analytics. I am highly skilled in libraries like Sklearn, Numpy, Pandas, Matplotlib, Seaborn, Tensorflow, Faster-RCNN, Keras, Pytorch, FastAI, PowerBI/Tableau for Data Visualization, SQL/Oracle/NoSQL for databases and experience in NLP use cases related to named entity recognition, text summarization, text similarity, text generation",
-# )
-# def cli_cover(name: str, job: str, company: str, background: str, experiences: str):
-#     prompt = f"coverletter name: {name} job: {job} at {company} background: {background} experiences: {experiences}"
-#     res = CoverLetter.generateText(prompt)
-#     print(ccze(res, color=TermColor.GREEN))
+@cli.command("cover_letter")
+def cli_cover(
+    company: Annotated[str, typer.Option("-c", "--company")],
+    name: Annotated[str, typer.Option("-n", "--name")] = "Alexander Spassov",
+    job: Annotated[str, typer.Option("-j", "--job")] = "Full stack developer",
+    background: Annotated[
+        str, typer.Option("-b", "--background")
+    ] = "Software engineer",
+    experiences: Annotated[
+        str, typer.Option("-e")
+    ] = """Experienced software developer with solid system administration/automation
+knowledge I am committed to maintaining code quality standards and best practices to
+ensure robust and reliable software solutions. Through continuous learning and staying
+abreast of emerging technologies, I seek to drive innovation and deliver exceptional
+products to clients.""",
+):
+    prompt = f"coverletter name: {name} job: {job} at {company} background: {background} experiences: {experiences}"
+    res = CoverLetter.generateText(prompt)
+    print(ccze(res, color=TermColor.GREEN))

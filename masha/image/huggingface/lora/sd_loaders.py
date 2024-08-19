@@ -2,7 +2,6 @@ import logging
 from pathlib import Path
 from safetensors.torch import load_file, safe_open
 import os
-from sympy import EX
 import torch
 from diffusers import LCMScheduler
 from diffusers.pipelines import StableDiffusionPipeline

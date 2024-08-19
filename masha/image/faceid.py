@@ -1,7 +1,6 @@
 import logging
 from typing import Optional
 
-from sympy import im
 from masha.image.caption import ImageCaption
 from masha.image.classify import Gender as GenderClassifier
 from masha.image.deepface import AgeClient
@@ -15,7 +14,6 @@ from masha.image.config import image_config
 from corestring import file_hash
 from coreimage.transform.crop import Cropper
 from coreimage.transform.upscale import Upscale
-from coreimage.terminal import print_term_image
 import torch
 import pickle
 

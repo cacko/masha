@@ -1,6 +1,5 @@
 
 
-from token import tok_name
 from masha.pipelines.image2text import Image2Text
 from masha.image.config import image_config
 

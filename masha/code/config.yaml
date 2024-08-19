@@ -1,10 +1,10 @@
 summarization:
   model: T5-commit-message-generator
 instruct:
-  model: DeepSeek-Coder-V2-Lite-Instruct
+  model: CodeLlama-7b-Instruct-hf
 instruct_python:
-  model: DeepSeek-Coder-V2-Lite-Instruct
+  model: CodeLlama-7b-Instruct-hf
 instruct_php:
-  model: DeepSeek-Coder-V2-Lite-Instruct
+  model: CodeLlama-7b-Instruct-hf
 instruct_javascript:
-  model: DeepSeek-Coder-V2-Lite-Instruct
+  model: CodeLlama-7b-Instruct-hf

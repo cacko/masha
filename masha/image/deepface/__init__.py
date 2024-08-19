@@ -1,5 +1,4 @@
 from pathlib import Path
-from tabnanny import verbose
 from tf_keras.models import Model, Sequential
 from tf_keras.layers import (
     Convolution2D,

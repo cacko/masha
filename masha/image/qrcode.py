@@ -1,4 +1,3 @@
-from curses import A_ALTCHARSET
 from enum import StrEnum
 from functools import reduce
 import logging

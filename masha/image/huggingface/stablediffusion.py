@@ -20,7 +20,7 @@ from masha.image.models import ImageResult
 from humanfriendly import format_size
 from masha.image.prompt import Prompt
 import gc
-
+from coreimage.terminal import print_term_image
 
 class StableDiffusion(Diffusers):
     option = "default"
@@ -125,9 +125,11 @@ class StableDiffusion(Diffusers):
             for idx, image in enumerate(res.images):
                 if params.upscale:
                     image = self.__class__.upscale(image, 4)
-                pth = tmp_path.parent / f"{tmp_path.stem}{idx:02d}{tmp_path.suffix}"
+                pth = TempPath(f"{tmp_path.stem}{idx:02d}{tmp_path.suffix}")
                 image.save(pth.as_posix())
+                assert pth.exists()
                 paths.append(pth)
+
         result = ImageResult(image=paths, params=output_params, seed=seed)
         result.write_exif()
         logging.debug(f"MEM END - {format_size(current_allocated_memory())}")
@@ -157,7 +159,7 @@ class StableDiffusion(Diffusers):
             for idx, image in enumerate(res.images):
                 if params.upscale:
                     image = self.__class__.upscale(image, scale=params.upscale)
-                pth = tmp_path.parent / f"{tmp_path.stem}{idx:02d}{tmp_path.suffix}"
+                pth = TempPath(f"{tmp_path.stem}{idx:02d}{tmp_path.suffix}")
                 image.save(pth.as_posix())
                 paths.append(pth)
         result = Image2ImageResult(image=paths, params=output_params, seed=seed)
@@ -191,7 +193,7 @@ class StableDiffusion(Diffusers):
             for idx, image in enumerate(images):
                 if params.upscale:
                     image = self.__class__.upscale(image, scale=params.upscale)
-                pth = tmp_path.parent / f"{tmp_path.stem}{idx:02d}{tmp_path.suffix}"
+                pth = TempPath(f"{tmp_path.stem}{idx:02d}{tmp_path.suffix}")
                 image.save(pth.as_posix())
                 paths.append(pth)
         result = Face2ImageResult(image=paths, params=output_params, seed=seed)

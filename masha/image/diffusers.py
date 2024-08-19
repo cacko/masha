@@ -101,6 +101,8 @@ class DiffusersType(type):
     def get_filestem(cls, params: PipelineParams) -> str:
         rand = snakecase(cls.faker_instance.text(max_nb_chars=30).strip("."))
         res = f"{params.output_width}x{params.output_height}"
+        logging.warning(f"GET_FILESYSTEM -> {rand}_{res}")
+        
         return f"{rand}_{res}"
 
     @property
