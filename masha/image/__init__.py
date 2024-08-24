@@ -94,7 +94,6 @@ async def api_variation(
     try:
         tmp_path = await uploaded_file(file)
         params = json.loads(data)
-        logging.warning(data)
         out_path = TempPath(f"{tmp_path.stem}_variations_{tmp_path.suffix}")
         res_path = Variation.variation(
             src_path=tmp_path,

@@ -492,7 +492,7 @@ selfie-yacht:
     height: 1216
     upscale: 2
     negative_prompt: CGI, Unreal, Airbrushed, Digital
-red_-sweater:
+red-sweater:
   category: face
   for_gender: female
   no_race: True
@@ -703,7 +703,6 @@ into-darkness:
     width: 1024
     height: 1024
     clip_skip: 1
-
     upscale: 2
     guidance_scale: 3
     num_inference_steps: 15
@@ -720,7 +719,6 @@ western-comic:
     width: 1024
     height: 1024
     clip_skip: 1
-
     upscale: 2
     guidance_scale: 3
     num_inference_steps: 15
@@ -740,7 +738,6 @@ pennywise:
     height: 1024
     clip_skip: 1
     upscale: 2
-
     guidance_scale: 3
     num_inference_steps: 15
 # lingerie:
@@ -1052,7 +1049,7 @@ fashion-photo:
   models:
     - nightvision
   prompt: >
-    (highres:1.2), (photorealistic:1.2), (intricate and beautiful:1.2), (detailed light:1.2), (soft lighting, side lighting, reflected light), (colorful, dynamic angle), very beautiful //,fashion photography, dynamic pose, light passing through hair, (blurry background:1.3), (official art), (perfect skin), (sharp)
+    (highres:1.2), (photorealistic:1.2), (intricate and beautiful:1.2), (detailed light:1.2), (soft lighting, side lighting, reflected light), (colorful, dynamic angle), //,fashion photography, dynamic pose, light passing through hair, (blurry background:1.3), (sharp)
   custom_params:
     guidance_scale: 4
     num_inference_steps: 30
@@ -1113,7 +1110,7 @@ wlad:
   category: face
   models:
     - rev
-  prompt: //, masterpiece,best quality,<lora:tbh203-:0.9>,illustration,style of Wlad Safronow, decaying peonies
+  prompt: //, masterpiece,best quality,<lora:tbh203-:0.9>,illustration,style of Wlad Safronow, robots
   custom_params:
     guidance_scale: 7
     num_inference_steps: 35

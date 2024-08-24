@@ -22,14 +22,14 @@ oil:
   guidance_scale: 2
   strength: 0.6
   num_inference_steps: 10
-illustration:
-  model: jugrun
-  prompt: <lora:Illustration_style:0.9>,illustrStyle
-  guidance_scale: 12
-  strength: 0.6
-  upscale: 2
-  num_inference_steps: 10
-  negative_prompt: (worst quality:2), (low quality:2), (normal quality:2), lowres, bad anatomy, bad hands, normal quality, ((monochrome)), ((grayscale)
+# illustration:
+#   model: jugrun
+#   prompt: <lora:Illustration_style:0.9>,illustrStyle
+#   guidance_scale: 12
+#   strength: 0.6
+#   upscale: 2
+#   num_inference_steps: 10
+#   negative_prompt: (worst quality:2), (low quality:2), (normal quality:2), lowres, bad anatomy, bad hands, normal quality, ((monochrome)), ((grayscale)
 cyberpunk:
   model: ultraspice
   prompt: >
@@ -117,7 +117,7 @@ colorfull:
   prompt: >
     (cartoon:1.5), colourful drawing, colourful
   guidance_scale: 2
-  strength: 0.5
+  strength: 0.6
   num_inference_steps: 10
   clip_skip: 2
   model: juglight
@@ -167,13 +167,6 @@ frenchart:
   guidance_scale: 6
   num_inference_steps: 20
   negative_prompt: photo, ((color)), text
-wlad:
-  model: tvxl
-  prompt: masterpiece,best quality,<lora:tbh203-sdxl:0.9>,illustration,style of Wlad Safronow
-  guidance_scale: 5
-  num_inference_steps: 10
-  clip_skip: 2
-  negative_prompt: lowres,bad anatomy,bad hands,text,error,missing fingers,extra digit,fewer digits,cropped,worst quality,low quality,normal quality,jpeg artifacts,signature,watermark,username,blurry,nsfw,
 wlad:
   model: rev
   prompt: //, masterpiece,best quality,<lora:tbh203-:0.9>,illustration,style of Wlad Safronow, decaying peonies

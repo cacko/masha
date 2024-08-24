@@ -16,27 +16,13 @@ realisticVisionV60B1_v51HyperVAE.safetensors:
         sketch, cartoon, drawing, anime:1.3), cropped, out of frame, 
         worst quality, low quality, jpeg artifacts, mutation, blurry, 
         bad anatomy, bad proportions, extra limbs, b&w
-revAnimated_v122EOL.safetensors:
+revAnimated_v2Rebirth.safetensors:
   option: rev
   scheduler_class: DPMSolverMultistepScheduler
   scheduler_args:
     use_karras_sigmas: True
   sd_type: sd
   category: realistic,nsfw,lora,sd1,face
-  custom_params:
-    clip_skip: 2
-    guidance_scale: 7
-    num_inference_steps: 30
-    width: 512
-    height: 768
-    negative_prompt: easynegative, bad-hands-5, loli, child, children, kid
-sexyToonCartoon_v420.safetensors:
-  option: sexytoon
-  scheduler_class: DPMSolverMultistepScheduler
-  scheduler_args:
-    use_karras_sigmas: True
-  sd_type: sd
-  category: realistic,nsfw,lora,sd1,face-nsfw
   custom_params:
     clip_skip: 2
     guidance_scale: 7
@@ -311,16 +297,16 @@ nightvisionxl_v0811.safetensors:
   option: nightvision
   sd_type: sdxl
   category: general,art,wall,loraxl,xl,face
-  scheduler_class: DPMSolverSinglestepScheduler
+  scheduler_class: DPMSolverMultistepScheduler
   scheduler_args:
-    use_karras_sigmas: True
+    algorithm_type: sde-dpmsolver++
   custom_params:
     num_inference_steps: 20
     height: 1024
     width: 1024
     guidance_scale: 4
     negative_prompt: text, logos, watermarks, labels
-envyStarlightXL01Lightning_galaxy.safetensors:
+envyStarlightXL01Lightning_galaxyV20.safetensors:
   option: starlight
   sd_type: sdxl
   category: loraxl,xl,general,wall,face,lightning

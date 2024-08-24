@@ -5,7 +5,7 @@ import torch
 from PIL import Image
 from PIL.ImageOps import exif_transpose
 from os import environ
-from transformers import BlipProcessor, BlipForConditionalGeneration
+from transformers import AutoProcessor, BlipForConditionalGeneration
 from masha.image.config import image_config, Img2CaptionConfig
 
 
@@ -37,10 +37,10 @@ class ImageCaption(object, metaclass=ImageCaptionMeta):
         self.__model = None
 
     @property
-    def processor(self) -> BlipProcessor:
+    def processor(self) -> AutoProcessor:
         if not self.__processor:
             pth = self.__class__.dataRoot / self.__config.model
-            self.__processor = BlipProcessor.from_pretrained(pth.as_posix())
+            self.__processor = AutoProcessor.from_pretrained(pth.as_posix())
         return self.__processor
 
     @property
@@ -65,6 +65,6 @@ class ImageCaption(object, metaclass=ImageCaptionMeta):
         inputs = processor(raw_image, return_tensors="pt")
 
         out = model.generate(**inputs)
-        result = processor.decode(out[0], skip_special_tokens=True)
+        result = processor.decode(out[0], skip_special_tokens=True).replace("arafed", "").strip()
         logging.info(f"CAPTION={result}")
         return result

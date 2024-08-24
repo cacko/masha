@@ -10,6 +10,7 @@ from masha.image.config import GENERATED_PATH
 import shutil
 import logging
 from fastapi import Request, HTTPException
+from corestring import split_with_quotes
 
 
 
@@ -96,13 +97,17 @@ async def api_qr2img(request: Request, prompt: Annotated[str, Path(title="prompt
         form_data = await request.json()
         assert form_data
         input_params = form_data
+        logging.warning(input_params)
         code = form_data.get("code")
+        assert code
         template = form_data.get("template", "default")
         logging.debug(code)
         del input_params["template"]
         del input_params["code"]
+        qrimage = QRCode.get_qrcode_image(split_with_quotes(code))
+        assert qrimage
         cls = QRCode.get_template(template)
-        image_result = cls.code2img(qr=code, **input_params)
+        image_result = cls.code2img(qr=qrimage, **input_params)
         assert image_result
         cls.release()
         return make_multipart_response(image_path=image_result)
