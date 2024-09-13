@@ -94,7 +94,7 @@ class StableDiffusionSD(BaseStableDiffusion):
             device=self.__class__.device,
         )
         image = cv2.imread(kwds.get("face_path").as_posix())
-        face_image = cv2.resize(image, (224, 244))
+        face_image = cv2.resize(image, (224, 224))
         images = ip_model.generate(
             faceid_embeds=faceid_embeds,
             face_image=face_image,

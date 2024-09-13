@@ -1,4 +1,5 @@
 from pathlib import Path
+import rich
 from tf_keras.models import Model, Sequential
 from tf_keras.layers import (
     Convolution2D,
@@ -129,7 +130,8 @@ class BaseClient(object, metaclass=DeepfaceMeta):
     classes: int
 
     def __init__(self) -> None:
-        tf.config.set_visible_devices(tf.config.get_visible_devices("CPU"))
+        rich.print(tf.config.list_physical_devices())
+        # tf.config.set_visible_devices(tf.config.get_visible_devices("CPU"))
         self.model = self.load_model()
 
 

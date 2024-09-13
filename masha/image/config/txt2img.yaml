@@ -91,7 +91,7 @@ clarity_3.safetensors:
   scheduler_args:
     use_karras_sigmas: True
   sd_type: sd
-  category: realistic,nsfw,lora,sd,face
+  category: realistic,nsfw,lora,sd
   custom_params:
     num_inference_steps: 50
     guidance_scale: 7.5
@@ -220,7 +220,7 @@ sdxlFixedvaeFp16Remove_baseFxiedVaeV2Fp16.safetensors:
 realvisxlV40_v40LightningBakedvae.safetensors:
   option: realvisxl-light
   sd_type: sdxl
-  category: loraxl,realistic,xl,vision,nsfw,face,lightning
+  category: loraxl,realistic,xl,vision,nsfw,face,lightning,face-nsfw
   scheduler_class: DPMSolverSinglestepScheduler
   scheduler_args:
     use_karras_sigmas: True
@@ -338,7 +338,7 @@ copaxTimelessxlSDXL1_v11Lightning.safetensors:
 Juggernaut_X_RunDiffusion.safetensors:
   option: jugrun
   sd_type: sdxl
-  category: loraxl,xl,general,nsfw,face,wall
+  category: loraxl,xl,general,nsfw,face,wall,face-nsfw
   scheduler_class: DPMSolverSinglestepScheduler
   scheduler_args:
     use_karras_sigmas: True
