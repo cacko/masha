@@ -4,14 +4,12 @@ from transformers import (
     pipeline
 )
 from torch.utils.data import DataLoader, TensorDataset
-from numpy import VisibleDeprecationWarning
 import torch
 from scipy.special import softmax
 import warnings
 from masha.core import perftime
 from masha.pipelines import BasePipeline
 
-warnings.filterwarnings("ignore", category=VisibleDeprecationWarning)
 
 
 class TextClassifier(BasePipeline):

@@ -132,7 +132,7 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
             faceid_embeds=faceid_embeds,
             face_image=face_image,
             num_samples=output_params.num_images_per_prompt,
-            control_guidance_start=0.5,
+            # control_guidance_start=0.5,
             **output_params.to_face_pipe(),
         )
         ip_model = None

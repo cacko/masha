@@ -4,7 +4,6 @@ from typing import Optional
 from cachable import Cachable
 from cachable.storage.meta import StorageMeta
 from cachable.storage.redis import RedisStorage
-from numpy import VisibleDeprecationWarning
 from transformers import (
     AutoModelForQuestionAnswering,
     AutoTokenizer,
@@ -13,7 +12,6 @@ from transformers import (
 )
 from masha.pipelines import BasePipeline
 
-warnings.filterwarnings("ignore", category=VisibleDeprecationWarning)
 
 
 class QuestionAnswer(Cachable):

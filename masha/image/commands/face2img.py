@@ -5,7 +5,6 @@ from masha.image.cli import cli
 from masha.image.router import router
 import logging
 import torch
-import pickle
 from coreimage.terminal import print_term_image
 from masha.image.config import TemplateConfig, GENERATED_PATH
 from masha.image.huggingface.stablediffusion import StableDiffusion
