@@ -6,6 +6,7 @@ from .kandinsky import StableDiffusionKANDINSKY
 from .kandinsky3 import StableDiffusionKANDINSKY3
 from .sdxl import StableDiffusionSDXL
 from .sd3 import StableDiffusion3
+from .flux import StableDiffusionFlux
 from masha.image.config import image_config
 from masha.image.models import SDModelType
 
@@ -30,6 +31,8 @@ def register_models():
                 return StableDiffusionLCM
             case SDModelType.OPENDALLE:
                 return StableDiffusionOpenDalle
+            case SDModelType.FLUX:
+                return StableDiffusionFlux
             case _:
                 raise AssertionError
 

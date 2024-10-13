@@ -286,6 +286,7 @@ class PipelineType(StrEnum):
     LCM = "LatentConsistencyModelPipeline"
     SDXL_TURBO = ""
     SD3 = "StableDiffusion3Pipeline"
+    FLUX = "FluxPipeline"
 
 
 class SDModelType(StrEnum):
@@ -298,6 +299,7 @@ class SDModelType(StrEnum):
     PIXART = "pixart"
     LCM = "lcm"
     OPENDALLE = "opendalle"
+    FLUX = "flux"
 
 
 class PipelineParams(BaseModel):

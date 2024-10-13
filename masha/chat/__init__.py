@@ -106,22 +106,22 @@ class ChatTranslator(object):
 class ChatDialog(Conversational, metaclass=ChatDialogMeta):
 
     def __init__(self, model_name, tokenizer_path=None):
-        self.__pipeline = None
+        self._pipeline = None
         super().__init__(model_name, tokenizer_path)
-
+        
     @property
     def pipeline(self):
-        if not self.__pipeline:
-            self.__pipeline = pipeline(
+        if not self._pipeline:
+            self._pipeline = pipeline(
                 "text-generation",
                 model=self.modelPath.as_posix(),
                 model_kwargs={
-                    "torch_dtype": torch.float16,
-                    "low_cpu_mem_usage": True,
+                    # "torch_dtype": torch.float16,
+                    # "low_cpu_mem_usage": True,
                 },
                 device=TORCH_DEVICE,
             )
-        return self.__pipeline
+        return self._pipeline
 
     def conversation_response(self, text: str, **kwargs) -> str:
         resp = ""
@@ -154,9 +154,9 @@ class ChatDialog(Conversational, metaclass=ChatDialogMeta):
             prompt,
             max_new_tokens=256,
             eos_token_id=terminators,
-            do_sample=True,
-            temperature=0.6,
-            top_p=0.9,
+            # do_sample=True,
+            # temperature=0.6,
+            # top_p=0.9,
         )
         resp = outputs[0]["generated_text"][len(prompt) :]
 

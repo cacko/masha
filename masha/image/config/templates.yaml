@@ -1156,3 +1156,19 @@ shadybug:
     num_inference_steps: 30
     scale: 0.6
     upscale: 2
+storybook:
+  category: style,face
+  models:
+    - juglight
+  prompt: //, hand-drawn style, soft lighting, wide-angle view <lora:artfullySTORYBOOK:0.8>, artstrybk
+  custom_params:
+    guidance_scale: 5
+    num_inference_steps: 8
+    clip_skip: 2
+    scale: 0.4
+    width: 640
+    height: 1024
+    negative_prompt: >
+      lowres,bad anatomy,bad hands,text,error,missing fingers,extra digit,fewer digits,
+      cropped,worst quality,low quality,normal quality,jpeg artifacts,signature,watermark,
+      username,blurry,nsfw
