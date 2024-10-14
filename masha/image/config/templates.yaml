@@ -370,6 +370,17 @@ papercut:
   custom_params:
     guidance_scale: 7
     num_inference_steps: 30
+paper-style:
+  category: sdxl,face,style,general,art
+  prompt: >
+    // made out of ral-ppr, papercraft, paper, Swan, <ral-ppr-sdxl:0.7>, dynamic, 
+    highly contrasted, ambient light, polished, ambient, beautiful, magical composition, 
+    intricate, deep aesthetic, glowing, modified, elaborate
+  models:
+    - nightvision
+  custom_params:
+    guidance_scale: 7
+    num_inteference_stepts: 30
 woodenxl:
   category: style,xl
   prompt: woodfigurez // <lora:woodfigurez-sdxl:1>
