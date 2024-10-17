@@ -18,7 +18,7 @@ from masha.image.streetview.streeview import StreetView
 def streetview(
     gps: Annotated[list[str], typer.Argument()],
     style: Annotated[
-        list[StyleConfig.styles_enum],
+        list[StyleConfig.styles_enum], # type: ignore
         typer.Option("-s", "--style"),
     ] = None,
     output_directory: Annotated[
@@ -54,7 +54,7 @@ def streetview(
 
 @router.get("/streetview/{style}/{gps}")
 async def api_streetview(
-    style: Annotated[StyleConfig.styles_enum, Path(title="style")],
+    style: Annotated[StyleConfig.styles_enum, Path(title="style")], # type: ignore
     gps: Annotated[str, Path(title="gps")],
 ):
     try:

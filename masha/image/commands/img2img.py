@@ -40,7 +40,7 @@ def img2img(
     category: Annotated[
         Diffusers.categories_enum, typer.Option("-ct", "--categories")
     ] = None,
-    style: Annotated[StyleConfig.styles_enum, typer.Option("-s", "--style")] = None,
+    style: Annotated[StyleConfig.styles_enum, typer.Option("-s", "--style")] = None, # type: ignore
     all_styles: Annotated[bool, typer.Option("--all-styles")] = False,
     prompt: Annotated[str, typer.Option("-p", "--prompt")] = "",
     generate_caption: Annotated[
@@ -52,7 +52,7 @@ def img2img(
     ] = None,
     all_templates: Annotated[bool, typer.Option("--all-templates")] = False,
     template_category: Annotated[
-        TemplateConfig.categories_enum,
+        TemplateConfig.categories_enum, # type: ignore
         typer.Option("-tc", "--template_category"),
     ] = None,
 ):

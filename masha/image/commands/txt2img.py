@@ -53,9 +53,10 @@ def txt2img(
     all_prompts: Annotated[bool, typer.Option("--all-prompts")] = False,
     all_templates: Annotated[bool, typer.Option("--all-templates")] = False,
     template_category: Annotated[
-        TemplateConfig.categories_enum,
+        TemplateConfig.categories_enum, # type: ignore
         typer.Option("-tc", "--template-category"),
     ] = None,
+    pag_scale: Annotated[float, typer.Option("-ps", "--pag_scale")] = None
 ):
     StableDiffusion.is_superuser = True
     StableDiffusion.image_format = IMAGE_FORMAT.PNG
@@ -75,6 +76,7 @@ def txt2img(
         clip_skip=clip_skip,
         is_super_user=True,
         strength=strength,
+        pag_scale=pag_scale
     )
     for cls, params in txt2img_iterations(
         inputParams=inputParams,

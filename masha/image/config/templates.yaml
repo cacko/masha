@@ -103,11 +103,12 @@ fake_poster:
     - cutecartoon
 pepo:
   category: style, face
-  for_genrder: female
+  for_gender: female
   prompt: >
     <lora:P2p0:0.8> 1girl, white mini skirt, as pvc figure, looking at viewer, perfect hands, big breast, wide hips, thick thighs, upper body, cowboy shot, clean scene, white background, high detailed, masterpiece
   models:
     - dreamlcm
+  upscale: 2
 rembrandt:
   category: style
   scheduler_class: DPMSolverSDEScheduler
@@ -122,9 +123,12 @@ rembrandt:
     guidance_scale: 0
     num_inference_steps: 15
 toonyou:
-  category: style, face
+  category: style
   models:
     - toonyou
+  prompt: (best quality, masterpiece), //
+  custom_params:
+    negative_prompt: (worst quality, low quality, letterboxed)
 scream:
   category: style
   prompt: >
@@ -614,13 +618,14 @@ cute:
   prompt: >
     impactful color paint of cute //, highly detailed, 8k, sharp, professional, 
     clear, high contrast, high saturated, vivid deep blacks, crystal clear, 
-    <lora:Cute_3D_Cartoon:1> <lora:add-detail-xl:0.6>
+    <lora:Cute_3D_Cartoon:0.6> <lora:add-detail-xl:0.6>
   custom_params:
-    clip_skip: 1
+    clip_skip: 2
     width: 1024
     height: 1024
     upscale: 2
-    guidance_scale: 7
+    scale: 1
+    guidance_scale: 2
     num_inference_steps: 30
     negative_prompt: >
       ugly, tiling, poorly drawn hands, poorly drawn feet, poorly drawn face, 
@@ -657,7 +662,6 @@ zombie:
   custom_params:
     guidance_scale: 2
     num_inference_steps: 8
-
     upscale: 2
     clip_skip: 2
     width: 832
@@ -1183,3 +1187,15 @@ storybook:
       lowres,bad anatomy,bad hands,text,error,missing fingers,extra digit,fewer digits,
       cropped,worst quality,low quality,normal quality,jpeg artifacts,signature,watermark,
       username,blurry,nsfw
+drybrush:
+  category: style,face
+  models:
+      - xlvae
+  prompt: // novuschroma style <lora:113_novuschroma_1:0.9>, <lora:sdxl_lightning_8step_lora:0.9>
+  custom_params:
+    guidance_scale: 1.5
+    num_inference_steps: 8
+    clip_skip: 2
+    scale: 0.4
+    width: 640
+    height: 1024

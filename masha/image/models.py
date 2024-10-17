@@ -311,6 +311,7 @@ class PipelineParams(BaseModel):
     num_images_per_prompt: int = Field(default=1)
     strength: float = Field(default=0.5)
     image_guidance_scale: float = Field(default=1)
+    pag_scale: float = Field(default=3)
     seed: Optional[int] = None
     upscale: Optional[int] = None
     auto_prompt: Optional[str] = None
@@ -445,6 +446,7 @@ class OutputParams(BaseModel, arbitrary_types_allowed=True):
     scale: Optional[float] = None
     template: Optional[str] = None
     style: Optional[str] = None
+    pag_scale: Optional[float] = None
 
     def __init__(self, **data):
         args = {
@@ -590,6 +592,7 @@ class ImageResult(BaseModel):
                 "-st": self.params.strength,
                 "-cs": self.params.clip_skip,
                 "-sc": self.params.scale,
+                "-ps": self.params.pag_scale,
                 "-h": self.params.height,
                 "-w": self.params.width,
             }

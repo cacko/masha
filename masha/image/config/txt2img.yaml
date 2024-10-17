@@ -3,8 +3,9 @@ realisticVisionV60B1_v51HyperVAE.safetensors:
   scheduler_class: DPMSolverSinglestepScheduler
   scheduler_args:
     use_karras_sigmas: True
+    algorithm_type: dpmsolver++
   sd_type: sd
-  category: realistic,nsfw,porn,lora,sd1,qr,face
+  category: realistic,nsfw,porn,lora,sd1,qr
   custom_params:
     clip_skip: 2
     guidance_scale: 2
@@ -21,6 +22,7 @@ revAnimated_v2Rebirth.safetensors:
   scheduler_class: DPMSolverMultistepScheduler
   scheduler_args:
     use_karras_sigmas: True
+    algorithm_type: dpmsolver++
   sd_type: sd
   category: realistic,nsfw,lora,sd1,face
   custom_params:
@@ -62,6 +64,7 @@ toonyou_beta6.safetensors:
   scheduler_class: DPMSolverSinglestepScheduler
   scheduler_args:
     use_karras_sigmas: True
+    algorithm_type: dpmsolver++
   sd_type: sd
   category: cartoon,lora,sd1,qr
   custom_params:
@@ -90,6 +93,7 @@ clarity_3.safetensors:
   scheduler_class: DPMSolverSinglestepSchedulerv
   scheduler_args:
     use_karras_sigmas: True
+    algorithm_type: dpmsolver++
   sd_type: sd
   category: realistic,nsfw,lora,sd
   custom_params:
@@ -529,16 +533,3 @@ sd3_medium_incl_clips_t5xxlfp16.safetensors:
     guidance_scale: 4.5
     num_inference_steps: 40
     negative_prompt: 
-Flux-Fusion-DS-merge-gguf-nf4-fp4-fp8-fp16:
-  option: flux
-  sd_type: flux
-  category: flux,general
-  scheduler_class: DPMSolverMultistepScheduler
-  scheduler_args:
-    use_karras_sigmas: True
-    algorithm_type: sde-dpmsolver++
-  custom_params:
-    num_inference_steps: 25
-    guidance_scale: 7
-    width: 768
-    height: 1024
