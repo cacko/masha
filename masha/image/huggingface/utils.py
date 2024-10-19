@@ -9,7 +9,7 @@ import logging
 from compel import Compel, ReturnedEmbeddingsType, DiffusersTextualInversionManager
 from masha.image.config import EmbeddingConfig
 from masha.image.models import Embedding, IncompatibleTemplate, PipelineParams, Sex
-from masha.image.diffusers import Diffusers
+from masha.image.diffusers import Diffusers, DiffusersType
 from masha.image.config import image_config
 from random import shuffle
 from masha.image.prompt import Prompt
@@ -159,7 +159,7 @@ def txt2img_iterations(
     age: Optional[int] = None,
     race: Optional[Ethnicity] = None,
     throw_exception = False,
-) -> Generator[tuple[Diffusers, PipelineParams], None, None]:
+) -> Generator[tuple[DiffusersType, PipelineParams], None, None]:
     auto_prompts: list[Optional[str]] = [auto_prompt]
     auto_templates: list[Optional[str]] = [None]
     prompt = inputParams.get("prompt")
@@ -245,7 +245,7 @@ def img2img_iterations(
     template: Optional[str] = None,
     all_templates: bool = False,
     template_category: str = None,
-) -> Generator[tuple[Diffusers, PipelineParams], None, None]:
+) -> Generator[tuple[DiffusersType, PipelineParams], None, None]:
     params = None
     auto_styles: list[Optional[str]] = [None]
     auto_templates: list[Optional[str]] = [None]

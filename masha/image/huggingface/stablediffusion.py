@@ -1,7 +1,8 @@
 from pathlib import Path
+from tkinter.tix import IMAGE
 
 from corestring import to_int
-from masha.image.diffusers import Diffusers
+from masha.image.diffusers import DEFAULT_IMAGE_FORMAT, IMAGE_FORMAT, Diffusers
 import logging
 from diffusers import (
     DiffusionPipeline,
@@ -20,7 +21,7 @@ from masha.image.models import ImageResult
 from humanfriendly import format_size
 from masha.image.prompt import Prompt
 import gc
-from coreimage.terminal import print_term_image
+
 
 class StableDiffusion(Diffusers):
     option = "default"
@@ -58,6 +59,13 @@ class StableDiffusion(Diffusers):
 
     def get_coreml_pipeline(self, pipe_args):
         pass
+    
+    def get_image_suffix(self, image_format: IMAGE_FORMAT = None):
+        try:
+            assert image_format
+            return image_format.value
+        except AssertionError:
+            return DEFAULT_IMAGE_FORMAT.value
 
     @property
     def face2img_pipe(self) -> DiffusionPipeline:
@@ -100,12 +108,15 @@ class StableDiffusion(Diffusers):
             )
         return self.get_text2img_pipeline(pipe_args)
 
-    def generate_from_text(self, params: PipelineParams):
+    def generate_from_text(
+        self,
+        params: PipelineParams
+    ):
         self.params = params
         params = self.params
         paths = []
         tmp_path = TempPath(
-            f"{self.__class__.get_filestem(params=params)}.{self.__class__.image_suffix}"
+            f"{self.__class__.get_filestem(params=params)}.{self.image_suffix}"
         )
         seed = params.seed
         if not seed:
@@ -135,11 +146,16 @@ class StableDiffusion(Diffusers):
         logging.debug(f"MEM END - {format_size(current_allocated_memory())}")
         return result
 
-    def generate_from_image(self, image_path: Path, params: PipelineParams, **kwds):
+    def generate_from_image(
+        self,
+        image_path: Path,
+        params: PipelineParams,
+        **kwds,
+    ):
         self.params = params
         paths = []
         tmp_path = TempPath(
-            f"{self.__class__.get_filestem(params=self.params)}.{self.__class__.image_suffix}"
+            f"{self.__class__.get_filestem(params=self.params)}.{self.image_suffix}"
         )
         seed = self.params.seed
         if not seed:
@@ -167,12 +183,17 @@ class StableDiffusion(Diffusers):
         logging.debug(f"MEM END - {format_size(current_allocated_memory())}")
         return result
 
-    def generate_from_face(self, faceid_embeds, params: PipelineParams, **kwds):
+    def generate_from_face(
+        self,
+        faceid_embeds,
+        params: PipelineParams,
+        **kwds,
+    ):
         self.params = params
         params = self.params
         paths = []
         tmp_path = TempPath(
-            f"{self.__class__.get_filestem(params=params)}.{self.__class__.image_suffix}"
+            f"{self.__class__.get_filestem(params=params)}.{self.image_suffix}"
         )
         seed = to_int(params.seed, -1)
         if seed < 1:

@@ -59,7 +59,6 @@ def txt2img(
     pag_scale: Annotated[float, typer.Option("-ps", "--pag_scale")] = None
 ):
     StableDiffusion.is_superuser = True
-    StableDiffusion.image_format = IMAGE_FORMAT.PNG
     outdir = output_directory
     results = []
     inputParams = dict(

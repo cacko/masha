@@ -47,6 +47,9 @@ class IMAGE_FORMAT(StrEnum):
     WEBP = "webp"
 
 
+DEFAULT_IMAGE_FORMAT = IMAGE_FORMAT.PNG
+
+
 class PipeItem(BaseModel, arbitrary_types_allowed=True):
     pipe: DiffusionPipeline
     model: Path
@@ -61,16 +64,15 @@ class Config(BaseModel):
 
 class DiffusersType(type):
     is_superuser: bool = False
-    image_format: IMAGE_FORMAT = IMAGE_FORMAT.WEBP
     configs: dict[str, Config] = {}
     classes: dict[str, "DiffusersType"] = {}
     pipe_item: Optional[PipeItem] = None
     pipe_interupt = False
     __queue: Optional[Queue] = None
     __faker: Optional[Faker] = None
-    __instances: dict[str, "DiffusersType"] = {}
+    __instances: dict[str, "Diffusers"] = {}
 
-    def __call__(cls, **kwds: Any) -> Any:
+    def __call__(cls, **kwds: Any) -> "Diffusers":
         k = cls.__name__
         if k not in cls.__instances:
             cls.__instances[k] = type.__call__(cls, **kwds)
@@ -100,7 +102,7 @@ class DiffusersType(type):
 
     def get_filestem(cls, params: PipelineParams) -> str:
         rand = snakecase(cls.faker_instance.text(max_nb_chars=30).strip("."))
-        res = f"{params.output_width}x{params.output_height}"        
+        res = f"{params.output_width}x{params.output_height}"
         return f"{rand}_{res}"
 
     @property
@@ -238,31 +240,40 @@ class DiffusersType(type):
     def upscale(cls, img: Image.Image, scale: Optional[int] = None) -> Image.Image:
         return Upscale.upscale_img(img, scale=scale)
 
-    @property
-    def image_suffix(cls) -> str:
-        return f"{cls.image_format.value}"
-
-    def from_text(cls, params: PipelineParams) -> Optional[ImageResult]:
+    def from_text(
+        cls, params: PipelineParams, image_format: IMAGE_FORMAT = None
+    ) -> Optional[ImageResult]:
         try:
             cls.pipe_interupt = False
+            cls().image_format = image_format
             return cls().generate_from_text(params)
         except KeyboardInterrupt:
             cls.pipe_interupt = True
 
     def from_img(
-        cls, img_path: Path, params: PipelineParams, **kwds
+        cls,
+        img_path: Path,
+        params: PipelineParams,
+        image_format: IMAGE_FORMAT = None,
+        **kwds,
     ) -> Optional[ImageResult]:
         try:
             cls.pipe_interupt = False
+            cls().image_format = image_format
             return cls().generate_from_image(img_path, params, **kwds)
         except KeyboardInterrupt:
             cls.pipe_interupt = True
 
     def from_face(
-        cls, faceid_embeds, params: PipelineParams, **kwds
+        cls,
+        faceid_embeds,
+        params: PipelineParams,
+        image_format: IMAGE_FORMAT = None,
+        **kwds,
     ) -> Optional[ImageResult]:
         try:
             cls.pipe_interupt = False
+            cls().image_format = image_format
             return cls().generate_from_face(faceid_embeds, params, **kwds)
         except KeyboardInterrupt:
             cls.pipe_interupt = True
@@ -283,6 +294,15 @@ class Diffusers(object, metaclass=DiffusersType):
     category = "general"
     scheduler_class = "EulerAncestralDiscreteScheduler"
     scheduler_args: dict[str, any] = {}
+    image_format: Optional[IMAGE_FORMAT] = None
+
+    @property
+    def image_suffix(self):
+        try:
+            assert self.image_format
+            return self.image_format.value
+        except AssertionError:
+            return DEFAULT_IMAGE_FORMAT.value
 
     @property
     def scheduler(self):
@@ -321,3 +341,22 @@ class Diffusers(object, metaclass=DiffusersType):
                     return EulerAncestralDiscreteScheduler
         except AssertionError:
             return None
+
+    def generate_from_text(self, params: PipelineParams):
+        raise NotImplementedError
+
+    def generate_from_image(
+        self,
+        image_path: Path,
+        params: PipelineParams,
+        **kwds,
+    ):
+        raise NotImplementedError
+
+    def generate_from_face(
+        self,
+        faceid_embeds,
+        params: PipelineParams,
+        **kwds,
+    ):
+        raise NotImplementedError

@@ -1,17 +1,8 @@
 import cv2
-from numpy import dtype
 import rich
 from masha.image.huggingface.sd_types.base import BaseStableDiffusion
 from masha.image.models import OutputParams
 import torch
-from diffusers import (
-    UNet2DConditionModel,
-    LCMScheduler,
-)
-from diffusers.pipelines import (
-    DiffusionPipeline,
-    AutoPipelineForImage2Image,
-)
 import logging
 from humanfriendly import format_size
 from torch.mps import current_allocated_memory
@@ -22,14 +13,46 @@ from masha.image.huggingface.utils import (
 from pathlib import Path
 from masha.image.config import image_config
 import logging
-from masha.image.huggingface.lora.flux_loaders import LoadersFluxMixin
 from ip_adapter.ip_adapter_faceid import IPAdapterFaceIDPlusXL
-from diffusers import FluxTransformer2DModel, FluxPipeline
-from transformers import T5EncoderModel, CLIPTextModel
-from optimum.quanto import freeze, qfloat8, quantize
+
+import mlx.core as mx
+import mlx.nn as nn
+import numpy as np
+from PIL import Image
+from tqdm import tqdm
+
+from masha.image.flux import FluxPipeline
 
 
-class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
+def to_latent_size(image_size):
+    h, w = image_size
+    h = ((h + 15) // 16) * 16
+    w = ((w + 15) // 16) * 16
+
+    if (h, w) != image_size:
+        print(
+            "Warning: The image dimensions need to be divisible by 16px. "
+            f"Changing size to {h}x{w}."
+        )
+
+    return (h // 8, w // 8)
+
+
+def quantization_predicate(name, m):
+    return hasattr(m, "to_quantized") and m.weight.shape[1] % 512 == 0
+
+
+def load_adapter(flux, adapter_file, fuse=False):
+    weights, lora_config = mx.load(adapter_file, return_metadata=True)
+    rank = int(lora_config["lora_rank"])
+    num_blocks = int(lora_config["lora_blocks"])
+    flux.linear_to_lora_layers(rank, num_blocks)
+    flux.flow.load_weights(list(weights.items()), strict=False)
+    if fuse:
+        flux.fuse_lora_layers()
+
+
+class StableDiffusionFlux(BaseStableDiffusion):
     _params = dict(negative_prompt="blurry")
 
     @property
@@ -174,7 +197,94 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
         except Exception as e:
             logging.exception(e)
             logging.warning("failed")
-        return self.pipeline
+        # return self.pipeline
+    
+    # Load the models
+        flux = FluxPipeline("flux-dev")
+        args.steps = args.steps or (50 if args.model == "dev" else 2)
+
+        if args.adapter:
+            load_adapter(flux, args.adapter, fuse=args.fuse_adapter)
+
+        if args.quantize:
+            nn.quantize(flux.flow, class_predicate=quantization_predicate)
+            nn.quantize(flux.t5, class_predicate=quantization_predicate)
+            nn.quantize(flux.clip, class_predicate=quantization_predicate)
+
+        if args.preload_models:
+            flux.ensure_models_are_loaded()
+
+        # Make the generator
+        latent_size = to_latent_size(args.image_size)
+        latents = flux.generate_latents(
+            args.prompt,
+            n_images=args.n_images,
+            num_steps=args.steps,
+            latent_size=latent_size,
+            guidance=args.guidance,
+            seed=args.seed,
+        )
+
+        # First we get and eval the conditioning
+        conditioning = next(latents)
+        mx.eval(conditioning)
+        peak_mem_conditioning = mx.metal.get_peak_memory() / 1024**3
+        mx.metal.reset_peak_memory()
+
+        # The following is not necessary but it may help in memory constrained
+        # systems by reusing the memory kept by the text encoders.
+        del flux.t5
+        del flux.clip
+
+        # Actual denoising loop
+        for x_t in tqdm(latents, total=args.steps):
+            mx.eval(x_t)
+
+        # The following is not necessary but it may help in memory constrained
+        # systems by reusing the memory kept by the flow transformer.
+        del flux.flow
+        peak_mem_generation = mx.metal.get_peak_memory() / 1024**3
+        mx.metal.reset_peak_memory()
+
+        # Decode them into images
+        decoded = []
+        for i in tqdm(range(0, args.n_images, args.decoding_batch_size)):
+            decoded.append(flux.decode(x_t[i : i + args.decoding_batch_size], latent_size))
+            mx.eval(decoded[-1])
+        peak_mem_decoding = mx.metal.get_peak_memory() / 1024**3
+        peak_mem_overall = max(
+            peak_mem_conditioning, peak_mem_generation, peak_mem_decoding
+        )
+
+        if args.save_raw:
+            *name, suffix = args.output.split(".")
+            name = ".".join(name)
+            x = mx.concatenate(decoded, axis=0)
+            x = (x * 255).astype(mx.uint8)
+            for i in range(len(x)):
+                im = Image.fromarray(np.array(x[i]))
+                im.save(".".join([name, str(i), suffix]))
+        else:
+            # Arrange them on a grid
+            x = mx.concatenate(decoded, axis=0)
+            x = mx.pad(x, [(0, 0), (4, 4), (4, 4), (0, 0)])
+            B, H, W, C = x.shape
+            x = x.reshape(args.n_rows, B // args.n_rows, H, W, C).transpose(0, 2, 1, 3, 4)
+            x = x.reshape(args.n_rows * H, B // args.n_rows * W, C)
+            x = (x * 255).astype(mx.uint8)
+
+            # Save them to disc
+            im = Image.fromarray(np.array(x))
+            im.save(args.output)
+
+        # Report the peak memory used during generation
+        if args.verbose:
+            print(f"Peak memory used for the text:       {peak_mem_conditioning:.3f}GB")
+            print(f"Peak memory used for the generation: {peak_mem_generation:.3f}GB")
+            print(f"Peak memory used for the decoding:   {peak_mem_decoding:.3f}GB")
+            print(f"Peak memory used overall:            {peak_mem_overall:.3f}GB")
+
+    
 
     def get_img2img_pipeline(self, pipe_args):
         model_path = self.__class__.img2imgModelPath

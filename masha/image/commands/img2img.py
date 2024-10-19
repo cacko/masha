@@ -57,13 +57,12 @@ def img2img(
     ] = None,
 ):
     StableDiffusion.is_superuser = True
-    StableDiffusion.image_format = IMAGE_FORMAT.PNG
     outdir = Path(output_directory)
     results = []
     try:
         assert any([not no_auto_caption, generate_caption, not prompt])
         prompt += f",{ImageCaption.caption(img_path)}"
-    except AssertionError:
+    except AssertionError as e:
         pass
     inputParams = dict(
         prompt=prompt,
@@ -112,7 +111,6 @@ async def api_img2img(
     data: Annotated[str, Form()],
 ):
     try:
-        StableDiffusion.image_format = IMAGE_FORMAT.PNG
         tmp_path = await uploaded_file(file)
         form_data = json.loads(data)
         assert form_data
@@ -138,9 +136,10 @@ async def api_img2img(
             all_templates=False,
             template_category=None,
         ):
-            image_result = cls.from_img(tmp_path.resolve(), params=params)
+            image_result = cls.from_img(tmp_path, params=params)
             cls.release()
             assert image_result
+            logging.info(image_result.text)
             return make_multipart_response(
                 image_path=image_result.image[0], message=image_result.text
             )
