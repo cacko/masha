@@ -157,6 +157,10 @@ class DiffusersType(type):
     @property
     def loraxlPath(cls) -> Path:
         return cls.dataRoot / image_config.lora.root_xl
+    
+    @property
+    def lorafluxPath(cls) -> Path:
+        return cls.dataRoot / image_config.lora.root_flux
 
     @property
     def textualInversionRoot(cls) -> Path:

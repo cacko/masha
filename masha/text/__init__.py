@@ -5,9 +5,6 @@ from masha.text.detector import TextDetector
 from masha.text.generator import TextGenerator
 from masha.text.skills import SkillExtractor
 import pycountry
-from textacy.datasets import CapitolWords
-from textacy.resources import DepecheMood
-from textacy.lang_id import LangIdentifier
 from masha.text.gemini import Gemini
 from masha.core.request import make_response
 from PIL import Image
@@ -95,14 +92,6 @@ def gemini(text: Annotated[list[str], typer.Argument()]):
 def skills(text: Annotated[list[str], typer.Argument()]):
     res = SkillExtractor.getSkills(" ".join(text))
     rich.print(res)
-
-
-@cli.command("init-textacy")
-def init_textacy():
-    CapitolWords().download()
-    DepecheMood().download()
-    LangIdentifier(version=2.0).download()
-
 
 @cli.command("cover_letter")
 def cli_cover(

@@ -522,6 +522,22 @@ class OutputParams(BaseModel, arbitrary_types_allowed=True):
                 "strength",
             ],
         )
+        
+    def to_pipe_flux(self) -> dict:
+        return self.__to_pipe(
+            [
+                "seed",
+                "model",
+                "aspect",
+                "prompt_embeds",
+                "negative_prompt_embeds",
+                "negative_pooled_prompt_embeds",
+                "pooled_prompt_embeds",
+                "scale",
+                "strength",
+                "pag_scale"
+            ],
+        )
 
     def to_face_pipe(self) -> dict:
         return self.__to_pipe(

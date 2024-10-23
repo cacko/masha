@@ -21,6 +21,7 @@ lora:
   root: LORA
   root_xl: LORAXL
   root_3: LORA3
+  root_flux: FLUX
 textual_inversion:
   root: TI
   root_2: TI2

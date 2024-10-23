@@ -533,3 +533,23 @@ sd3_medium_incl_clips_t5xxlfp16.safetensors:
     guidance_scale: 4.5
     num_inference_steps: 40
     negative_prompt: 
+dev:
+  option: f1d
+  sd_type: flux
+  category: general,art,wall,xl3
+  custom_params:
+    width: 512
+    height: 512
+    guidance_scale: 4
+    num_inference_steps: 20
+    negative_prompt: 
+schnell:
+  option: f1s
+  sd_type: flux
+  category: general,art,wall,xl3
+  custom_params:
+    width: 512
+    height: 512
+    guidance_scale: 4
+    num_inference_steps: 2
+    negative_prompt: 
