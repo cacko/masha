@@ -2,7 +2,7 @@ import logging
 from typing import Optional
 
 from masha.image.caption import ImageCaption
-from masha.image.classify import Gender as GenderClassifier
+from masha.image.classify import Gender as GenderClassifier, Ethnic as EthnicClassifier
 from masha.image.deepface import AgeClient
 from masha.image.deepface import RaceClient
 from masha.image.models import Sex
@@ -16,6 +16,7 @@ from coreimage.transform.crop import Cropper
 from coreimage.transform.upscale import Upscale
 import torch
 import pickle
+
 
 class FaceId:
 
@@ -40,7 +41,7 @@ class FaceId:
         return cls(image_path=".", out_path=name_path)
 
     @classmethod
-    def create(cls, input: Path, output: Path = None, overwrite = True):
+    def create(cls, input: Path, output: Path = None, overwrite=True):
         try:
             obj = cls(image_path=input, out_path=output)
             assert obj.__create(overwrite=overwrite)
@@ -52,24 +53,22 @@ class FaceId:
         crop_path = self.path_crop
         crop = Cropper(self.__image_path, width=640, height=640, blur=False)
         return crop.crop(out=crop_path)
-    
+
     def __upscaled_cropped(self, dst: Path) -> Path:
-        return Upscale.upscale(
-            src_path=self.path_crop,
-            dst_path=dst,
-            scale=2   
-        )
-    
+        return Upscale.upscale(src_path=self.path_crop, dst_path=dst, scale=2)
+
     @property
     def isGenerated(self) -> bool:
-        return all([
-            self.face_path.exists(),
-            self.path_age.exists(),
-            self.path_race.exists(),
-            self.path_sex.exists(),
-            self.path_crop.exists(),
-            self.path_caption.exists()
-        ])
+        return all(
+            [
+                self.face_path.exists(),
+                self.path_age.exists(),
+                self.path_race.exists(),
+                self.path_sex.exists(),
+                self.path_crop.exists(),
+                self.path_caption.exists(),
+            ]
+        )
 
     def __create(self, overwrite: bool = False):
         try:
@@ -85,7 +84,7 @@ class FaceId:
             app = FaceAnalysis(
                 name="buffalo_l",
                 providers=["CUDAExecutionProvider", "CPUExecutionProvider"],
-                dtype=torch.float16
+                dtype=torch.float16,
             )
             app.prepare(ctx_id=0, det_thresh=0.1)
             image = cv2.imread(crop_path.as_posix())
@@ -96,7 +95,7 @@ class FaceId:
                 pickle.dump(faceid_embeds, fp)
             self.sex = self.__get_gender(self.path_upscaled_crop, face.sex)
             logging.info(f">> SEX = {self.sex}")
-            self.age = self.__get_age(self.path_upscaled_crop ,face.age)
+            self.age = self.__get_age(self.path_upscaled_crop, face.age)
             logging.info(f">> AGE = {self.age}")
             self.race = self.__get_face_ethicity(crop_path)
             logging.info(f">> RACE = {self.race.value}")
@@ -111,7 +110,7 @@ class FaceId:
 
     @property
     def path_upscaled_crop(self) -> Path:
-        res =  self.__suffix_face_path("upscaled.png")
+        res = self.__suffix_face_path("upscaled.png")
         if not res.exists():
             self.__upscaled_cropped(res)
         return res
@@ -123,19 +122,19 @@ class FaceId:
     @property
     def path_sex(self) -> Path:
         return self.__suffix_face_path("sex")
-    
+
     @property
     def path_age(self) -> Path:
         return self.__suffix_face_path("age")
-    
+
     @property
     def path_race(self) -> Path:
         return self.__suffix_face_path("race")
-    
+
     @property
     def path_caption(self) -> Path:
         return self.__suffix_face_path("caption")
-    
+
     @property
     def embeds(self):
         return pickle.loads(self.face_path.read_bytes())
@@ -170,7 +169,7 @@ class FaceId:
     @race.setter
     def race(self, value: Ethnicity):
         self.path_race.write_text(f"{value}")
-        
+
     @property
     def caption(self) -> str:
         caption = self.path_caption.read_text().strip()
@@ -182,10 +181,12 @@ class FaceId:
 
     def __get_face_ethicity(self, cropped: Path) -> Ethnicity:
         try:
-            return RaceClient.classify(image_path=cropped)
+            results =  EthnicClassifier.classify(image=cropped)
+            assert results
+            return Ethnicity(results[0].label.lower())
         except AssertionError:
             return Ethnicity.WHITE
-        
+
     def __get_gender(self, cropped: Path, default: str) -> str:
         try:
             results = GenderClassifier.classify(image=cropped)
@@ -193,19 +194,17 @@ class FaceId:
         except Exception as e:
             logging.exception(e)
             return Sex(default)
-        
+
     def __get_age(self, cropped: Path, default: int) -> str:
         try:
             return AgeClient.classify(image_path=cropped)
         except Exception as e:
             logging.exception(e)
             return default
-        
+
     def __get_caption(self, img_path: Path) -> str:
         try:
-            return ImageCaption.caption(
-                image=img_path
-            )
+            return ImageCaption.caption(image=img_path)
         except Exception as e:
             logging.exception(e)
             return ""

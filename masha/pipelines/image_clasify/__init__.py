@@ -5,7 +5,7 @@ from corestring import round2
 import torch
 from diffusers.utils import load_image
 from masha.image.upscale import Upscale
-from masha.pipelines import BasePipeline
+from masha.pipelines import BasePipeline, TORCH_DEVICE
 from masha.pipelines.image_clasify.models import ClassifyResult
 from masha.core import perftime
 from transformers import AutoImageProcessor, AutoModelForImageClassification, pipeline
@@ -50,7 +50,11 @@ class ImageClassify(BasePipeline):
     def pipeline(self):
         if not self._pipeline:
             self._pipeline = pipeline(
-                "image-classification", image_processor=self.tokenizer, model=self.model
+                "image-classification",
+                image_processor=self.tokenizer,
+                model=self.model,
+                device=TORCH_DEVICE,
+                use_fast=True
             )
         return self._pipeline
 

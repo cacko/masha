@@ -68,11 +68,11 @@ def classify(img_path: Annotated[Path, typer.Argument()]):
     crop_path = cropper.crop(out=tmp_path)
     print(RaceClient.classify(image_path=crop_path))
     print(AgeClient.classify(crop_path))
-    # res = ClassifyResponse(
-    #     objects=Classifier.classify(img_path, threshold=0),
-    #     age=Age.classify(img_path),
-    #     gender=Gender.classify(img_path),
-    #     attraction=Attraction.classify(img_path),
-    #     ethnicity=Ethnic.classify(img_path)
-    # )
-    # print(res.response())
+    res = ClassifyResponse(
+        objects=Classifier.classify(img_path, threshold=0),
+        age=Age.classify(img_path),
+        gender=Gender.classify(img_path),
+        attraction=Attraction.classify(img_path),
+        ethnicity=Ethnic.classify(img_path)
+    )
+    print(res.response())
