@@ -1199,3 +1199,58 @@ drybrush:
     scale: 0.4
     width: 640
     height: 1024
+pastel:
+  category: style,fllux
+  models:
+    - f1d
+  prompt: // DonM5KetchyP45731Fx <lora:donm5k3tchyp45731fx:1>
+  custom_params:
+    guidance_scale: 4.5
+    num_inference_steps: 20
+    width: 640
+    height: 1024
+    upscale: 2
+childbook:
+  category: style,flux
+  models:
+    - f1d
+  prompt: A vibrant and whimsical oil painting style digital artwork of a DonMF10r41P45t31 // <lora:DonMF10r41P45t31FX:1>
+  custom_params:
+    guidance_scale: 4.5
+    num_inference_steps: 20
+    width: 640
+    height: 1024
+    upscale: 2
+smooth:
+  category: style,flux
+  models:
+    - f1d
+  prompt: // DonM50f7Dr4wFX <lora:donm-soft-monochrom-drawings-000012:1>
+  custom_params:
+    guidance_scale: 4.5
+    num_inference_steps: 20
+    width: 640
+    height: 1024
+    upscale: 2
+clash-royale:
+  category: style, flux
+  models:
+    - f1d
+  prompt: ClashR style, // <lora:ClashR_flux_lora:1>
+  custom_params:
+    guidance_scale: 4.5
+    num_inference_steps: 20
+    width: 640
+    height: 1024
+    upscale: 2
+paper-quilling:
+  category: style, flux
+  models:
+    - f1d
+  prompt: In a paper quilling, layered paper style, // <lora:Paper_Quilling_And_Layered_Paper_Style-000021:1>
+  custom_params:
+    guidance_scale: 4
+    num_inference_steps: 20
+    width: 640
+    height: 1024
+    upscale: 2
