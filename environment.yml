@@ -42,7 +42,6 @@ dependencies:
   - cryptography=42.0.8
   - cssselect2=0.2.1
   - cycler=0.12.1
-  - cython=3.0.10
   - dav1d=1.2.1
   - decorator=5.1.1
   - distro=1.9.0
@@ -87,7 +86,6 @@ dependencies:
   - jsonpointer=3.0.0
   - jsonschema=4.23.0
   - jsonschema-specifications=2023.12.1
-  - kiwisolver=1.4.5
   - krb5=1.21.3
   - lame=3.100
   - lcms2=2.16
@@ -205,7 +203,6 @@ dependencies:
   - pyproject_hooks=1.1.0
   - pysocks=1.7.1
   - python=3.12.4
-  - python-dateutil=2.9.0
   - python-libarchive-c=5.1
   - python_abi=3.12
   - pytz=2024.1
@@ -239,7 +236,6 @@ dependencies:
   - truststore=0.8.0
   - typing-extensions=4.12.2
   - typing_extensions=4.12.2
-  - tzdata=2024a
   - unicodedata2=15.1.0
   - webencodings=0.5.1
   - x264=1!164.3095
@@ -257,7 +253,7 @@ dependencies:
       - absl-py==2.1.0
       - accelerate==0.34.0
       - addict==2.4.0
-      - albucore==0.0.13
+      - albucore==0.0.18
       - albumentations==1.4.14
       - annotated-types==0.6.0
       - antlr4-python3-runtime==4.9.3
@@ -268,7 +264,8 @@ dependencies:
       - bardapi==0.1.38
       - basicsr==1.4.2
       - better-exceptions==0.3.3
-      - blis==0.7.11
+      - bitsandbytes==0.42.0
+      - blis==1.0.1
       - boto3==1.34.145
       - botocore==1.34.145
       - browser-cookie3==0.19.1
@@ -283,19 +280,20 @@ dependencies:
       - cloudpathlib==0.16.0
       - coloredlogs==15.0.1
       - compel==2.0.2
-      - confection==0.1.4
-      - contourpy==1.2.0
+      - confection==0.1.5
+      - contourpy==1.3.0
       - coreface==0.1.14
       - corefile==0.1.11
       - coreimage==0.0.138
       - corelog==0.0.20
-      - corestring==0.3.15
+      - corestring==0.3.16
       - coverage==7.6.1
       - cymem==2.0.8
+      - cython==3.0.11
       - cytoolz==0.12.2
       - dataclasses-json==0.6.3
       - deep-translator==1.11.4
-      - diffusers==0.30.3
+      - diffusers==0.31.0
       - dnspython==2.6.1
       - easydict==1.13
       - einops==0.8.0
@@ -331,7 +329,7 @@ dependencies:
       - google-crc32c==1.5.0
       - google-resumable-media==2.7.1
       - googleapis-common-protos==1.65.0
-      - grpcio==1.65.1
+      - grpcio==1.66.1
       - grpcio-status==1.60.0
       - h11==0.14.0
       - h5py==3.11.0
@@ -340,10 +338,10 @@ dependencies:
       - httplib2==0.22.0
       - httptools==0.6.1
       - httpx==0.25.2
-      - huggingface-hub==0.24.0
+      - huggingface-hub==0.26.1
       - idna==3.10
       - ifaddr==0.2.0
-      - imageio==2.33.0
+      - imageio==2.36.0
       - importlib-metadata==8.0.0
       - insightface==0.7.3
       - ip-adapter==0.1.0
@@ -352,6 +350,8 @@ dependencies:
       - jellyfish==1.0.3
       - jmespath==1.0.1
       - keras==3.5.0
+      - keras-nightly==3.6.0.dev2024101603
+      - kiwisolver==1.4.7
       - lambo==10.0.8
       - langcodes==3.4.1
       - langdetect==1.0.9
@@ -365,10 +365,11 @@ dependencies:
       - marisa-trie==1.2.0
       - markdown==3.6
       - markdown-it-py==3.0.0
-      - markupsafe==3.0.1
+      - markupsafe==3.0.2
       - marshmallow==3.20.1
       - matplotlib==3.9.2
       - mdurl==0.1.2
+      - mflux==0.3.0
       - mgrs==1.4.5
       - ml-dtypes==0.4.0
       - mlx==0.18.1
@@ -378,13 +379,13 @@ dependencies:
       - networkx==3.2.1
       - ninja==1.11.1.1
       - nltk==3.8.1
-      - numpy==1.26.4
+      - numpy==2.1.2
       - olefile==0.47
       - omegaconf==2.3.0
-      - onnx==1.16.1
+      - onnx==1.17.0
       - onnxruntime==1.19.0
       - onnxruntime--silicon==1.16.3
-      - opencv-python==4.8.1.78
+      - opencv-python==4.10.0.84
       - opencv-python-headless==4.10.0.84
       - opengraph-parse==0.0.6
       - opt-einsum==3.3.0
@@ -392,7 +393,9 @@ dependencies:
       - optree==0.12.1
       - orjson==3.9.10
       - paletko==0.1.19
+      - peewee==3.17.7
       - peft==0.11.1
+      - piexif==1.1.3
       - pillow==10.4.0
       - pixelme==0.4.13
       - polygonize==0.1.5
@@ -413,6 +416,7 @@ dependencies:
       - pygments==2.18.0
       - pyparsing==3.1.1
       - pyphen==0.14.0
+      - python-dateutil==2.9.0.post0
       - python-dotenv==1.0.0
       - python-gemini-api==2.4.12
       - python-hue-v2==2.0.1
@@ -422,24 +426,23 @@ dependencies:
       - random-user-agent==1.0.1
       - rapidfuzz==3.5.2
       - redis==5.0.1
-      - regex==2023.10.3
+      - regex==2024.5.15
       - reportlab==4.0.7
       - requests-toolbelt==1.0.0
-      - rich==13.9.2
+      - rich==13.8.0
       - s3transfer==0.10.2
-      - safetensors==0.4.3
+      - safetensors==0.4.1
       - scikit-image==0.22.0
-      - scikit-learn==1.5.1
+      - scikit-learn==1.5.2
       - scipy==1.14.1
       - secretcolors==1.2.6
       - segno==1.6.0
       - semver==3.0.2
       - sentencepiece==0.2.0
-      - setuptools==71.0.4
+      - setuptools==75.2.0
       - shellingham==1.5.4
       - smart-open==7.0.4
       - sniffio==1.3.0
-      - spacy==3.7.5
       - spacy-legacy==3.0.12
       - spacy-loggers==1.0.5
       - spandrel==0.3.4
@@ -447,36 +450,41 @@ dependencies:
       - starlette==0.37.2
       - stenogen==0.1.20
       - stringcase==1.2.0
+      - stringzilla==3.10.4
       - structlog==24.4.0
       - svglib==1.5.1
       - sympy==1.13.1
-      - tb-nightly==2.18.0a20240903
-      - tensorboard==2.17.1
+      - tb-nightly==2.19.0a20241023
+      - tensorboard==2.18.0
       - tensorboard-data-server==0.7.2
-      - tensorflow==2.17.0
+      - tensorflow==2.18.0rc2
       - term-image==0.18.0.1
       - termcolor==2.4.0
-      - textacy==0.13.0
+      - text-unidecode==1.3
       - tf-keras-nightly==2.16.0.dev2023120710
-      - thinc==8.3.2
+      - thinc==9.1.1
       - tifffile==2023.9.26
       - tokenizers==0.20.1
       - toolz==1.0.0
-      - torch==2.6.0.dev20241012
-      - torchaudio==2.5.0.dev20241012
-      - torchvision==0.20.0.dev20241012
+      - torch==2.5.0
+      - torchaudio==2.5.0
+      - torchsde==0.2.6
+      - torchvision==0.20.0
       - tqdm==4.66.5
+      - trampoline==0.1.2
       - transformers==4.45.2
       - typer==0.9.4
       - typing-inspect==0.9.0
+      - tzdata==2024.2
+      - unidecode==1.3.8
       - uritemplate==4.1.1
-      - urllib3==2.0.7
+      - urllib3==2.2.3
       - uvicorn==0.30.6
       - uvloop==0.20.0
       - waitress==3.0.0b0
       - wasabi==1.1.2
       - watchfiles==0.22.0
-      - wcwidth==0.2.12
+      - wcwidth==0.2.13
       - weasel==0.3.4
       - websockets==12.0
       - werkzeug==3.0.4

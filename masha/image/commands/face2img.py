@@ -111,7 +111,6 @@ def face2img(
     output_directory: Annotated[
         Path, typer.Option("-o", "--output-directory")
     ] = GENERATED_PATH,
-    pag_scale: Annotated[float, typer.Option("-ps", "--pag_scale")] = None,
 ):
     StableDiffusion.is_superuser = True
     results = []
@@ -137,7 +136,6 @@ def face2img(
             person=(not no_person),
             no_age=no_age,
             no_race=no_race,
-            pag_scale=pag_scale,
         )
         for cls, params in txt2img_iterations(
             inputParams=inputParams,

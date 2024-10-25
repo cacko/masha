@@ -1,5 +1,6 @@
 from pathlib import Path
 import logging
+from typing import Optional
 from coreimage.terminal import print_term_image
 from coreimage.transform.upscale import Upscale
 from corefile import filepath
@@ -7,19 +8,26 @@ import filetype
 import requests
 from pydantic import BaseModel
 
+from masha.image.models import Category
+
 
 class JSONData(BaseModel):
     category: str
     botyo_id: str
 
 
-def cmd_upload(path: list[str], category: str, upscale: bool):
+def cmd_upload(path: list[str], upscale: bool, category: Optional[str] = None):
     def get_paths(pths: list[str]):
         for pth in pths:
             yield from filepath(Path(pth).absolute(), suffixes=[".jpg", ".png"])
 
     for pth in get_paths(path):
         p = Path(pth)
+        try:
+            assert category
+        except AssertionError:
+            category = Category.guess(p.stem)
+        assert category    
         print_term_image(image_path=p, height=20)
         logging.info(f"Uploading as {category}")
         if upscale:

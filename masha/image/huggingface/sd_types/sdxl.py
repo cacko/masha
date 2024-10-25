@@ -4,14 +4,10 @@ from masha.image.huggingface.sd_types.base import BaseStableDiffusion
 from masha.image.models import OutputParams
 import torch
 from diffusers import (
-    UNet2DConditionModel,
-    LCMScheduler,
     AutoPipelineForText2Image,
     StableDiffusionXLImg2ImgPipeline,
 )
 from diffusers.pipelines import (
-    DiffusionPipeline,
-    AutoPipelineForImage2Image,
     StableDiffusionXLPipeline,
 )
 import logging
@@ -88,7 +84,6 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
             clip_skip=params.clip_skip,
             strength=params.strength,
             scale=params.scale,
-            pag_scale=params.pag_scale,
         )
 
     def get_img2img_result(self, seed, image_path: Path):
@@ -223,11 +218,7 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
         )
         logging.info(f"SCHEDULER {sd_base.scheduler.__class__.__name__}")
         logging.info(sd_base.scheduler.config)
-        self.pipeline = AutoPipelineForText2Image.from_pipe(
-            sd_base.to(self.__class__.device),
-            enable_pag=True,
-            pag_applied_layers=["mid"],
-        )
+        self.pipeline = sd_base.to(self.__class__.device)
         sd_base = None
         try:
             self.pipeline = self.loadLoraWeights()

@@ -33,7 +33,7 @@ from .huggingface.scripts import (
 )
 from .cli import cli
 from .router import router
-
+from typing import Optional
 
 from fastapi import Request, HTTPException, File, UploadFile, Form
 import typer
@@ -59,8 +59,9 @@ OPTIONS = dict(
     template=Diffusers.templates,
     qrcode_templates=QRCode.templates,
     qrcode_models=QRCode.models,
-    styles=image_config.style_options
+    styles=image_config.style_options,
 )
+
 
 @cli.command()
 def variation(
@@ -222,10 +223,10 @@ async def api_upload2wallies(
 @cli.command()
 def upload(
     path: Annotated[list[str], typer.Argument()],
-    category: Annotated[Category, typer.Option("-c", "--category")],
+    category: Annotated[Optional[Category], typer.Option("-c", "--category")] = None,
     upscale: Annotated[bool, typer.Option("-u", "--upscale")] = False,
 ):
-    cmd_upload(path, category, upscale)
+    cmd_upload(path=path, category=category, upscale=upscale)
 
 
 @router.get("/options")
@@ -295,7 +296,7 @@ def image2text(
 
     src_paths = [path]
     logging.info(src_paths)
-    
+
     for src in find_images(src_paths):
         src_path = Path(src)
         print_term_image(image_path=src_path)
@@ -305,12 +306,8 @@ def image2text(
         logging.info(res)
 
 
-
-
 @router.post("/img2text")
-async def api_img2text(
-    file: Annotated[UploadFile, File()]
-):
+async def api_img2text(file: Annotated[UploadFile, File()]):
     try:
         tmp_path = await uploaded_file(file)
         res = InvoiceReader().getAnswer(tmp_path)

@@ -79,7 +79,6 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
             clip_skip=params.clip_skip,
             strength=params.strength,
             scale=params.scale,
-            pag_scale=params.pag_scale,
         )
 
 
@@ -206,8 +205,8 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
         try:
             paths, scales = self.loadLoraWeights()
             params.update(dict(lora_paths=paths, lora_scales=scales))
-        except AssertionError as e:
-            logging.exception(e)
+        except AssertionError:
+            pass
         except Exception as e:
             logging.error(e)
 

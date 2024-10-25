@@ -56,7 +56,6 @@ def txt2img(
         TemplateConfig.categories_enum, # type: ignore
         typer.Option("-tc", "--template-category"),
     ] = None,
-    pag_scale: Annotated[float, typer.Option("-ps", "--pag_scale")] = None
 ):
     StableDiffusion.is_superuser = True
     outdir = output_directory
@@ -75,7 +74,6 @@ def txt2img(
         clip_skip=clip_skip,
         is_super_user=True,
         strength=strength,
-        pag_scale=pag_scale
     )
     for cls, params in txt2img_iterations(
         inputParams=inputParams,

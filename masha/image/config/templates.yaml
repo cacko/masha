@@ -1200,15 +1200,15 @@ drybrush:
     width: 640
     height: 1024
 pastel:
-  category: style,fllux
+  category: style,flux
   models:
     - f1d
   prompt: // DonM5KetchyP45731Fx <lora:donm5k3tchyp45731fx:1>
   custom_params:
     guidance_scale: 4.5
     num_inference_steps: 20
-    width: 640
-    height: 1024
+    width: 512
+    height: 768
     upscale: 2
 childbook:
   category: style,flux
@@ -1218,8 +1218,8 @@ childbook:
   custom_params:
     guidance_scale: 4.5
     num_inference_steps: 20
-    width: 640
-    height: 1024
+    width: 512
+    height: 768
     upscale: 2
 smooth:
   category: style,flux
@@ -1229,8 +1229,8 @@ smooth:
   custom_params:
     guidance_scale: 4.5
     num_inference_steps: 20
-    width: 640
-    height: 1024
+    width: 512
+    height: 768
     upscale: 2
 clash-royale:
   category: style, flux
@@ -1240,8 +1240,8 @@ clash-royale:
   custom_params:
     guidance_scale: 4.5
     num_inference_steps: 20
-    width: 640
-    height: 1024
+    width: 512
+    height: 768
     upscale: 2
 paper-quilling:
   category: style, flux
@@ -1251,6 +1251,6 @@ paper-quilling:
   custom_params:
     guidance_scale: 4
     num_inference_steps: 20
-    width: 640
-    height: 1024
+    width: 512
+    height: 768
     upscale: 2

@@ -1,5 +1,5 @@
 import shutil
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field
 from typing import Any, Optional
 from enum import StrEnum
 from pathlib import Path
@@ -15,6 +15,7 @@ from functools import reduce
 from masha.name.classifiers import Ethnicity
 import shlex
 from masha.image.huggingface.lora import clean_lora
+from fuzzelinho import extract
 
 
 class IncompatibleTemplate(Exception):
@@ -311,7 +312,6 @@ class PipelineParams(BaseModel):
     num_images_per_prompt: int = Field(default=1)
     strength: float = Field(default=0.5)
     image_guidance_scale: float = Field(default=1)
-    pag_scale: float = Field(default=3)
     seed: Optional[int] = None
     upscale: Optional[int] = None
     auto_prompt: Optional[str] = None
@@ -446,7 +446,6 @@ class OutputParams(BaseModel, arbitrary_types_allowed=True):
     scale: Optional[float] = None
     template: Optional[str] = None
     style: Optional[str] = None
-    pag_scale: Optional[float] = None
 
     def __init__(self, **data):
         args = {
@@ -535,7 +534,6 @@ class OutputParams(BaseModel, arbitrary_types_allowed=True):
                 "pooled_prompt_embeds",
                 "scale",
                 "strength",
-                "pag_scale"
             ],
         )
 
@@ -608,7 +606,6 @@ class ImageResult(BaseModel):
                 "-st": self.params.strength,
                 "-cs": self.params.clip_skip,
                 "-sc": self.params.scale,
-                "-ps": self.params.pag_scale,
                 "-h": self.params.height,
                 "-w": self.params.width,
             }
@@ -730,6 +727,11 @@ class Category(StrEnum):
     @classmethod
     def values(cls):
         return [member.value for member in cls.__members__.values()]
+    
+    @classmethod
+    def guess(cls, name: str):
+        return extract(name, cls.values())
+    
 
 
 class UploadRequest(BaseModel):
