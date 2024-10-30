@@ -35,7 +35,7 @@ def img2img(
     num_inference_steps: Annotated[
         int, typer.Option("-i", "--num_inference_steps")
     ] = None,
-    upscale: Annotated[int, typer.Option("-u", "--upscale")] = 4,
+    upscale: Annotated[int, typer.Option("-u", "--upscale")] = 2,
     negative_prompt: Annotated[str, typer.Option("-n", "--negative_prompt")] = None,
     category: Annotated[
         Diffusers.categories_enum, typer.Option("-ct", "--categories")

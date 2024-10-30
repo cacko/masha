@@ -1,5 +1,6 @@
 import cv2
 import rich
+from masha.core.image import get_width_height
 from masha.image.huggingface.lora.flux_loaders import LoadersFluxMixin
 from masha.image.huggingface.sd_types.base import BaseStableDiffusion
 from masha.image.models import OutputParams
@@ -81,8 +82,6 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
             scale=params.scale,
         )
 
-
-
     def get_face2img_result(self, seed, faceid_embeds, **kwds):
         self.pipeline = self.face2img_pipe
         output_params = self.__get_output_params(seed, no_compel=True)
@@ -138,21 +137,23 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
         #     logging.exception(e)
         #     logging.warning("failed")
         return self.pipeline
-    
-    
+
     def get_img2img_result(self, seed, image_path: Path):
         self.pipeline = self.img2img_pipe
         output_params = self.__get_output_params(seed, no_compel=True)
+        width, height = get_width_height(
+            image_path, max(output_params.height, output_params.width)
+        )
         image = self.pipeline.generate_image(
             seed=output_params.seed,
             prompt=output_params.prompt,
             config=Config(
                 num_inference_steps=output_params.num_inference_steps,
-                height=output_params.height,
-                width=output_params.width,
+                height=height,
+                width=width,
                 guidance=output_params.guidance_scale,
                 init_image_path=image_path,
-                init_image_strength=output_params.strength
+                init_image_strength=output_params.strength,
             ),
         )
         self.pipeline = None
@@ -168,7 +169,7 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
             paths, scales = self.loadLoraWeights()
             params.update(dict(lora_paths=paths, lora_scales=scales))
         except AssertionError as e:
-            logging.exception(e)
+            pass
         except Exception as e:
             logging.error(e)
 

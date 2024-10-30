@@ -1007,7 +1007,6 @@ van-gogh:
     num_inference_steps: 8
     clip_skip: 2
     upscale: 2
-
     negative_prompt: txt, logo, duplicates, dupes, deforumed
 cubism:
   category: face
@@ -1210,6 +1209,7 @@ pastel:
     width: 512
     height: 768
     upscale: 2
+    strength: 0.3
 childbook:
   category: style,flux
   models:
@@ -1221,6 +1221,7 @@ childbook:
     width: 512
     height: 768
     upscale: 2
+    strength: 0.3
 smooth:
   category: style,flux
   models:
@@ -1232,6 +1233,7 @@ smooth:
     width: 512
     height: 768
     upscale: 2
+    strength: 0.3
 clash-royale:
   category: style, flux
   models:
@@ -1243,6 +1245,7 @@ clash-royale:
     width: 512
     height: 768
     upscale: 2
+    strength: 0.3
 paper-quilling:
   category: style, flux
   models:
@@ -1254,3 +1257,4 @@ paper-quilling:
     width: 512
     height: 768
     upscale: 2
+    strength: 0.3

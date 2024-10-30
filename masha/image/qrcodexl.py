@@ -30,6 +30,8 @@ from coreimage.terminal import print_term_image
 from masha.image.config import image_config
 import shlex
 from rich import print
+from masha.pipelines import TORCH_DEVICE
+
 from masha.image.classify import Classifier
 
 from masha.image.huggingface.lora.sdxl_loaders import LoadersSDXLMixin
@@ -153,7 +155,7 @@ class QRCodeMeta(type):
 
     @property
     def device(cls):
-        return environ.get("DEVICE", "mps")
+        return TORCH_DEVICE
 
     def release(cls):
         cls().do_release()

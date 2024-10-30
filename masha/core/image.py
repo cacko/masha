@@ -130,3 +130,9 @@ def download_image(url: str) -> TempPath:
     with tmp_file.open("wb") as out_file:
         shutil.copyfileobj(response.raw, out_file)
     return tmp_file
+
+def get_width_height(img: Path, max: int = 1024) -> tuple[int,int]:
+    image = Image.open(img)
+    image.thumbnail((max, max))
+    return image.size
+    

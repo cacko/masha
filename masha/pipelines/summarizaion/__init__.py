@@ -7,7 +7,7 @@ from masha.pipelines import BasePipeline
 from hashlib import blake2b
 import warnings
 from typing import Optional, Any
-
+from masha.pipelines import TORCH_DEVICE
 
 warnings.filterwarnings("ignore")
 
@@ -77,7 +77,7 @@ class Summarization(BasePipeline):
                 task="summarization",
                 model=self.model,
                 tokenizer=self.tokenizer,
-                device=self.__class__.device,
+                device=TORCH_DEVICE,
             )
         return self._pipeline
 

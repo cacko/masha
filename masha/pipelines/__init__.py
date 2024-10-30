@@ -48,4 +48,4 @@ class BasePipeline:
 
     @property
     def device(cls):
-        return environ.get("DEVICE", "mps")
+        return TORCH_DEVICE

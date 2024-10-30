@@ -36,6 +36,7 @@ from masha.image.huggingface.lora.sd_loaders import (
     loadTextualInversion,
     loadLoraWeights,
 )
+from masha.pipelines import TORCH_DEVICE
 
 
 def common_upscale(samples, width, height, upscale_method, crop=False):
@@ -181,7 +182,7 @@ class QRCodeMeta(type):
 
     @property
     def device(cls):
-        return environ.get("DEVICE", "mps")
+        return TORCH_DEVICE
 
     def release(cls):
         cls().do_release()

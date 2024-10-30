@@ -34,6 +34,7 @@ from faker.factory import logger
 from stringcase import snakecase
 import logging
 from itertools import chain
+from masha.pipelines import TORCH_DEVICE
 
 diffusers.logging.set_verbosity_error()
 logger.setLevel(logging.INFO)
@@ -175,7 +176,7 @@ class DiffusersType(type):
 
     @property
     def device(cls):
-        return environ.get("DEVICE", "mps")
+        return TORCH_DEVICE
 
     def pipelineParams(cls, **params) -> PipelineParams:
         return cls().get_pipelineParams(params)

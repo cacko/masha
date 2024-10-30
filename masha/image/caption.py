@@ -7,6 +7,7 @@ from PIL.ImageOps import exif_transpose
 from os import environ
 from transformers import AutoProcessor, BlipForConditionalGeneration
 from masha.image.config import image_config, Img2CaptionConfig
+from masha.pipelines import TORCH_DEVICE
 
 
 class ImageCaptionMeta(type):
@@ -23,7 +24,7 @@ class ImageCaptionMeta(type):
 
     @property
     def device(cls):
-        return environ.get("DEVICE", "mps")
+        return TORCH_DEVICE
 
     def caption(cls, image: Path) -> str:
         return cls().get_answer(image)
