@@ -1,26 +1,26 @@
 default:
-  model: vision
+  model: vision-novae
   control_net: qrCodeMonster
   negative_prompt: blurry
-  guidance_scale: 2
-  num_inference_steps: 12
+  guidance_scale: 7
+  num_inference_steps: 25
   controlnet_conditioning_scale: 0.75
 baroque:
-  model: vision
+  model: vision-novae
   control_net: qrCodeMonster
-  guidance_scale: 2
-  num_inference_steps: 8
-  controlnet_conditioning_scale: 0.75
+  guidance_scale: 7
+  num_inference_steps: 25
+  controlnet_conditioning_scale: 0.8
   prompt: >
     A RAW photo of Baroque rococo architecture, architectural photography, 
     post apocalyptic New York, hyperrealism, [roots], hyperrealistic, 
     octane render, cinematic, hyper detailed, 8K
   negative_prompt: blurry
 castle:
-  model: vision
+  model: vision-novae
   control_net: qrCodeMonster
-  guidance_scale: 2
-  num_inference_steps: 12
+  guidance_scale: 6
+  num_inference_steps: 25
   controlnet_conditioning_scale: 1
   prompt: >
     RAW photo of an Medievil castle surrounded by water and nature, village, 
@@ -31,9 +31,9 @@ castle:
 landscape:
   model: dreamlcm
   control_net: qrCodeMonster
-  guidance_scale: 2.5
+  guidance_scale: 2
   num_inference_steps: 10
-  controlnet_conditioning_scale: 0.7
+  controlnet_conditioning_scale: 0.8
   prompt: >
     (masterpiece:1.2, best quality), (ultra-detailed), (illustration), 
     (ultra highres), (delicate illustration), (hyper-detailed), 
@@ -47,10 +47,10 @@ landscape:
     jpeg artifacts, signature, watermark, username, 
     Multiple people, bad, text, error, ugly
 tito:
-  model: vision
+  model: vision-novae
   control_net: qrCodeMonster
-  guidance_scale: 2
-  num_inference_steps: 12
+  guidance_scale: 7
+  num_inference_steps: 30
   controlnet_conditioning_scale: 0.8
   clip_skip: 2
   prompt: >
@@ -76,7 +76,7 @@ food:
     (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), 
     out of view, cut off, ugly, EasyNegative, paintings, sketches, (worst quality:2)
 panda:
-  model: vision
+  model: vision-novae
   control_net: qrCodeMonster
   guidance_scale: 1.5
   num_inference_steps: 7

@@ -210,7 +210,6 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
         sd_base = StableDiffusionXLPipeline.from_single_file(
             model_path.as_posix(),
             add_watermarker=False,
-            torch_dtype=torch.float16,
             **pipe_args,
         )
         sd_base.scheduler = self.scheduler.from_config(

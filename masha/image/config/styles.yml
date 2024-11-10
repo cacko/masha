@@ -4,7 +4,6 @@ flat:
   guidance_scale: 2
   strength: 0.3
   num_inference_steps: 30
-  upscale: 4
   negative_prompt: (worst quality, low quality:1.4), (bad_prompt_version2:0.8), EasyNegative, badhandv4, text, name, letters, watermark
 water:
   model: wc-light
@@ -14,7 +13,6 @@ water:
     dynamic cinematic perfect background, winning, inspired
   guidance_scale: 2
   strength: 0.6
-  upscale: 2
   num_inference_steps: 10
 oil:
   model: tvxl
@@ -22,14 +20,13 @@ oil:
   guidance_scale: 2
   strength: 0.6
   num_inference_steps: 10
-# illustration:
-#   model: jugrun
-#   prompt: <lora:Illustration_style:0.9>,illustrStyle
-#   guidance_scale: 12
-#   strength: 0.6
-#   upscale: 2
-#   num_inference_steps: 10
-#   negative_prompt: (worst quality:2), (low quality:2), (normal quality:2), lowres, bad anatomy, bad hands, normal quality, ((monochrome)), ((grayscale)
+illustration:
+  model: juglight
+  prompt: illustrStyle,<lora:Illustration_style:1>
+  guidance_scale: 2
+  strength: 0.6
+  num_inference_steps: 10
+  negative_prompt: (worst quality:2), (low quality:2), (normal quality:2), lowres, bad anatomy, bad hands, normal quality, ((monochrome)), ((grayscale)
 cyberpunk:
   model: ultraspice
   prompt: >
@@ -38,14 +35,12 @@ cyberpunk:
     highly detailed,art by Adrian Tomine
   guidance_scale: 5
   strength: 0.6
-  upscale: 2
   num_inference_steps: 10
 cartoon:
   model: ultraspice
   prompt: cartoon, striking, balanced, perfect composition, pristine, high resolution quality, high detailed,(Quentin Blake Style) <lora:QuentinBlakeStyle:1>
   guidance_scale: 5
   strength: 0.45
-  upscale: 2
   num_inference_steps: 20
 drawing:
   model: dreamturbo
@@ -158,6 +153,22 @@ soap:
     disfigured, bad anatomy, gross proportions, malformed limbs, 
     missing arms, missing legs, extra arms, extra legs, mutated hands, 
     fused fingers, too many fingers, long neck
+embroidered:
+  prompt: > 
+    ral-embroideredpatch <lora:ral-embroideredpatch-sdxl:1> 
+  guidance_scale: 3
+  strength: 0.5
+  num_inference_steps: 30
+  clip_skip: 2
+  model: ultraspice
+dry-paint:
+  prompt: > 
+    ral-drptpl <lora:ral-drptpl-sdxl:1> 
+  guidance_scale: 3
+  strength: 0.5
+  num_inference_steps: 30
+  clip_skip: 2
+  model: ultraspice
 frenchart:
   model: realvisxl-light
   prompt: >
@@ -169,7 +180,7 @@ frenchart:
   negative_prompt: photo, ((color)), text
 wlad:
   model: rev
-  prompt: //, masterpiece,best quality,<lora:tbh203-:0.9>,illustration,style of Wlad Safronow, decaying peonies
+  prompt: masterpiece,best quality,<lora:tbh203-:0.9>,illustration,style of Wlad Safronow, decaying peonies
   guidance_scale: 7
   num_inference_steps: 35
   clip_skip: 2

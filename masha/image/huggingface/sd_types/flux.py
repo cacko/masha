@@ -144,22 +144,24 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
         width, height = get_width_height(
             image_path, max(output_params.height, output_params.width)
         )
+        cfg = Config(
+            num_inference_steps=output_params.num_inference_steps,
+            height=height,
+            width=width,
+            guidance=output_params.guidance_scale,
+            init_image_path=image_path.as_posix(),
+            init_image_strength=output_params.strength,
+        )
+        rich.inspect(cfg)
         image = self.pipeline.generate_image(
             seed=output_params.seed,
             prompt=output_params.prompt,
-            config=Config(
-                num_inference_steps=output_params.num_inference_steps,
-                height=height,
-                width=width,
-                guidance=output_params.guidance_scale,
-                init_image_path=image_path,
-                init_image_strength=output_params.strength,
-            ),
+            config=cfg,
         )
         self.pipeline = None
         return (FluxPipelineOutput(images=[image.image]), output_params)
 
-    def get_img2img_pipeline(self, pipe_args):
+    def get_img2img_pipeline(self, pipe_args) -> Flux1:
         model_path = self.__class__.img2imgModelPath
         params = dict(
             model_config=ModelConfig.from_alias(model_path.name),
@@ -172,7 +174,7 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
             pass
         except Exception as e:
             logging.error(e)
-
+        rich.print(params)
         flux = Flux1(**params)
         self.pipeline = flux
         return self.pipeline

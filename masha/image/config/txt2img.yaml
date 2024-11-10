@@ -17,6 +17,22 @@ realisticVisionV60B1_v51HyperVAE.safetensors:
         sketch, cartoon, drawing, anime:1.3), cropped, out of frame, 
         worst quality, low quality, jpeg artifacts, mutation, blurry, 
         bad anatomy, bad proportions, extra limbs, b&w
+realisticVisionV60B1_v20Novae.safetensors:
+  option: vision-novae
+  scheduler_class: EulerAncestralDiscreteScheduler
+  sd_type: sd
+  category: realistic,nsfw,porn,lora,sd1,qr
+  custom_params:
+    clip_skip: 2
+    guidance_scale: 7
+    num_inference_steps: 25
+    width: 512
+    height: 768
+    negative_prompt: >
+      (deformed iris, deformed pupils, semi-realistic, cgi, 3d, render,
+        sketch, cartoon, drawing, anime:1.3), cropped, out of frame, 
+        worst quality, low quality, jpeg artifacts, mutation, blurry, 
+        bad anatomy, bad proportions, extra limbs, b&w
 revAnimated_v2Rebirth.safetensors:
   option: rev
   scheduler_class: DPMSolverMultistepScheduler

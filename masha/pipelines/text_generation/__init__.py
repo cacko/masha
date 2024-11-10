@@ -1,6 +1,7 @@
 from transformers import pipeline, set_seed
 from random import randint
 from masha.pipelines import BasePipeline
+from masha.pipelines import TORCH_DEVICE
 
 
 class TextGeneration(BasePipeline):
@@ -12,6 +13,7 @@ class TextGeneration(BasePipeline):
         if not self._pipeline:
             self._pipeline = pipeline(
                 'text-generation',
+                device=TORCH_DEVICE,
                 model=self.modelPath.as_posix()
             )
         return self._pipeline

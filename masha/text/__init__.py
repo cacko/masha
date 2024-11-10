@@ -16,7 +16,6 @@ import requests
 import rich
 from fastapi import APIRouter, Request, HTTPException
 import typer
-import click
 from typing_extensions import Annotated
 from masha.text.config import text_config
 

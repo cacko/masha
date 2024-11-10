@@ -1,7 +1,7 @@
 from pathlib import Path
 from transformers import pipeline, Pipeline
 from masha.core import perftime
-from masha.pipelines import BasePipeline
+from masha.pipelines import TORCH_DEVICE, BasePipeline
 from typing import Optional
 
 
@@ -15,7 +15,8 @@ class Translation(BasePipeline):
         if not self._pipeline:
             self._pipeline = pipeline(
                 'translation',
-                model=self.modelPath.as_posix()
+                model=self.modelPath.as_posix(),
+                device=TORCH_DEVICE
             )
         return self._pipeline
 

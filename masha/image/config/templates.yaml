@@ -1138,6 +1138,7 @@ wlad:
       username,blurry,nsfw,
 exposed:
   category: face-nsfw
+  category: face-nsfw
   for_gender: female
   models:
     - epic
@@ -1258,3 +1259,27 @@ paper-quilling:
     height: 768
     upscale: 2
     strength: 0.3
+nightmare:
+  category: style, flux
+  models:
+    - f1d
+  prompt: // nghtmrCE_Style <lora:Nightmare01a_CE_FLUX_AIT:1>
+  custom_params:
+    guidance_scale: 4
+    num_inference_steps: 20
+    width: 512
+    height: 768
+    upscale: 2
+    strength: 0.3
+embroidered:
+  category: style,xl
+  models:
+    - ultraspice
+  prompt: // ral-embroideredpatch <lora:ral-embroideredpatch-sdxl:1> 
+  custom_params:
+    guidance_scale: 3
+    strength: 0.5
+    num_inference_steps: 30
+    clip_skip: 2
+    width: 512
+    height: 768

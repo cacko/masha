@@ -6,7 +6,8 @@ from masha import (
     knowledge_base,
     name, 
     text,
-    hue
+    hue,
+    translate
 )
 
 cli = typer.Typer()
@@ -17,6 +18,7 @@ cli.add_typer(knowledge_base.cli, name="kb")
 cli.add_typer(name.cli, name="name")
 cli.add_typer(text.cli, name="text")
 cli.add_typer(hue.cli, name="hue")
+cli.add_typer(translate.cli, name="translate")
 
 @cli.command()
 def serve():

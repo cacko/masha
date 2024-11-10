@@ -4,12 +4,11 @@ from masha.core.request import make_multipart_response, uploaded_file
 from masha.image.caption import ImageCaption
 from masha.image.huggingface.stablediffusion import StableDiffusion
 from coreimage.terminal import print_term_image
-from masha.image.diffusers import IMAGE_FORMAT, Diffusers
+from masha.image.diffusers import  Diffusers
 from coreimage.organise.concat import Concat
-from random import choice
 from masha.image.huggingface.utils import img2img_iterations
 import logging
-from masha.image.config import StyleConfig, TemplateConfig, image_config, GENERATED_PATH
+from masha.image.config import StyleConfig, TemplateConfig, GENERATED_PATH
 from masha.image.cli import cli
 from masha.image.router import router
 
@@ -59,11 +58,12 @@ def img2img(
     StableDiffusion.is_superuser = True
     outdir = Path(output_directory)
     results = []
-    try:
-        assert any([not no_auto_caption, generate_caption, not prompt])
-        prompt += f",{ImageCaption.caption(img_path)}"
-    except AssertionError as e:
-        pass
+    # try:
+    #     assert not no_auto_caption
+    #     assert any([generate_caption, not prompt])
+    #     prompt += f",{ImageCaption.caption(img_path)}"
+    # except AssertionError as e:
+    #     pass
     inputParams = dict(
         prompt=prompt,
         num_inference_steps=num_inference_steps,
