@@ -33,8 +33,10 @@ class StableDiffusion(Diffusers):
 
     def do_release(self):
         logging.info("Releasing cache")
-        self.pipeline = None
-        self.params = None
+        try:
+            del self.pipeline
+        except Exception:
+            pass
         gc.collect()
         empty_cache()
         logging.info(f"Memory allocated - {format_size(current_allocated_memory())}")

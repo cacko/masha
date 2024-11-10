@@ -191,3 +191,12 @@ wlad:
     lowres,bad anatomy,bad hands,text,error,missing fingers,extra digit,fewer digits,
     cropped,worst quality,low quality,normal quality,jpeg artifacts,signature,watermark,
     username,blurry,nsfw,
+embroidered:
+  model: ultraspice
+  prompt: ral-embroideredpatch <lora:ral-embroideredpatch-sdxl:1> 
+  guidance_scale: 3
+  strength: 0.5
+  num_inference_steps: 30
+  clip_skip: 2
+  width: 512
+  height: 768

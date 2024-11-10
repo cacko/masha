@@ -443,7 +443,7 @@ sdxlNijiSeven_sdxlNijiSeven.safetensors:
     width: 832
     height: 1218
     negative_prompt: text, logos, watermarks, labels
-zbaseXLHighQualityAesthetic_v11.safetensors:
+zbaseHighQualityAesthetic_sdxlV30.safetensors:
   option: zbase
   sd_type: sdxl
   category: xl,loraxl,disney,cartoon,face,logo,wall

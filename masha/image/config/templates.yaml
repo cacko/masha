@@ -367,24 +367,13 @@ papercutout:
     guidance_scale: 8
     num_inference_steps: 24
 papercut:
-  category: style,x
+  category: style,xl
   prompt: // <lora:papercut:0.7> papercut
   models:
     - xlvae
   custom_params:
     guidance_scale: 7
     num_inference_steps: 30
-paper-style:
-  category: sdxl,face,style,general,art
-  prompt: >
-    // made out of ral-ppr, papercraft, paper, Swan, <ral-ppr-sdxl:0.7>, dynamic, 
-    highly contrasted, ambient light, polished, ambient, beautiful, magical composition, 
-    intricate, deep aesthetic, glowing, modified, elaborate
-  models:
-    - nightvision
-  custom_params:
-    guidance_scale: 7
-    num_inteference_stepts: 30
 woodenxl:
   category: style,xl
   prompt: woodfigurez // <lora:woodfigurez-sdxl:1>
@@ -505,7 +494,6 @@ selfie-yacht:
     clip_skip: 2
     width: 832
     height: 1216
-    upscale: 2
     negative_prompt: CGI, Unreal, Airbrushed, Digital
 red-sweater:
   category: face
@@ -522,7 +510,6 @@ red-sweater:
     num_inference_steps: 6
     clip_skip: 2
     width: 832
-    upscale: 2
     height: 1216
 mediterranean-photo:
   category: face
@@ -543,7 +530,6 @@ mediterranean-photo:
     clip_skip: 2
     width: 832
     height: 1216
-    upscale: 2
 anime:
   category: style, anime, drawing, face
   models:
@@ -572,7 +558,6 @@ cute-drawing:
     width: 1024
     height: 1024
     clip_skip: 2
-    upscale: 2
     guidance_scale: 2.25
     num_inference_steps: 8
     negative_prompt: >
@@ -591,7 +576,6 @@ vector-portrait:
     width: 1024
     height: 1024
     clip_skip: 2
-    upscale: 2
     guidance_scale: 4
     num_inference_steps: 8
     negative_prompt: >
@@ -607,7 +591,6 @@ children-illustration:
     width: 768
     height: 768
     clip_skip: 2
-    upscale: 2
     guidance_scale: 8
     num_inference_steps: 30
     negative_prompt: easy_negative
@@ -623,7 +606,6 @@ cute:
     clip_skip: 2
     width: 1024
     height: 1024
-    upscale: 2
     scale: 1
     guidance_scale: 2
     num_inference_steps: 30
@@ -632,81 +614,36 @@ cute:
       out of frame, extra limbs, disfigured, deformed, body out of frame, blurry, 
       bad anatomy, blurred, watermark, grainy, signature, cut off, draft, multiple hands, 
       low contrast, low resolution, out of focus
-# bar_photo:
-#   category: face
-#   models:
-#     - realvisxl-light
-#   prompt: >
-#     raw Photo of //,cinematic film still,(((detailed facial features))),(very detailed skin:1.2),
-#     realistic details, analog film grain,detailed character expressions,In bar,upper body,
-#     beautiful,dslr,8k,4k,ultrarealistic,realistic,natural skin,
-#     black stockings,((short dress)),Smile,love,<lora:add-detail-xl:0.8>,
-#     eye contact,looking at the camera,
-#   custom_params:
-#     guidance_scale: 2
-#     num_inference_steps: 10
-#     negative_prompt: >
-#       (low quality, worst quality:1.4), cgi,  text, signature, watermark, extra limbs, ((nipples))
-#     width: 768
-#     height: 1024
-#     clip_skip: 2
-#     upscale: 2
-#
-zombie:
-  category: face
+chalk-dust:
+  category: face,xl
   models:
-    - realvisxl-light
+    - xlvae
   prompt: >
-    // cute zombie with relentless pursuit made of chalkdust, intricate details, 
-    whimsical, magical, best quality, masterpiece , electrical diagram<lora:ChalkDustStyleSDXL:0.8>
+    // hiding in a smoke cloud in the style of chalkdust, 
+      rainbow circuits, gadgets neon cyberpunk, 8k, concept art, 
+      digital art, high quality, highly detailed <lora:ChalkDustStyleSDXL:1>
   custom_params:
     guidance_scale: 2
-    num_inference_steps: 8
-    upscale: 2
+    num_inference_steps: 30
     clip_skip: 2
     width: 832
     height: 1216
-    negative_prompt: child, loli, lolicon
-urban:
-  category: face
-  models:
-    - zbase
-  prompt: >
-    // with curly, reddish-brown hair. wearing a shimmering, deep blue, 
-    one-piece outfit with a plunging neckline.also has on black round glasses, 
-    a black choker with a turquoise heart pendant, and a few bracelets on left wrist. 
-    The background features an urban setting with a white bus on the right side, 
-    and tall buildings in the distance. a contemporary urban portrait with a touch ofhion photography. 
-    The subject is captured in sharp focus, while the background is slightly blurred, 
-    drawing attention to the subject. The color palette is vibrant with the subject's reddish-brown hair 
-    and deep blue outfit standing out. The use of lighting and shadows gives depth to the image, 
-    and appears to be taken by a professional photographer.The atmosphere of the image feels vibrant 
-    and lively, characteristic of an urban setting. The confident pose and expression exude confidence and self-assuredness.the shimmering outfit and glasses, adds a touch of modern and edgy fashion to the scene. The overall emotion conveyed is one of empowerment and contemporary style.
-  custom_params:
-    width: 832
-    height: 1216
-    num_inference_steps: 18
-    guidance_scale: 7
-    clip_skip: 2
-    upscale: 2
-
+    negative_prompt: easynegative
 witch:
   category: face
   models:
     - zbase
   prompt: >
     // character, a witch, sitting amidst a backdrop of a Halloween-themed setting. 
-    She wears a large pointed hat adorned with autumn leaves and pumpkins. 
-    Surrounding her are numerous jack-o'-lanterns with various expressions. 
+    wears a large pointed hat adorned with autumn leaves and pumpkins. 
+    Surrounding are numerous jack-o'-lanterns with various expressions. 
     The ambiance is dimly lit with warm orange and yellow hues, creating an eerie and mystical atmosphere. The character has long wavy hair, and seen wearing a detailed dress with intricate designs, including a tattoo-like pattern on her arm. The art style of the image can be described as a blend of traditional and digital art. It has a painterly quality, with soft brush strokes and an emphasis on lighting and shadow. The use of digital tools has allowed for a high level of detail and precision in the rendering of the characters and the environment. The overall color palette is warm, with predominant shades of orange, brown, and yellow, evoking a Halloween-themed setting.The atmosphere of the image is enchanting and mystical. It's set during what appears to be Halloween, with numerous jack-o'-lanterns illuminating the scene. The character, possibly a witch, is seated amidst this backdrop, exuding a contemplative and serene demeanor. pose, combined with the ambiance, suggests a sense of reflection and perhaps anticipation for the upcoming festivities.
   custom_params:
     width: 832
     height: 1216
-    num_inference_steps: 21
-    guidance_scale: 7
+    num_inference_steps: 24
+    guidance_scale: 5
     clip_skip: 2
-    upscale: 2
-
 into-darkness:
   category: face
   models:
@@ -718,7 +655,6 @@ into-darkness:
     width: 1024
     height: 1024
     clip_skip: 1
-    upscale: 2
     guidance_scale: 3
     num_inference_steps: 15
     negative_prompt: >
@@ -734,7 +670,6 @@ western-comic:
     width: 1024
     height: 1024
     clip_skip: 1
-    upscale: 2
     guidance_scale: 3
     num_inference_steps: 15
     negative_prompt: noisy, grainy, low contrast, low resolution, out of focus
@@ -752,7 +687,6 @@ pennywise:
     width: 1024
     height: 1024
     clip_skip: 1
-    upscale: 2
     guidance_scale: 3
     num_inference_steps: 15
 # lingerie:
@@ -786,7 +720,6 @@ naked:
     clip_skip: 2
     width: 832
     height: 1216
-    upscale: 2
     negative_prompt: 3d, render, drawing, out of frame
 putka:
   category: face-nsfw
@@ -803,7 +736,6 @@ putka:
     width: 832
     height: 1216
     scale: 1.3
-    upscale: 2
     negative_prompt: >
       (worst quality, low quality, normal quality, lowres, low details, oversaturated, undersaturated, overexposed, underexposed, grayscale, bw, bad photo, bad photography, bad art:1.4), (watermark, signature, text font, username, error, logo, words, letters, digits, autograph, trademark, name:1.2), (blur, blurry, grainy), morbid, ugly, asymmetrical, mutated malformed, mutilated, poorly lit, bad shadow, draft, cropped, out of frame, cut off, censored, jpeg artifacts, out of focus, glitch, duplicate, (airbrushed, cartoon, anime, semi-realistic, cgi, render, blender, digital art, manga, amateur:1.3), (3D ,3D Game, 3D Game Scene, 3D Character:1.1), (bad hands, bad anatomy, bad body, bad face, bad teeth, bad arms, bad legs, deformities:1.3), wart, seamline, pantyhose seam, high heels
 caricature:
@@ -820,8 +752,6 @@ caricature:
     clip_skip: 2
     height: 1024
     width: 1024
-
-    upscale: 2
     negative_prompt: >
       Compression artifacts, bad art, worst quality, low quality, plastic, 
       fake, bad limbs, conjoined, featureless, bad features, incorrect objects, 
@@ -840,7 +770,6 @@ brickheadz:
     width: 1024
     negative_prompt: ugly, disfigured, deformed, worst quality, low quality, logo, text, watermark, username
     clip_skip: 2
-
 lego:
   category: face
   models:
@@ -855,7 +784,6 @@ lego:
     width: 1024
     negative_prompt: ugly, disfigured, deformed, worst quality, low quality, logo, text, watermark, username
     clip_skip: 2
-
 funkopop:
   category: face
   models:
@@ -870,8 +798,6 @@ funkopop:
     width: 1024
     negative_prompt: Ugly, scary, noise, realistic, deformed, blurry
     clip_skip: 2
-    upscale: 2
-
 stained-glass:
   category: face
   models:
@@ -885,8 +811,6 @@ stained-glass:
     width: 832
     negative_prompt: ugly, disfigured, deformed, worst quality, low quality, logo, text, watermark, username
     clip_skip: 2
-    upscale: 2
-
 photo:
   category: face
   models:
@@ -901,8 +825,6 @@ photo:
     guidance_scale: 2
     height: 1216
     width: 832
-    upscale: 2
-
 mugshot:
   category: face
   models:
@@ -914,8 +836,6 @@ mugshot:
     guidance_scale: 4
     num_inference_steps: 10
     clip_skip: 2
-    upscale: 2
-
 playboy:
   category: face-nsfw
   for_gender: female
@@ -928,8 +848,6 @@ playboy:
     guidance_scale: 2
     num_inference_steps: 8
     clip_skip: 2
-    upscale: 2
-
     negative_prompt: >
       (worst quality, low quality, normal quality, lowres, low details, oversaturated, undersaturated, overexposed, underexposed, grayscale, bw, bad photo, bad photography, bad art:1.4), (watermark, signature, text font, username, error, logo, words, letters, digits, autograph, trademark, name:1.2), (blur, blurry, grainy), morbid, ugly, asymmetrical, mutated malformed, mutilated, poorly lit, bad shadow, draft, cropped, out of frame, cut off, censored, jpeg artifacts, out of focus, glitch, duplicate, (airbrushed, cartoon, anime, semi-realistic, cgi, render, blender, digital art, manga, amateur:1.3), (3D ,3D Game, 3D Game Scene, 3D Character:1.1), (bad hands, bad anatomy, bad body, bad face, bad teeth, bad arms, bad legs, deformities:1.3)
 babydoll:
@@ -945,7 +863,6 @@ babydoll:
     guidance_scale: 2
     num_inference_steps: 8
     clip_skip: 2
-    upscale: 2
     negative_prompt: >
       (((niple))), ((disfigured)), ((bad art)), ((deformed)),((extra limbs)),
       ((close up)),((b&w)), wierd colors, blurry, (((duplicate))), ((morbid)), 
@@ -975,8 +892,6 @@ t-shirt-face:
     guidance_scale: 2
     num_inference_steps: 8
     clip_skip: 2
-    upscale: 2
-
     negative_prompt: bad art, ugly, deformed, watermark, duplicated
 t-shirt:
   category: style
@@ -991,7 +906,6 @@ t-shirt:
     guidance_scale: 2
     num_inference_steps: 8
     clip_skip: 2
-    upscale: 2
     negative_prompt: bad art, ugly, deformed, watermark, duplicated
 van-gogh:
   category: face
@@ -1006,7 +920,6 @@ van-gogh:
     guidance_scale: 2
     num_inference_steps: 8
     clip_skip: 2
-    upscale: 2
     negative_prompt: txt, logo, duplicates, dupes, deforumed
 cubism:
   category: face
@@ -1021,7 +934,6 @@ cubism:
     guidance_scale: 5
     num_inference_steps: 20
     clip_skip: 2
-    upscale: 2
     negative_prompt: bad art, ugly, deformed, watermark, duplicated
 watercolor:
   category: face
@@ -1034,7 +946,6 @@ watercolor:
     height: 1216
     width: 832
     clip_skip: 2
-    upscale: 2
     negative_prompt: >
       lowres,bad anatomy,bad hands,text,error,missing fingers,extra digit,fewer digits,
       cropped,worst quality,low quality,normal quality,jpeg artifacts,signature,watermark,
@@ -1056,7 +967,6 @@ vector-face:
     guidance_scale: 5
     num_inference_steps: 20
     clip_skip: 2
-    upscale: 2
     negative_prompt: bad art, ugly, deformed, watermark, duplicated
 fashion-photo:
   category: face
@@ -1085,7 +995,6 @@ xtoon:
     guidance_scale: 4
     num_inference_steps: 25
     clip_skip: 2
-    upscale: 2
     width: 640
     height: 1024
 xcomic:
@@ -1103,7 +1012,6 @@ xcomic:
     guidance_scale: 7
     num_inference_steps: 40
     clip_skip: 2
-    upscale: 2
     width: 640
     height: 1024
     negative_prompt: (worst quality:1.4), (low quality:1.4), UnrealisticDream, BadDream, bad-hands-5
@@ -1170,7 +1078,6 @@ shadybug:
     guidance_scale: 5
     num_inference_steps: 30
     scale: 0.6
-    upscale: 2
 storybook:
   category: style,face
   models:
@@ -1209,7 +1116,6 @@ pastel:
     num_inference_steps: 20
     width: 512
     height: 768
-    upscale: 2
     strength: 0.3
 childbook:
   category: style,flux
@@ -1221,7 +1127,6 @@ childbook:
     num_inference_steps: 20
     width: 512
     height: 768
-    upscale: 2
     strength: 0.3
 smooth:
   category: style,flux
@@ -1233,7 +1138,6 @@ smooth:
     num_inference_steps: 20
     width: 512
     height: 768
-    upscale: 2
     strength: 0.3
 clash-royale:
   category: style, flux
@@ -1245,7 +1149,6 @@ clash-royale:
     num_inference_steps: 20
     width: 512
     height: 768
-    upscale: 2
     strength: 0.3
 paper-quilling:
   category: style, flux
@@ -1257,7 +1160,6 @@ paper-quilling:
     num_inference_steps: 20
     width: 512
     height: 768
-    upscale: 2
     strength: 0.3
 nightmare:
   category: style, flux
@@ -1269,10 +1171,9 @@ nightmare:
     num_inference_steps: 20
     width: 512
     height: 768
-    upscale: 2
     strength: 0.3
 embroidered:
-  category: style,xl
+  category: style,xl,face
   models:
     - ultraspice
   prompt: // ral-embroideredpatch <lora:ral-embroideredpatch-sdxl:1> 

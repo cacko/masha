@@ -3,17 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>KeepAlive</key>
-	<true/>
+	<dict>
+		<key>SuccessfulExit</key>
+		<false/>
+		<key>Crashed</key>
+		<false/>
+	</dict>
 	<key>Label</key>
 	<string>net.cacko.masha</string>
-	<key>LimitLoadToSessionType</key>
-	<array>
-		<string>Aqua</string>
-		<string>Background</string>
-		<string>LoginWindow</string>
-		<string>StandardIO</string>
-		<string>System</string>
-	</array>
 	<key>ProgramArguments</key>
 	<array>
 		<string>/opt/homebrew/bin/task</string>

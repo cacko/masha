@@ -96,7 +96,6 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
             image=image,
             callback_on_step_end=self.__class__.interrupt_callback,
         )
-        self.pipeline = None
         return (result, output_params)
 
     def get_txt2img_result(
@@ -110,7 +109,6 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
             **to_pipe,
             callback_on_step_end=self.__class__.interrupt_callback,
         )
-        self.pipeline = None
         return (result, output_params)
 
     def get_face2img_result(self, seed, faceid_embeds, **kwds):
@@ -131,34 +129,31 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
             num_samples=output_params.num_images_per_prompt,
             **output_params.to_face_pipe(),
         )
-        ip_model = None
-        self.pipeline = None
         return (images, output_params)
 
     def get_face2img_pipeline(self, pipe_args):
         model_path = self.__class__.modelPath
         logging.info(f"MODEL PATH {model_path}")
         assert model_path.is_file()
-        pipe = StableDiffusionXLPipeline.from_single_file(
+        self.pipeline = StableDiffusionXLPipeline.from_single_file(
             model_path.as_posix(),
             add_watermarker=False,
             torch_dtype=torch.float16,
             **pipe_args,
         )
-        rich.print(pipe.scheduler.config)
-        assert pipe
+        rich.print(self.pipeline.scheduler.config)
+        assert self.pipeline
         try:
             assert self.scheduler
             scheduler = self.scheduler.from_config(
-                config=pipe.scheduler.config, **self.scheduler_args
+                config=self.pipeline.scheduler.config, **self.scheduler_args
             )
-            pipe.scheduler = scheduler
+            self.pipeline.scheduler = scheduler
         except AssertionError:
             pass
-        logging.info(f">> SCHDULER {pipe.scheduler.__class__.__name__}")
-        logging.info(pipe.scheduler.config)
-        self.pipeline: StableDiffusionXLPipeline = pipe.to(self.__class__.device)
-        pipe = None
+        logging.info(f">> SCHDULER {self.pipeline.scheduler.__class__.__name__}")
+        logging.info(self.pipeline.scheduler.config)
+        self.pipeline.to(self.__class__.device)
         logging.info(f"MEM PIPE - {format_size(current_allocated_memory())}")
         try:
             self.pipeline = self.loadLoraWeights()
@@ -175,7 +170,7 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
         logging.info(f"MEM START - {format_size(current_allocated_memory())}")
         pipe_args = dict(use_safetensors=True, **pipe_args)
         assert model_path.is_file()
-        sd_base = StableDiffusionXLImg2ImgPipeline.from_single_file(
+        self.pipeline = StableDiffusionXLImg2ImgPipeline.from_single_file(
             model_path.as_posix(),
             torch_dtype=torch.float16,
             **pipe_args,
@@ -183,14 +178,13 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
         try:
             assert self.scheduler
             scheduler = self.scheduler.from_config(
-                config=sd_base.scheduler.config, **self.scheduler_args
+                config=self.pipeline.scheduler.config, **self.scheduler_args
             )
-            sd_base.scheduler = scheduler  # type: ignore
+            self.pipeline.scheduler = scheduler  # type: ignore
         except AssertionError:
             pass
-        logging.info(f"SCHEDULER {sd_base.scheduler.__class__.__name__}")
-        self.pipeline = sd_base.to(self.__class__.device)
-        sd_base = None
+        logging.info(f"SCHEDULER {self.pipeline.scheduler.__class__.__name__}")
+        self.pipeline.to(self.__class__.device)
         logging.info(f"MEM PIPE - {format_size(current_allocated_memory())}")
         try:
             self.pipeline = self.loadLoraWeights()
@@ -203,22 +197,20 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
 
     def get_text2img_pipeline(self, pipe_args):
         model_path = self.__class__.modelPath
-        sd_base = None
         logging.info(f"MODEL PATH {model_path}")
         logging.info(f"MEM START - {format_size(current_allocated_memory())}")
         assert model_path.is_file()
-        sd_base = StableDiffusionXLPipeline.from_single_file(
+        self.pipeline = StableDiffusionXLPipeline.from_single_file(
             model_path.as_posix(),
             add_watermarker=False,
             **pipe_args,
         )
-        sd_base.scheduler = self.scheduler.from_config(
-            sd_base.scheduler.config, **self.scheduler_args
+        self.pipeline.scheduler = self.scheduler.from_config(
+            self.pipeline.scheduler.config, **self.scheduler_args
         )
-        logging.info(f"SCHEDULER {sd_base.scheduler.__class__.__name__}")
-        logging.info(sd_base.scheduler.config)
-        self.pipeline = sd_base.to(self.__class__.device)
-        sd_base = None
+        logging.info(f"SCHEDULER {self.pipeline.scheduler.__class__.__name__}")
+        logging.info(self.pipeline.scheduler.config)
+        self.pipeline.to(self.__class__.device)
         try:
             self.pipeline = self.loadLoraWeights()
             self.pipeline = self.loadTextualInversion()
