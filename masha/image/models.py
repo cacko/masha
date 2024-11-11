@@ -305,8 +305,8 @@ class SDModelType(StrEnum):
 
 class PipelineParams(BaseModel):
     prompt: str = Field(default="")
-    height: int
-    width: int
+    height: int = Field(default=1024)
+    width: int = Field(default=1024)
     guidance_scale: float = Field(default=7)
     num_inference_steps: int = Field(default=25)
     num_images_per_prompt: int = Field(default=1)

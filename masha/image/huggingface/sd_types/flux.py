@@ -83,7 +83,7 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
         )
 
     def get_face2img_result(self, seed, faceid_embeds, **kwds):
-        self.pipeline = self.face2img_pipe
+        self.init_face2img_pipe()
         output_params = self.__get_output_params(seed, no_compel=True)
         ip_model = IPAdapterFaceIDPlusXL(
             sd_pipe=self.pipeline,
@@ -100,11 +100,9 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
             num_samples=output_params.num_images_per_prompt,
             **output_params.to_face_pipe(),
         )
-        ip_model = None
-        self.pipeline = None
         return (images, output_params)
 
-    def get_face2img_pipeline(self, pipe_args):
+    def set_face2img_pipeline(self, pipe_args):
         model_path = self.__class__.modelPath
         logging.info(f"MODEL PATH {model_path}")
         assert model_path.is_file()
@@ -139,7 +137,7 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
         return self.pipeline
 
     def get_img2img_result(self, seed, image_path: Path):
-        self.pipeline = self.img2img_pipe
+        self.init_img2img_pipe()
         output_params = self.__get_output_params(seed, no_compel=True)
         width, height = get_width_height(
             image_path, max(output_params.height, output_params.width)
@@ -158,10 +156,9 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
             prompt=output_params.prompt,
             config=cfg,
         )
-        self.pipeline = None
         return (FluxPipelineOutput(images=[image.image]), output_params)
 
-    def get_img2img_pipeline(self, pipe_args) -> Flux1:
+    def set_img2img_pipeline(self, pipe_args) -> Flux1:
         model_path = self.__class__.img2imgModelPath
         params = dict(
             model_config=ModelConfig.from_alias(model_path.name),
@@ -177,13 +174,12 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
         rich.print(params)
         flux = Flux1(**params)
         self.pipeline = flux
-        return self.pipeline
 
     def get_txt2img_result(
         self,
         seed,
     ):
-        self.pipeline: Flux1 = self.txt2img_pipe
+        self.init_txt2img_pipe()
         output_params = self.__get_output_params(seed, no_compel=True)
         to_pipe = output_params.to_pipe_flux()
         image = self.pipeline.generate_image(
@@ -196,10 +192,9 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
                 guidance=output_params.guidance_scale,
             ),
         )
-        self.pipeline = None
         return (FluxPipelineOutput(images=[image.image]), output_params)
 
-    def get_text2img_pipeline(self, pipe_args) -> Flux1:
+    def set_text2img_pipeline(self, pipe_args) -> Flux1:
         model_path = self.__class__.modelPath
         params = dict(
             model_config=ModelConfig.from_alias(model_path.name),
@@ -215,4 +210,3 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
 
         flux = Flux1(**params)
         self.pipeline = flux
-        return self.pipeline

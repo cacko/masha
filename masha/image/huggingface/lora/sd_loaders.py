@@ -30,74 +30,69 @@ def load_metadata_from_safetensors(safetensors_file: str) -> dict:
         metadata = {}
     return metadata
 
-
-def loadLoraWeights(pipeline: StableDiffusionPipeline, prompt: str, lora_path: Path):
-    try:
-        assert prompt
-        assert hasattr(pipeline, "load_lora_weights")
-        loras = list(get_lora_models(prompt, lora_path))
-        adapter_names = []
-        adapter_weights = []
-        if not loras:
-            return pipeline
-        for lora, wgt in loras:
-            try:
-                logging.debug(f">> LOADING {lora.as_posix()}")
-                adapter_name = lora.stem
-                weights_root = lora.parent.as_posix()
-                weights_file = lora.name
-                pipeline.load_lora_weights(
-                    weights_root, weight_name=weights_file, adapter_name=adapter_name
-                )
-                adapter_names.append(adapter_name)
-                adapter_weights.append(wgt)
-                if adapter_name.startswith("lcm"):
-                    pipeline.scheduler = LCMScheduler.from_config(
-                        pipeline.scheduler.config
+class LoadersSDMixin(object):
+    def loadLoraWeights(self):
+        try:
+            assert isinstance(self.pipeline, StableDiffusionPipeline)
+            assert self.params
+            prompt = self.params.prompt
+            assert hasattr(self.pipeline, "load_lora_weights")
+            loras = list(get_lora_models(prompt, self.lora_path))
+            adapter_names = []
+            adapter_weights = []
+            assert loras
+            for lora, wgt in loras:
+                try:
+                    logging.debug(f">> LOADING {lora.as_posix()}")
+                    adapter_name = lora.stem
+                    weights_root = lora.parent.as_posix()
+                    weights_file = lora.name
+                    self.pipeline.load_lora_weights(
+                        weights_root, weight_name=weights_file, adapter_name=adapter_name
                     )
-            except Exception as e:
-                logging.error(e)
-        pipeline.set_adapters(
-            adapter_names=adapter_names, adapter_weights=adapter_weights
-        )
-        # pipeline.fuse_lora(lora_scale=1, adapter_names=adapter_names)
-        # pipeline.unload_lora_weights()
-        logging.info(f">> LOADED {adapter_names} {adapter_weights}")
-    except AssertionError:
-        pass
-    except Exception as e:
-        logging.error(e)
-    return pipeline
+                    adapter_names.append(adapter_name)
+                    adapter_weights.append(wgt)
+                    if adapter_name.startswith("lcm"):
+                        self.pipeline.scheduler = LCMScheduler.from_config(
+                            self.pipeline.scheduler.config
+                        )
+                except Exception as e:
+                    logging.error(e)
+            self.pipeline.set_adapters(
+                adapter_names=adapter_names, adapter_weights=adapter_weights
+            )
+            # pipeline.fuse_lora(lora_scale=1, adapter_names=adapter_names)
+            # pipeline.unload_lora_weights()
+            logging.info(f">> LOADED {adapter_names} {adapter_weights}")
+        except AssertionError:
+            pass
+        except Exception as e:
+            logging.error(e)
 
 
-def loadTextualInversion(
-    pipeline: StableDiffusionPipeline,
-    prompt: str,
-    negative_prompt: str,
-    text_inversion_root: Path,
-):
-    try:
-        logging.info
-        txt = f"{prompt} {negative_prompt}"
-        embeddings = list(
-            get_embeddings(
-                prompt=txt,
-                root=text_inversion_root,
-                embeddings=image_config.embeddings,
+    def loadTextualInversion(self):
+        try:
+            assert self.params
+            prompt = self.params.params
+            negative_prompt = self.params.negative_prompt
+            txt = f"{prompt} {negative_prompt}"
+            embeddings = list(
+                get_embeddings(
+                    prompt=txt,
+                    root=self.text_inversion_root,
+                    embeddings=image_config.embeddings,
+                )
             )
-        )
-        if not embeddings:
-            return pipeline
-        assert hasattr(pipeline, "load_textual_inversion")
-        logging.debug("LOADING TEXTUAL INVERSIONS")
-        for embedding in embeddings:
-            pipeline.load_textual_inversion(
-                embedding.path,
-                token=embedding.token,
-            )
-            logging.info(f">> LOADED {embedding.path} -> {embedding.token}")
-    except AssertionError:
-        pass
-    except Exception as e:
-        logging.error(e)
-    return pipeline
+            assert embeddings
+            assert hasattr(self.pipeline, "load_textual_inversion")
+            logging.debug("LOADING TEXTUAL INVERSIONS")
+            for embedding in embeddings:
+                self.pipeline.load_textual_inversion(
+                    embedding.path,
+                    token=embedding.token,
+                )
+                logging.info(f">> LOADED {embedding.path} -> {embedding.token}")
+        except AssertionError:
+            pass
+        except Exception as e:
+            logging.error(e)

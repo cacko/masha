@@ -129,6 +129,7 @@ toonyou:
   prompt: (best quality, masterpiece), //
   custom_params:
     negative_prompt: (worst quality, low quality, letterboxed)
+    
 scream:
   category: style
   prompt: >

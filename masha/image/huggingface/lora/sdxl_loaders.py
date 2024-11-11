@@ -1,5 +1,4 @@
 import logging
-from typing import Optional
 from masha.image.huggingface.utils import (
     get_lora_models,
     get_embeddings,
@@ -11,10 +10,7 @@ from diffusers.models.modeling_utils import load_state_dict
 
 class LoadersSDXLMixin(object):
 
-    def loadLoraWeights(
-        self, pipe: Optional[StableDiffusionXLPipeline] = None, prompt=None
-    ):
-        pipeline = pipe if pipe is not None else self.pipeline
+    def loadLoraWeights(self):
         try:
             assert self.params or prompt
             if self.params:
@@ -29,7 +25,7 @@ class LoadersSDXLMixin(object):
                     adapter_name: str = f"adapter_{lora.stem}"
                     weights_root = lora.parent.as_posix()
                     weights_file = lora.name
-                    pipeline.load_lora_weights(
+                    self.pipeline.load_lora_weights(
                         weights_root,
                         weight_name=weights_file,
                         adapter_name=adapter_name,
@@ -39,7 +35,7 @@ class LoadersSDXLMixin(object):
                 except Exception as e:
                     logging.warning(f">> LOADING OF {lora.name} FAILED")
                     logging.error(str(e))
-            pipeline.set_adapters(
+            self.pipeline.set_adapters(
                 adapter_names=adapter_names, adapter_weights=adapter_weights
             )
             # pipeline.fuse_lora(adapter_names=adapter_names)
@@ -49,14 +45,12 @@ class LoadersSDXLMixin(object):
             pass
         except Exception as e:
             logging.exception(e)
-        return pipeline
 
-    def loadTextualInversion(self, pipe=None, prompt=None, negative_prompt=None):
+    def loadTextualInversion(self):
         if self.params:
             prompt = self.params.prompt
             negative_prompt = self.params.negative_prompt
         txt = f"{prompt} {negative_prompt}"
-        pipeline = pipe if pipe is not None else self.pipeline
         embeddings = list(
             get_embeddings(
                 prompt=txt,
@@ -65,24 +59,25 @@ class LoadersSDXLMixin(object):
             )
         )
         try:
+            assert self.pipeline
+            assert isinstance(self.pipeline, StableDiffusionXLPipeline)
             assert embeddings
-            assert hasattr(pipeline, "load_textual_inversion")
+            assert hasattr(self.pipeline, "load_textual_inversion")
             logging.debug("LOADING TEXTUAL INVERSIONS")
             for embedding in embeddings:
                 state_dict = load_state_dict(embedding.path.as_posix())
-                pipeline.load_textual_inversion(
+                self.pipeline.load_textual_inversion(
                     state_dict["clip_g"],
                     token=embedding.token,
-                    text_encoder=pipeline.text_encoder_2,
-                    tokenizer=pipeline.tokenizer_2,
+                    text_encoder=self.pipeline.text_encoder_2,
+                    tokenizer=self.pipeline.tokenizer_2,
                 )
-                pipeline.load_textual_inversion(
+                self.pipeline.load_textual_inversion(
                     state_dict["clip_l"],
                     token=embedding.token,
-                    text_encoder=pipeline.text_encoder,
-                    tokenizer=pipeline.tokenizer,
+                    text_encoder=self.pipeline.text_encoder,
+                    tokenizer=self.pipeline.tokenizer,
                 )
                 logging.info(f">> LOADED {embedding.path} -> {embedding.token}")
         except AssertionError:
             pass
-        return pipeline

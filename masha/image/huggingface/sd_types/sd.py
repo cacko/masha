@@ -19,22 +19,23 @@ from masha.image.huggingface.utils import (
     get_compel_prompts,
 )
 from pathlib import Path
-from masha.image.huggingface.lora.sd_loaders import (
-    loadLoraWeights,
-    loadTextualInversion,
-)
+from masha.image.huggingface.lora.sd_loaders import LoadersSDMixin
 from rich import print
 from masha.image.config import image_config
 from ip_adapter.ip_adapter_faceid import IPAdapterFaceIDPlus
 from insightface.utils import face_align
 
 
-class StableDiffusionSD(BaseStableDiffusion):
+class StableDiffusionSD(BaseStableDiffusion, LoadersSDMixin):
     pipeline: StableDiffusionPipeline
 
     @property
     def text_inversion_root(self) -> Path:
         return self.__class__.dataRoot / image_config.textual_inversion.root
+
+    @property
+    def lora_path(self) -> Path:
+        return self.__class__.loraPath
 
     @property
     def ip_adapter_model_path(self) -> Path:
@@ -85,7 +86,7 @@ class StableDiffusionSD(BaseStableDiffusion):
         )
 
     def get_face2img_result(self, seed, faceid_embeds, **kwds):
-        self.pipeline = self.face2img_pipe
+        self.init_face2img_pipe()
         output_params = self.__get_output_params(seed, no_compel=True)
         ip_model = IPAdapterFaceIDPlus(
             sd_pipe=self.pipeline,
@@ -101,86 +102,78 @@ class StableDiffusionSD(BaseStableDiffusion):
             num_samples=output_params.num_images_per_prompt,
             **output_params.to_face_pipe(),
         )
-        ip_model = None
-        self.pipeline = None
         return (images, output_params)
 
-    def get_face2img_pipeline(self, pipe_args):
+    def set_face2img_pipeline(self, pipe_args):
         model_path = self.__class__.modelPath
         logging.info(f"MODEL PATH {model_path}")
         assert model_path.is_file()
-        pipe = StableDiffusionPipeline.from_single_file(
+        self.pipeline = StableDiffusionPipeline.from_single_file(
             model_path.as_posix(),
             torch_dtype=torch.float16,
             feature_extractor=None,
             safety_checker=None,
             **pipe_args,
-        )
-        assert pipe
-        logging.info(f">> PIPELINE: {pipe.__class__.__name__}")
+        ).to(self.__class__.device)
+        assert self.pipeline
+        logging.info(f">> PIPELINE: {self.pipeline.__class__.__name__}")
         try:
             assert self.scheduler
             scheduler = self.scheduler.from_config(
-                config=pipe.scheduler.config, **self.scheduler_args
+                config=self.pipeline.scheduler.config, **self.scheduler_args
             )
-            pipe.scheduler = scheduler
+            self.pipeline.scheduler = scheduler
         except AssertionError:
             pass
-        logging.info(f">> SCHDULER {pipe.scheduler.__class__.__name__}")
-        logging.info(pipe.scheduler.config)
-        self.pipeline = pipe.to(self.__class__.device)
-        pipe = None
+        logging.info(f">> SCHDULER {self.pipeline.scheduler.__class__.__name__}")
+        logging.info(self.pipeline.scheduler.config)
         logging.info(f"MEM PIPE - {format_size(current_allocated_memory())}")
         try:
-            self.pipeline = self.loadLoraWeights()
-            self.pipeline = self.loadTextualInversion()
+            self.loadLoraWeights()
+            self.loadTextualInversion()
             logging.info(f"MEM LORA - {format_size(current_allocated_memory())}")
         except Exception as e:
             logging.exception(e)
             logging.warning("failed")
-        return self.pipeline
 
     def get_txt2img_result(self, seed):
-        self.pipeline = self.txt2img_pipe
+        self.init_txt2img_pipe()
         output_params = self.__get_output_params(seed)
         to_pipe = output_params.to_pipe()
         print(output_params.to_output())
         result = self.pipeline(**to_pipe)
         return (result, output_params)
 
-    def get_text2img_pipeline(self, pipe_args):
+    def set_text2img_pipeline(self, pipe_args):
         model_path = self.__class__.modelPath
         logging.info(f"MODEL PATH {model_path}")
         assert model_path
         assert model_path.is_file()
-        sd_pipe = StableDiffusionPipeline.from_single_file(
+        self.pipeline = StableDiffusionPipeline.from_single_file(
             model_path.as_posix(),
             use_safetensors=True,
             torch_dtype=torch.float16,
             **pipe_args,
-        )
+        ).to(self.__class__.device)
         try:
             assert self.scheduler
             scheduler = self.scheduler.from_config(
-                config=sd_pipe.scheduler.config, **self.scheduler_args
+                config=self.pipeline.scheduler.config, **self.scheduler_args
             )
-            sd_pipe.scheduler = scheduler  # type: ignore
+            self.pipeline.scheduler = scheduler  # type: ignore
         except AssertionError:
             pass
-        logging.info(f"SCHEDULER {sd_pipe.scheduler}")
-        self.pipeline = sd_pipe.to(self.__class__.device)  # type: ignore
-        sd_pipe = None
+        logging.info(f"SCHEDULER {self.pipeline.scheduler}")
         try:
-            self.pipeline = self.loadLoraWeights()
-            self.pipeline = self.loadTextualInversion()
+            self.loadLoraWeights()
+            self.loadTextualInversion()
         except Exception as e:
             logging.exception(e)
             logging.info("failed")
         logging.info(f"Memory allocated - {format_size(current_allocated_memory())}")
-        return self.pipeline
 
     def get_img2img_result(self, seed, image_path):
-        self.pipeline = self.img2img_pipe
+        self.init_img2img_pipe()
         output_params = self.__get_output_params(seed)
         to_pipe = output_params.to_img2img_pipe()
         print(output_params.to_output())
@@ -188,14 +181,14 @@ class StableDiffusionSD(BaseStableDiffusion):
         result = self.pipeline(**to_pipe)
         return (result, output_params)
 
-    def get_img2img_pipeline(self, pipe_args):
+    def set_img2img_pipeline(self, pipe_args):
         model_path = self.__class__.modelPath
         logging.info(f"MODEL PATH {model_path}")
         logging.info(f"MEM START - {format_size(current_allocated_memory())}")
         assert model_path
         pipe_args = dict(use_safetensors=True, **pipe_args)
         assert model_path.is_file()
-        sd_pipe = StableDiffusionImg2ImgPipeline.from_single_file(
+        self.pipeline = StableDiffusionImg2ImgPipeline.from_single_file(
             model_path.as_posix(),
             torch_dtype=torch.float16,
             **pipe_args,
@@ -203,40 +196,19 @@ class StableDiffusionSD(BaseStableDiffusion):
         try:
             assert self.scheduler
             scheduler = self.scheduler.from_config(
-                config=sd_pipe.scheduler.config, **self.scheduler_args
+                config=self.pipeline.scheduler.config, **self.scheduler_args
             )
-            sd_pipe.scheduler = scheduler
+            self.pipeline.scheduler = scheduler
         except AssertionError:
             pass
-        self.pipeline = sd_pipe.to(self.__class__.device)
-        sd_pipe = None
+        self.pipeline.to(self.__class__.device)
         logging.info(f"MEM PIPE - {format_size(current_allocated_memory())}")
         try:
-            self.pipeline = self.loadLoraWeights()
-            self.pipeline = self.loadTextualInversion()
+            self.loadLoraWeights()
+            self.loadTextualInversion()
         except Exception as e:
             logging.exception(e)
             logging.info("failed")
         logging.info(f"SCHEDULER {self.pipeline.scheduler.__class__.__name__}")
         logging.debug(f"SCHEDULER {self.pipeline.scheduler}")
         logging.info(f"MEM LORA - {format_size(current_allocated_memory())}")
-        return self.pipeline
-
-    def loadLoraWeights(self):
-        self.pipeline = loadLoraWeights(
-            pipeline=self.pipeline,
-            prompt=self.params.prompt,
-            lora_path=self.__class__.loraPath,
-        )
-        return self.pipeline
-
-    def loadTextualInversion(
-        self,
-    ):
-        self.pipeline = loadTextualInversion(
-            pipeline=self.pipeline,
-            prompt=self.params.prompt,
-            negative_prompt=self.params.negative_prompt,
-            text_inversion_root=self.text_inversion_root,
-        )
-        return self.pipeline

@@ -41,25 +41,25 @@ class StableDiffusion(Diffusers):
         empty_cache()
         logging.info(f"Memory allocated - {format_size(current_allocated_memory())}")
 
-    def get_text2img_pipeline(self, pipe_args):
+    def set_text2img_pipeline(self, pipe_args):
         raise NotImplementedError
 
     def get_txt2img_result(self, seed):
         raise NotImplementedError
 
-    def get_img2img_pipeline(self, pipe_args):
+    def set_img2img_pipeline(self, pipe_args):
         raise NotImplementedError
 
     def get_img2img_result(self, seed, image_path):
         raise NotImplementedError
 
-    def get_face2img_pipeline(self, pipe_args):
+    def set_face2img_pipeline(self, pipe_args):
         raise NotImplementedError
 
     def get_face2img_result(self, seed, faceid_embeds, **kwds):
         raise NotImplementedError
 
-    def get_coreml_pipeline(self, pipe_args):
+    def set_coreml_pipeline(self, pipe_args):
         pass
     
     def get_image_suffix(self, image_format: IMAGE_FORMAT = None):
@@ -69,15 +69,13 @@ class StableDiffusion(Diffusers):
         except AssertionError:
             return DEFAULT_IMAGE_FORMAT.value
 
-    @property
-    def face2img_pipe(self) -> DiffusionPipeline:
+    def init_face2img_pipe(self):
         assert self.params
         logging.info(f"Memory allocated -  {format_size(current_allocated_memory())}")
         pipe_args = dict()
-        return self.get_face2img_pipeline(pipe_args)
+        self.set_face2img_pipeline(pipe_args)
 
-    @property
-    def img2img_pipe(self) -> DiffusionPipeline:
+    def init_img2img_pipe(self):
         logging.debug(self.__class__.pipelineClass)
         assert self.params
         params = self.params
@@ -87,13 +85,13 @@ class StableDiffusion(Diffusers):
             logging.warn("SUPERUSER > DISABLING SAFETY CHECKER")
             pipe_args = {**pipe_args, **dict(safety_checker=None)}  # type: ignore
         if params.editing_prompt:
-            return SemanticStableDiffusionPipeline.from_pretrained(
+            self.pipeline =  SemanticStableDiffusionPipeline.from_pretrained(
                 **pipe_args,
             )
-        return self.get_img2img_pipeline(pipe_args)
+        else:
+            self.set_img2img_pipeline(pipe_args)
 
-    @property
-    def txt2img_pipe(self) -> DiffusionPipeline:
+    def init_txt2img_pipe(self):
         if self.pipeline:
             return self.pipeline
         logging.debug(self.__class__.pipelineClass)
@@ -108,7 +106,8 @@ class StableDiffusion(Diffusers):
             return SemanticStableDiffusionPipeline.from_pretrained(
                 **pipe_args,
             )
-        return self.get_text2img_pipeline(pipe_args)
+        
+        self.set_text2img_pipeline(pipe_args)
 
     def generate_from_text(
         self,

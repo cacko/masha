@@ -552,7 +552,7 @@ sd3_medium_incl_clips_t5xxlfp16.safetensors:
 dev:
   option: f1d
   sd_type: flux
-  category: general,art,wall,xl3
+  category: general,art,wall
   custom_params:
     width: 512
     height: 512
@@ -562,7 +562,7 @@ dev:
 schnell:
   option: f1s
   sd_type: flux
-  category: general,art,wall,xl3
+  category: general,art,wall
   custom_params:
     width: 768
     height: 1024

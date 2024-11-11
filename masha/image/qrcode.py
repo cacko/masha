@@ -19,6 +19,7 @@ from corestring import clean_newlines, to_token, truncate
 from corefile import TempPath
 from masha.image.diffusers import Diffusers
 from masha.image.huggingface.utils import get_compel_prompts
+from masha.image.models import PipelineParams
 from masha.image.prompt import Prompt
 import gc
 from torch.mps import (
@@ -32,10 +33,7 @@ from coreimage.terminal import print_term_image
 from masha.image.huggingface.utils import get_ti_models
 from masha.image.config import image_config
 import shlex
-from masha.image.huggingface.lora.sd_loaders import (
-    loadTextualInversion,
-    loadLoraWeights,
-)
+from masha.image.huggingface.lora.sd_loaders import LoadersSDMixin
 from masha.pipelines import TORCH_DEVICE
 
 
@@ -132,11 +130,11 @@ class QRCodeMeta(type):
         return reduce(clean_split, shlex.split(qr), [])
 
     @property
-    def textualInversionRoot(cls) -> Path:
+    def text_inversion_root(cls) -> Path:
         return cls.dataRoot / image_config.textual_inversion.root
 
     @property
-    def loraRoot(cls) -> Path:
+    def lora_path(cls) -> Path:
         return cls.dataRoot / image_config.lora.root
 
     def get_qrcode_image(cls, data: list[str], no_padding=False, **kwds) -> Image.Image:
@@ -188,7 +186,7 @@ class QRCodeMeta(type):
         cls().do_release()
 
 
-class QRCode(object, metaclass=QRCodeMeta):
+class QRCode(LoadersSDMixin, metaclass=QRCodeMeta):
     name: str = ""
     control_net: str = ""
     model: str = ""
@@ -209,9 +207,9 @@ class QRCode(object, metaclass=QRCodeMeta):
     def do_release(self):
         logging.debug("Releasing cache")
         try:
-            self.pipe = None
+            self.pipeline = None
             self.image_pipe = None
-            del self.pipe
+            del self.pipeline
             del self.image_pipe
         except AttributeError:
             pass
@@ -261,6 +259,7 @@ class QRCode(object, metaclass=QRCodeMeta):
         negative_prompt = args.get("negative_prompt", self.negative_prompt)
         auto_prompt = args.get("auto_prompt")
         device = self.__class__.device
+        self.params = PipelineParams(prompt=prompt)
 
         logging.info(f">> DEVICE: {device}")
         if auto_prompt:
@@ -278,7 +277,7 @@ class QRCode(object, metaclass=QRCodeMeta):
         )
         try:
             assert self.modelPath.is_file()
-            pipe = StableDiffusionControlNetPipeline.from_single_file(
+            self.pipeline = StableDiffusionControlNetPipeline.from_single_file(
                 self.modelPath.as_posix(),
                 controlnet=controlnet,
                 torch_dtype=torch.float16,
@@ -286,7 +285,7 @@ class QRCode(object, metaclass=QRCodeMeta):
                 use_safetensors=True,
             )
         except AssertionError:
-            pipe = StableDiffusionControlNetPipeline.from_pretrained(
+            self.pipeline = StableDiffusionControlNetPipeline.from_pretrained(
                 self.modelPath.as_posix(),
                 controlnet=controlnet,
                 torch_dtype=torch.float16,
@@ -296,32 +295,27 @@ class QRCode(object, metaclass=QRCodeMeta):
         try:
             assert self.modelConfig.scheduler
             scheduler = self.modelConfig().scheduler.from_config(
-                config=pipe.scheduler.config, **self.modelConfig.scheduler_args
+                config=self.pipeline.scheduler.config, **self.modelConfig.scheduler_args
             )
-            pipe.scheduler = scheduler  # type: ignore
+            self.pipeline.scheduler = scheduler  # type: ignore
         except AssertionError:
             pass
 
-        logging.info(f">> SCHDULER {pipe.scheduler.__class__.__name__}")
-        self.pipe = pipe.to(device, dtype=torch.float16)
+        logging.info(f">> SCHDULER {self.pipeline.scheduler.__class__.__name__}")
+        self.pipeline.to(device, dtype=torch.float16)
 
-        image_pipe = StableDiffusionControlNetImg2ImgPipeline(**self.pipe.components)
-        image_pipe.scheduler = self.pipe.scheduler
-        self.image_pipe = image_pipe.to(device, dtype=torch.float32)
+        self.image_pipe = StableDiffusionControlNetImg2ImgPipeline(
+            **self.pipeline.components
+        )
+        self.image_pipe.scheduler = self.pipeline.scheduler
+        self.image_pipe.to(device, dtype=torch.float32)
         self.image_pipe.enable_attention_slicing()
         self.image_pipe.enable_vae_slicing()
         self.image_pipe.enable_vae_tiling()
-        self.pipe = loadLoraWeights(
-            pipeline=self.pipe, prompt=self.prompt, lora_path=self.__class__.loraRoot
-        )
-        self.pipe = loadTextualInversion(
-            pipeline=self.pipe,
-            prompt=self.prompt,
-            negative_prompt=self.negative_prompt or "",
-            text_inversion_root=self.__class__.textualInversionRoot,
-        )
+        self.loadLoraWeights()
+        self.loadTextualInversion()
         prompt_embeds, negative_prompt_embeds = get_compel_prompts(
-            pipe=self.pipe, prompt=self.prompt, negative_prompt=self.negative_prompt
+            pipe=self.pipeline, prompt=self.prompt, negative_prompt=self.negative_prompt
         )
         if not seed:
             seed = torch.Generator(device).seed()
@@ -339,7 +333,7 @@ class QRCode(object, metaclass=QRCodeMeta):
             controlnet_conditioning_scale=float(self.controlnet_conditioning_scale),
             clip_skip=self.clip_skip,
         )
-        latents = self.pipe(
+        latents = self.pipeline(
             image=control_image_small, output_type="latent", **control_params
         )
         upscaled_latents = upscale(latents, "nearest-exact", 2)

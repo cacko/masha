@@ -16,6 +16,7 @@ from masha.image.prompt import Prompt
 from itertools import product
 from masha.name.classifiers import Ethnicity
 from masha.image.huggingface.lora import LORA_PATTERN
+import torch
 
 TI_PATTERN = re.compile(r"\<inversion:([^>]+):([\d.]+)\>", re.DOTALL)
 EM_PATTERN = re.compile(r"embedding:([^\s,:]+)")
@@ -106,7 +107,7 @@ def get_compel_prompts(pipe, prompt=None, negative_prompt=None):
         )
     return prompt_embeds, negative_prompt_embeds
 
-
+@torch.no_grad()
 def get_compel_prompts_xl(pipe, prompt=None, negative_prompt=None):
     compel = Compel(
         tokenizer=[pipe.tokenizer, pipe.tokenizer_2],
