@@ -87,7 +87,6 @@ def img2img(
         template_category=template_category,
     ):
         res = cls.from_img(img_path=img_path.resolve(), params=params)
-        cls.release()
         assert res
         final_paths = res.save_to(output_dir=outdir)
         for final_path in final_paths:
@@ -137,7 +136,6 @@ async def api_img2img(
             template_category=None,
         ):
             image_result = cls.from_img(tmp_path, params=params)
-            cls.release()
             assert image_result
             logging.info(image_result.text)
             return make_multipart_response(

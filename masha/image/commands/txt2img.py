@@ -125,8 +125,8 @@ async def txt2img(request: Request, prompt: Annotated[str, Path(title="prompt")]
         cls = Diffusers.cls_for_option(model)
         params = cls.pipelineParams(**input_params)
         image_result = cls.from_text(params=params)
-        assert image_result
         cls.release()
+        assert image_result
         return make_multipart_response(
             image_path=image_result.image[0], message=image_result.text
         )

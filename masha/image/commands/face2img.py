@@ -157,7 +157,6 @@ def face2img(
                 faceid_embeds=faceid.embeds,
                 face_path=faceid.path_crop,
             )
-            cls.release()
             assert res
             final_paths = res.save_to(output_dir=outdir)
             for final_path in final_paths:
@@ -245,7 +244,6 @@ async def api_face2img(
             params=params, faceid_embeds=faceid.embeds, face_path=faceid.path_crop
         )
         assert image_result
-        cls.release()
         logging.info(image_result.text)
         return make_multipart_response(
             image_path=image_result.image[0], message=image_result.text

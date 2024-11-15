@@ -1,4 +1,5 @@
 from enum import StrEnum
+import gc
 import json
 from diffusers import (
     DiffusionPipeline,
@@ -18,6 +19,7 @@ from diffusers import (
     LMSDiscreteScheduler,
 )
 import rich
+import torch
 from masha.config import app_config
 from queue import Queue
 from pathlib import Path
@@ -287,6 +289,8 @@ class DiffusersType(type):
         cls.__instances[cls.__name__].do_release()
         cls.__instances[cls.__name__] = None
         del cls.__instances[cls.__name__]
+        gc.collect()
+        torch.mps.empty_cache()
 
     def interrupt_callback(cls, pipe, i, t, callback_kwargs):
         if cls.pipe_interupt:

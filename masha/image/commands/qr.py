@@ -84,7 +84,6 @@ def qr2img(
         image=image,
         strength=strength,
     )
-    qr_cls.release()
     assert result
     print_term_image(image_path=result, height=40)
     dst = Path(output_directory) / result.name
@@ -109,7 +108,6 @@ async def api_qr2img(request: Request, prompt: Annotated[str, Path(title="prompt
         cls = QRCode.get_template(template)
         image_result = cls.code2img(qr=qrimage, **input_params)
         assert image_result
-        cls.release()
         return make_multipart_response(image_path=image_result)
     except Exception as e:
         logging.exception(e)

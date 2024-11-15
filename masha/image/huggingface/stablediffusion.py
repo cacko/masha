@@ -34,6 +34,7 @@ class StableDiffusion(Diffusers):
     def do_release(self):
         logging.info("Releasing cache")
         try:
+            self.pipeline = None
             del self.pipeline
         except Exception:
             pass
@@ -43,7 +44,7 @@ class StableDiffusion(Diffusers):
 
     def set_text2img_pipeline(self, pipe_args):
         raise NotImplementedError
-
+    
     def get_txt2img_result(self, seed):
         raise NotImplementedError
 
@@ -144,6 +145,7 @@ class StableDiffusion(Diffusers):
 
         result = ImageResult(image=paths, params=output_params, seed=seed)
         result.write_exif()
+        self.do_release()
         logging.debug(f"MEM END - {format_size(current_allocated_memory())}")
         return result
 
@@ -181,6 +183,7 @@ class StableDiffusion(Diffusers):
                 paths.append(pth)
         result = Image2ImageResult(image=paths, params=output_params, seed=seed)
         result.write_exif(kwds.get("extra_exif", {}))
+        self.do_release()
         logging.debug(f"MEM END - {format_size(current_allocated_memory())}")
         return result
 
@@ -220,5 +223,6 @@ class StableDiffusion(Diffusers):
                 paths.append(pth)
         result = Face2ImageResult(image=paths, params=output_params, seed=seed)
         result.write_exif(kwds.get("extra_exif", {}))
+        self.do_release()
         logging.debug(f"MEM END - {format_size(current_allocated_memory())}")
         return result

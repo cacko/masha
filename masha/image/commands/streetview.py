@@ -35,7 +35,6 @@ def streetview(
         cls = Diffusers.cls_for_option(params.model)
         params = cls.pipelineParams(**params.model_dump(exclude=["model", "name"]))
         res = cls.from_img(img_path=street_view.image, params=params)
-        cls.release()
         assert res
         final_paths = res.save_to(output_dir=outdir)
         for final_path in final_paths:
@@ -69,7 +68,6 @@ async def api_streetview(
             params=params,
             extra_exif=dict(DocumentName=raw_url),
         )
-        cls.release()
         assert res
         s3key = S3.upload(src=res.image[0], dst=res.image[0].name)
         return {
