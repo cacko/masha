@@ -1,6 +1,4 @@
 from pathlib import Path
-from tkinter.tix import IMAGE
-
 from corestring import to_int
 from masha.image.diffusers import DEFAULT_IMAGE_FORMAT, IMAGE_FORMAT, Diffusers
 import logging
@@ -13,7 +11,7 @@ from typing import Optional
 import torch
 from torch.mps import (
     empty_cache,
-    current_allocated_memory,
+    current_allocated_memory
 )
 from corefile import TempPath
 from masha.core import perftime
@@ -21,26 +19,31 @@ from masha.image.models import ImageResult
 from humanfriendly import format_size
 from masha.image.prompt import Prompt
 import gc
+import weakref
 
 
 class StableDiffusion(Diffusers):
     option = "default"
     params: Optional[PipelineParams] = None
     pipeline: Optional[DiffusionPipeline] = None
-
-    def __del__(self):
-        self.do_release()
-
-    def do_release(self):
-        logging.info("Releasing cache")
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._finalizer = weakref.finalize(self, self.release)
+        logging.debug(f"MEM START - {format_size(current_allocated_memory())}")
+        
+    def release(self):
+        logging.debug("Releasing cache")
         try:
             self.pipeline = None
+            self.params = None
             del self.pipeline
-        except Exception:
-            pass
-        gc.collect()
-        empty_cache()
-        logging.info(f"Memory allocated - {format_size(current_allocated_memory())}")
+        except Exception as e:
+            logging.debug(e)
+        finally:
+            gc.collect()
+            empty_cache()
+            logging.debug(f"MEM END - {format_size(current_allocated_memory())}")
 
     def set_text2img_pipeline(self, pipe_args):
         raise NotImplementedError
@@ -72,7 +75,7 @@ class StableDiffusion(Diffusers):
 
     def init_face2img_pipe(self):
         assert self.params
-        logging.info(f"Memory allocated -  {format_size(current_allocated_memory())}")
+        logging.debug(f"Memory allocated -  {format_size(current_allocated_memory())}")
         pipe_args = dict()
         self.set_face2img_pipeline(pipe_args)
 
@@ -80,10 +83,10 @@ class StableDiffusion(Diffusers):
         logging.debug(self.__class__.pipelineClass)
         assert self.params
         params = self.params
-        logging.info(f"Memory allocated -  {format_size(current_allocated_memory())}")
+        logging.debug(f"Memory allocated -  {format_size(current_allocated_memory())}")
         pipe_args = dict()
         if StableDiffusion.is_superuser:
-            logging.warn("SUPERUSER > DISABLING SAFETY CHECKER")
+            logging.warning("SUPERUSER > DISABLING SAFETY CHECKER")
             pipe_args = {**pipe_args, **dict(safety_checker=None)}  # type: ignore
         if params.editing_prompt:
             self.pipeline =  SemanticStableDiffusionPipeline.from_pretrained(
@@ -98,10 +101,10 @@ class StableDiffusion(Diffusers):
         logging.debug(self.__class__.pipelineClass)
         assert self.params
         params = self.params
-        logging.info(f"Memory allocated -  {format_size(current_allocated_memory())}")
+        logging.debug(f"Memory allocated -  {format_size(current_allocated_memory())}")
         pipe_args = dict()
         if StableDiffusion.is_superuser:
-            logging.warn("SUPERUSER > DISABLING SAFETY CHECKER")
+            logging.warning("SUPERUSER > DISABLING SAFETY CHECKER")
             pipe_args = {**pipe_args, **dict(safety_checker=None)}  # type: ignore
         if params.editing_prompt:
             return SemanticStableDiffusionPipeline.from_pretrained(
@@ -145,8 +148,7 @@ class StableDiffusion(Diffusers):
 
         result = ImageResult(image=paths, params=output_params, seed=seed)
         result.write_exif()
-        self.do_release()
-        logging.debug(f"MEM END - {format_size(current_allocated_memory())}")
+        self.release()
         return result
 
     def generate_from_image(
@@ -183,8 +185,7 @@ class StableDiffusion(Diffusers):
                 paths.append(pth)
         result = Image2ImageResult(image=paths, params=output_params, seed=seed)
         result.write_exif(kwds.get("extra_exif", {}))
-        self.do_release()
-        logging.debug(f"MEM END - {format_size(current_allocated_memory())}")
+        self.release()
         return result
 
     def generate_from_face(
@@ -223,6 +224,5 @@ class StableDiffusion(Diffusers):
                 paths.append(pth)
         result = Face2ImageResult(image=paths, params=output_params, seed=seed)
         result.write_exif(kwds.get("extra_exif", {}))
-        self.do_release()
-        logging.debug(f"MEM END - {format_size(current_allocated_memory())}")
+        self.release()
         return result

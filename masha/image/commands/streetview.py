@@ -32,9 +32,9 @@ def streetview(
     print_term_image(image_path=street_view.image, height=30)
     for st in style:
         params = image_config.get_style(st)
-        cls = Diffusers.cls_for_option(params.model)
-        params = cls.pipelineParams(**params.model_dump(exclude=["model", "name"]))
-        res = cls.from_img(img_path=street_view.image, params=params)
+        instance = Diffusers.cls_for_option(params.model)()
+        params = instance.pipelineParams(**params.model_dump(exclude=["model", "name"]))
+        res = instance.generate_from_image(img_path=street_view.image, params=params)
         assert res
         final_paths = res.save_to(output_dir=outdir)
         for final_path in final_paths:
@@ -60,10 +60,10 @@ async def api_streetview(
         street_view = StreetView(gps)
         raw_url = S3.get_url(street_view.s3key)
         params = image_config.get_style(style)
-        cls = Diffusers.cls_for_option(params.model)
-        params = cls.pipelineParams(**params.model_dump(exclude=["model", "name"]))
-        print(cls)
-        res = cls.from_img(
+        instance = Diffusers.cls_for_option(params.model)()
+        params = instance.pipelineParams(**params.model_dump(exclude=["model", "name"]))
+        print(instance)
+        res = instance.generate_from_image(
             img_path=street_view.image,
             params=params,
             extra_exif=dict(DocumentName=raw_url),

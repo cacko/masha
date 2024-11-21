@@ -73,7 +73,7 @@ class LoadersSDMixin(object):
     def loadTextualInversion(self):
         try:
             assert self.params
-            prompt = self.params.params
+            prompt = self.params.prompt
             negative_prompt = self.params.negative_prompt
             txt = f"{prompt} {negative_prompt}"
             embeddings = list(

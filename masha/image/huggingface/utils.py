@@ -160,7 +160,7 @@ def txt2img_iterations(
     age: Optional[int] = None,
     race: Optional[Ethnicity] = None,
     throw_exception = False,
-) -> Generator[tuple[DiffusersType, PipelineParams], None, None]:
+) -> Generator[tuple[Diffusers, PipelineParams], None, None]:
     auto_prompts: list[Optional[str]] = [auto_prompt]
     auto_templates: list[Optional[str]] = [None]
     prompt = inputParams.get("prompt")
@@ -204,7 +204,7 @@ def txt2img_iterations(
             if not mdl:
                 mdl = tpl.models[0]
             logging.info(f"LOAD TEMPLATE -> {current_template}")
-            cls = Diffusers.cls_for_option(mdl, scheduler_class=tpl.scheduler_class)
+            cls = Diffusers.cls_for_option(mdl, scheduler_class=tpl.scheduler_class)()
             assert cls
             params = cls.pipelineParams(
                 **tpl.apply(input_params=inputParams, sex=sex, age=age, race=race),
@@ -221,7 +221,7 @@ def txt2img_iterations(
                 mdl = default_model
             if not prompt:
                 inputParams["prompt"] = default_prompt
-            cls = Diffusers.cls_for_option(mdl)
+            cls = Diffusers.cls_for_option(mdl)()
             params = cls.pipelineParams(
                 **inputParams,
                 model=mdl,
@@ -246,7 +246,7 @@ def img2img_iterations(
     template: Optional[str] = None,
     all_templates: bool = False,
     template_category: str = None,
-) -> Generator[tuple[DiffusersType, PipelineParams], None, None]:
+) -> Generator[tuple[Diffusers, PipelineParams], None, None]:
     params = None
     auto_styles: list[Optional[str]] = [None]
     auto_templates: list[Optional[str]] = [None]
@@ -298,7 +298,7 @@ def img2img_iterations(
             assert stl
             if not mdl:
                 mdl = stl.model
-            cls = Diffusers.cls_for_option(mdl)
+            cls = Diffusers.cls_for_option(mdl)()
             params = cls.pipelineParams(
                 **{
                     **stl.apply(input_params=inputParams),
@@ -315,7 +315,7 @@ def img2img_iterations(
             assert tpl
             if not mdl:
                 mdl = tpl.models[0]
-            cls = Diffusers.cls_for_option(mdl)
+            cls = Diffusers.cls_for_option(mdl)()
             params = cls.pipelineParams(
                 **tpl.apply(input_params=inputParams), model=mdl
             )
@@ -324,7 +324,7 @@ def img2img_iterations(
 
         try:
             assert not params
-            cls = Diffusers.cls_for_option(mdl)
+            cls = Diffusers.cls_for_option(mdl)()
             params = cls.pipelineParams(
                 **{
                     **inputParams,

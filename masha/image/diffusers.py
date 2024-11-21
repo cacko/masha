@@ -24,7 +24,7 @@ from masha.config import app_config
 from queue import Queue
 from pathlib import Path
 from os import environ
-from typing import Optional, Any
+from typing import NoReturn, Optional, Any
 from pydantic import BaseModel
 from masha.image.config import image_config
 from PIL import Image
@@ -73,13 +73,9 @@ class DiffusersType(type):
     pipe_interupt = False
     __queue: Optional[Queue] = None
     __faker: Optional[Faker] = None
-    __instances: dict[str, "Diffusers"] = {}
 
     def __call__(cls, **kwds: Any) -> "Diffusers":
-        k = cls.__name__
-        if k not in cls.__instances:
-            cls.__instances[k] = type.__call__(cls, **kwds)
-        return cls.__instances[k]
+        return type.__call__(cls, **kwds)
 
     def register(cls, model: str):
         cfg = image_config.get_sd_config(model)
@@ -177,11 +173,8 @@ class DiffusersType(type):
         return cls.dataRoot / image_config.textual_inversion.root_2
 
     @property
-    def device(cls):
-        return TORCH_DEVICE
-
-    def pipelineParams(cls, **params) -> PipelineParams:
-        return cls().get_pipelineParams(params)
+    def device(cls) -> torch.device:
+        return torch.device(TORCH_DEVICE)
 
     @property
     def option(cls) -> str:
@@ -279,18 +272,13 @@ class DiffusersType(type):
         **kwds,
     ) -> Optional[ImageResult]:
         try:
+            instance = cls()
             cls.pipe_interupt = False
-            cls().image_format = image_format
-            return cls().generate_from_face(faceid_embeds, params, **kwds)
+            instance.image_format = image_format
+            params = instance.pipelineParams()
+            return instance.generate_from_face(faceid_embeds, params, **kwds)
         except KeyboardInterrupt:
             cls.pipe_interupt = True
-
-    def release(cls):
-        cls.__instances[cls.__name__].do_release()
-        cls.__instances[cls.__name__] = None
-        del cls.__instances[cls.__name__]
-        gc.collect()
-        torch.mps.empty_cache()
 
     def interrupt_callback(cls, pipe, i, t, callback_kwargs):
         if cls.pipe_interupt:
@@ -304,6 +292,9 @@ class Diffusers(object, metaclass=DiffusersType):
     scheduler_class = "EulerAncestralDiscreteScheduler"
     scheduler_args: dict[str, any] = {}
     image_format: Optional[IMAGE_FORMAT] = None
+
+    def pipelineParams(self, **params) -> PipelineParams:
+        raise NotImplemented
 
     @property
     def image_suffix(self):

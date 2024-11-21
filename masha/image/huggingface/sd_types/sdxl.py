@@ -46,7 +46,7 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
     def ip_adapter_faceid_encoder_path(self) -> Path:
         return self.__class__.dataRoot / "CLIP-ViT-H-14-laion2B-s32B-b79K"
 
-    def __get_output_params(self, seed, no_compel=False) -> OutputParams:
+    def __get_output_params(self, seed, use_compel=False) -> OutputParams:
         params = self.params
         prompt = params.output_prompt
         negative_prompt = params.negative_prompt
@@ -58,7 +58,7 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
             negative_pooled_prompt_embeds,
         ) = (
             (None, None, None, None)
-            if no_compel
+            if not use_compel
             else get_compel_prompts_xl(
                 self.pipeline, prompt, negative_prompt=negative_prompt
             )
@@ -85,8 +85,6 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
             scale=params.scale,
         )
 
-
-
     def get_txt2img_result(
         self,
         seed,
@@ -102,7 +100,7 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
 
     def get_face2img_result(self, seed, faceid_embeds, **kwds):
         self.init_face2img_pipe()
-        output_params = self.__get_output_params(seed, no_compel=True)
+        output_params = self.__get_output_params(seed)
         ip_model = IPAdapterFaceIDPlusXL(
             sd_pipe=self.pipeline,
             image_encoder_path=self.ip_adapter_faceid_encoder_path,
@@ -132,6 +130,7 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
         )
         rich.print(self.pipeline.scheduler.config)
         assert self.pipeline
+        self.pipeline.to(self.__class__.device)
         try:
             assert self.scheduler
             scheduler = self.scheduler.from_config(
@@ -142,16 +141,15 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
             pass
         logging.info(f">> SCHDULER {self.pipeline.scheduler.__class__.__name__}")
         logging.info(self.pipeline.scheduler.config)
-        self.pipeline.to(self.__class__.device)
-        logging.info(f"MEM PIPE - {format_size(current_allocated_memory())}")
+        logging.debug(f"MEM PIPE - {format_size(current_allocated_memory())}")
         try:
             self.loadLoraWeights()
             self.loadTextualInversion()
-            logging.info(f"MEM LORA - {format_size(current_allocated_memory())}")
+            logging.debug(f"MEM LORA - {format_size(current_allocated_memory())}")
         except Exception as e:
             logging.exception(e)
             logging.warning("failed")
-    
+
     def get_img2img_result(self, seed, image_path: Path):
         self.init_img2img_pipe()
         output_params = self.__get_output_params(seed)
@@ -167,7 +165,6 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
     def set_img2img_pipeline(self, pipe_args):
         model_path = self.__class__.img2imgModelPath
         logging.info(f"MODEL PATH {model_path}")
-        logging.info(f"MEM START - {format_size(current_allocated_memory())}")
         pipe_args = dict(use_safetensors=True, **pipe_args)
         assert model_path.is_file()
         self.pipeline = StableDiffusionXLImg2ImgPipeline.from_single_file(
@@ -175,6 +172,7 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
             torch_dtype=torch.float16,
             **pipe_args,
         )
+        self.pipeline.to(device=self.__class__.device)
         try:
             assert self.scheduler
             scheduler = self.scheduler.from_config(
@@ -184,12 +182,11 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
         except AssertionError:
             pass
         logging.info(f"SCHEDULER {self.pipeline.scheduler.__class__.__name__}")
-        self.pipeline.to(self.__class__.device)
-        logging.info(f"MEM PIPE - {format_size(current_allocated_memory())}")
+        logging.debug(f"MEM PIPE - {format_size(current_allocated_memory())}")
         try:
             self.loadLoraWeights()
             self.loadTextualInversion()
-            logging.info(f"MEM LORA - {format_size(current_allocated_memory())}")
+            logging.debug(f"MEM LORA - {format_size(current_allocated_memory())}")
         except Exception as e:
             logging.exception(e)
             logging.warning("failed")
@@ -197,23 +194,24 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
     def set_text2img_pipeline(self, pipe_args):
         model_path = self.__class__.modelPath
         logging.info(f"MODEL PATH {model_path}")
-        logging.info(f"MEM START - {format_size(current_allocated_memory())}")
         assert model_path.is_file()
         self.pipeline = StableDiffusionXLPipeline.from_single_file(
             model_path.as_posix(),
             add_watermarker=False,
             **pipe_args,
         )
+        self.pipeline.to(device=self.__class__.device)
+        self.pipeline.enable_attention_slicing()
         self.pipeline.scheduler = self.scheduler.from_config(
             self.pipeline.scheduler.config, **self.scheduler_args
         )
         logging.info(f"SCHEDULER {self.pipeline.scheduler.__class__.__name__}")
         logging.info(self.pipeline.scheduler.config)
-        self.pipeline.to(self.__class__.device)
+
         try:
             self.loadLoraWeights()
             self.loadTextualInversion()
-            logging.info(f"MEM LORA - {format_size(current_allocated_memory())}")
+            logging.debug(f"MEM LORA - {format_size(current_allocated_memory())}")
         except Exception as e:
             logging.exception(e)
             logging.warning("failed")

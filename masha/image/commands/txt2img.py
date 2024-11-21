@@ -2,17 +2,13 @@ from pathlib import Path
 from masha.core.request import make_multipart_response
 from masha.image.huggingface.stablediffusion import StableDiffusion
 from coreimage.terminal import print_term_image
-from masha.image.diffusers import IMAGE_FORMAT, Diffusers
+from masha.image.diffusers import Diffusers
 from coreimage.organise.concat import Concat
 from masha.image.cli import cli
 from masha.image.router import router
-
 from masha.image.huggingface.utils import txt2img_iterations
 import logging
-from masha.config import app_config
 from masha.image.config import TemplateConfig, image_config, GENERATED_PATH
-
-
 from fastapi import HTTPException, Request
 import typer
 from typing_extensions import Annotated
@@ -53,7 +49,7 @@ def txt2img(
     all_prompts: Annotated[bool, typer.Option("--all-prompts")] = False,
     all_templates: Annotated[bool, typer.Option("--all-templates")] = False,
     template_category: Annotated[
-        TemplateConfig.categories_enum, # type: ignore
+        TemplateConfig.categories_enum,  # type: ignore
         typer.Option("-tc", "--template-category"),
     ] = None,
 ):
@@ -85,8 +81,7 @@ def txt2img(
         all_prompts=all_prompts,
         all_templates=all_templates,
     ):
-        res = cls.from_text(params=params)
-        cls.release()
+        res = cls.generate_from_text(params=params)
         assert res
         final_paths = res.save_to(output_dir=outdir)
         for final_path in final_paths:
@@ -122,10 +117,9 @@ async def txt2img(request: Request, prompt: Annotated[str, Path(title="prompt")]
         except AssertionError:
             pass
         assert model
-        cls = Diffusers.cls_for_option(model)
-        params = cls.pipelineParams(**input_params)
-        image_result = cls.from_text(params=params)
-        cls.release()
+        instance = Diffusers.cls_for_option(model)()
+        params = instance.pipelineParams(**input_params)
+        image_result = instance.generate_from_text(params=params)
         assert image_result
         return make_multipart_response(
             image_path=image_result.image[0], message=image_result.text

@@ -4,7 +4,7 @@ from masha.core.request import make_multipart_response, uploaded_file
 from masha.image.caption import ImageCaption
 from masha.image.huggingface.stablediffusion import StableDiffusion
 from coreimage.terminal import print_term_image
-from masha.image.diffusers import  Diffusers
+from masha.image.diffusers import Diffusers
 from coreimage.organise.concat import Concat
 from masha.image.huggingface.utils import img2img_iterations
 import logging
@@ -39,7 +39,7 @@ def img2img(
     category: Annotated[
         Diffusers.categories_enum, typer.Option("-ct", "--categories")
     ] = None,
-    style: Annotated[StyleConfig.styles_enum, typer.Option("-s", "--style")] = None, # type: ignore
+    style: Annotated[StyleConfig.styles_enum, typer.Option("-s", "--style")] = None,  # type: ignore
     all_styles: Annotated[bool, typer.Option("--all-styles")] = False,
     prompt: Annotated[str, typer.Option("-p", "--prompt")] = "",
     generate_caption: Annotated[
@@ -51,7 +51,7 @@ def img2img(
     ] = None,
     all_templates: Annotated[bool, typer.Option("--all-templates")] = False,
     template_category: Annotated[
-        TemplateConfig.categories_enum, # type: ignore
+        TemplateConfig.categories_enum,  # type: ignore
         typer.Option("-tc", "--template_category"),
     ] = None,
 ):
@@ -76,7 +76,7 @@ def img2img(
         height=1024,
         width=1024,
     )
-    for cls, params in img2img_iterations(
+    for instance, params in img2img_iterations(
         inputParams=inputParams,
         models=models,
         category=category,
@@ -86,7 +86,8 @@ def img2img(
         all_templates=all_templates,
         template_category=template_category,
     ):
-        res = cls.from_img(img_path=img_path.resolve(), params=params)
+        res = instance.generate_from_image(image_path=img_path, params=params)
+        del instance
         assert res
         final_paths = res.save_to(output_dir=outdir)
         for final_path in final_paths:
@@ -125,7 +126,7 @@ async def api_img2img(
             input_params["prompt"] = prompt
         except AssertionError:
             pass
-        for cls, params in img2img_iterations(
+        for instance, params in img2img_iterations(
             inputParams=input_params,
             models=[model],
             category=None,
@@ -135,7 +136,9 @@ async def api_img2img(
             all_templates=False,
             template_category=None,
         ):
-            image_result = cls.from_img(tmp_path, params=params)
+            image_result = instance.generate_from_image(
+                image_path=tmp_path, params=params
+            )
             assert image_result
             logging.info(image_result.text)
             return make_multipart_response(

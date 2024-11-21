@@ -501,8 +501,8 @@ class OutputParams(BaseModel, arbitrary_types_allowed=True):
                 "aspect",
                 "width",
                 "height",
-                "prompt",
-                "negative_prompt",
+                "prompt_embeds",
+                "negative_prompt_embeds",
                 "scale",
             ]
         )

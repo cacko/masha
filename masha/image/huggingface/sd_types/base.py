@@ -1,13 +1,12 @@
 from masha.image.huggingface.stablediffusion import StableDiffusion
 from masha.image.models import PipelineParams
-from rich import print
 
 
 class BaseStableDiffusion(StableDiffusion):
     _params = {}
     custom_params: dict[str, str] = {}
 
-    def get_pipelineParams(self, params):
+    def pipelineParams(self, **params):
         if not self.custom_params:
             self.custom_params = {}
         if not params:

@@ -137,7 +137,7 @@ def face2img(
             no_age=no_age,
             no_race=no_race,
         )
-        for cls, params in txt2img_iterations(
+        for instance, params in txt2img_iterations(
             inputParams=inputParams,
             models=models,
             category=category,
@@ -151,8 +151,8 @@ def face2img(
             age=faceid.age,
             race=faceid.race,
         ):
-            params: PipelineParams = cls.pipelineParams(**params.model_dump())
-            res = cls.from_face(
+            params: PipelineParams = instance.pipelineParams(**params.model_dump())
+            res = instance.generate_from_face(
                 params=params,
                 faceid_embeds=faceid.embeds,
                 face_path=faceid.path_crop,
@@ -233,14 +233,14 @@ async def api_face2img(
             assert model
         except AssertionError:
             model = image_config.face2img.default_model
-        cls = Diffusers.cls_for_option(model)
-        params = cls.pipelineParams(**input_params)
+        instance = Diffusers.cls_for_option(model)()
+        params = instance.pipelineParams(**input_params)
         if params.person:
             params.apply_person(sex=faceid.sex, age=faceid.age, race=faceid.race)
         if not params.prompt:
             params.prompt = faceid.caption
         params.upscale = 2
-        image_result = cls.from_face(
+        image_result = instance.generate_from_face(
             params=params, faceid_embeds=faceid.embeds, face_path=faceid.path_crop
         )
         assert image_result
