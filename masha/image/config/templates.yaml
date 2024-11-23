@@ -1032,13 +1032,13 @@ frenchart:
 wlad:
   category: face
   models:
-    - rev
-  prompt: //, masterpiece,best quality,<lora:tbh203-:0.9>,illustration,style of Wlad Safronow, robots
+    - juglight
+  prompt: //, masterpiece,best quality,<lora:tbh203-sdxl:0.9>,illustration,style of Wlad Safronow
   custom_params:
-    guidance_scale: 7
-    num_inference_steps: 35
+    guidance_scale: 1
+    num_inference_steps: 25
     clip_skip: 2
-    scale: 0.4
+    scale: 0.6
     width: 640
     height: 1024
     negative_prompt: >
@@ -1046,7 +1046,6 @@ wlad:
       cropped,worst quality,low quality,normal quality,jpeg artifacts,signature,watermark,
       username,blurry,nsfw,
 exposed:
-  category: face-nsfw
   category: face-nsfw
   for_gender: female
   models:
@@ -1174,7 +1173,7 @@ nightmare:
     height: 768
     strength: 0.3
 embroidered:
-  category: style,xl,face
+  category: style,xl
   models:
     - ultraspice
   prompt: // ral-embroideredpatch <lora:ral-embroideredpatch-sdxl:1> 
@@ -1185,3 +1184,18 @@ embroidered:
     clip_skip: 2
     width: 512
     height: 768
+facepatch:
+  category: xl,face
+  models:
+    - ultraspice
+  prompt: >
+    hyper detailed masterpiece, full  round patch, margins around, portrait,
+    // ral-embroideredpatch <lora:ral-embroideredpatch-sdxl:1> 
+  custom_params:
+    guidance_scale: 7
+    scale: 0.5
+    num_inference_steps: 30
+    clip_skip: 2
+    width: 768
+    height: 768
+    negative_prompt: out of borders

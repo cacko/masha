@@ -179,10 +179,10 @@ frenchart:
   num_inference_steps: 20
   negative_prompt: photo, ((color)), text
 wlad:
-  model: rev
-  prompt: masterpiece,best quality,<lora:tbh203-:0.9>,illustration,style of Wlad Safronow, decaying peonies
-  guidance_scale: 7
-  num_inference_steps: 35
+  model: jugrun
+  prompt: masterpiece,best quality,<lora:tbh203-sdxl:0.9>,illustration,style of Wlad Safronow, decaying peonies
+  guidance_scale: 2
+  num_inference_steps: 24
   clip_skip: 2
   width: 640
   strength: 0.7

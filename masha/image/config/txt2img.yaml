@@ -501,6 +501,8 @@ wildcardxXLTURBO_wildcardxXLTURBOV10.safetensors:
     use_karras_sigmas: True 
   custom_params:
     num_inference_steps: 10
+    num_inference_steps: 10
+    num_inference_steps: 10
     guidance_scale: 4
     width: 832
     height: 1216
