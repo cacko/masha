@@ -216,7 +216,9 @@ class QRCode(LoadersSDMixin, metaclass=QRCodeMeta):
         finally:
             gc.collect()
             empty_cache()
-            logging.debug(f"Memory allocated - {format_size(current_allocated_memory())}")
+            logging.debug(
+                f"Memory allocated - {format_size(current_allocated_memory())}"
+            )
 
     @property
     def modelPath(self) -> Path:
@@ -304,54 +306,52 @@ class QRCode(LoadersSDMixin, metaclass=QRCodeMeta):
 
         logging.info(f">> SCHDULER {self.pipeline.scheduler.__class__.__name__}")
         self.pipeline.to(device=device, dtype=torch.float16)
-
+        self.pipeline.enable_attention_slicing()
         self.image_pipe = StableDiffusionControlNetImg2ImgPipeline(
             **self.pipeline.components
         )
         self.image_pipe.scheduler = self.pipeline.scheduler
         self.image_pipe.to(device, dtype=torch.float32)
-        self.image_pipe.enable_attention_slicing()
-        self.image_pipe.enable_vae_slicing()
-        self.image_pipe.enable_vae_tiling()
         self.loadLoraWeights()
         self.loadTextualInversion()
+        if not seed:
+            seed = torch.Generator(device).seed()
+        generator = torch.Generator(device).manual_seed(seed)
+
+        temp_name = truncate(to_token(prompt), size=30, ellipsis="")
+        temp_path = TempPath(f"{self.name}{temp_name}{seed}{uuid4().hex}.jpg")
+        logging.info(f">> SEED: {seed}")
+        prompt_embeds, negative_prompt_embeds = None, None
         with torch.no_grad():
             prompt_embeds, negative_prompt_embeds = get_compel_prompts(
                 pipe=self.pipeline, prompt=self.prompt, negative_prompt=self.negative_prompt
             )
-            if not seed:
-                seed = torch.Generator(device).seed()
-            generator = torch.Generator(device).manual_seed(seed)
-
-            temp_name = truncate(to_token(prompt), size=30, ellipsis="")
-            temp_path = TempPath(f"{self.name}{temp_name}{seed}{uuid4().hex}.jpg")
-            logging.info(f">> SEED: {seed}")
-            control_params = dict(
-                prompt_embeds=prompt_embeds,
-                negative_prompt_embeds=negative_prompt_embeds,
-                num_inference_steps=self.num_inference_steps,
-                generator=generator,
-                guidance_scale=self.guidance_scale,
-                controlnet_conditioning_scale=float(self.controlnet_conditioning_scale),
-                clip_skip=self.clip_skip,
-            )
-            latents = self.pipeline(
-                image=control_image_small, output_type="latent", **control_params
-            )
-            upscaled_latents = upscale(latents, "nearest-exact", 2)
-            result = self.image_pipe(
-                control_image=control_image_large, image=upscaled_latents, **control_params
-            ).images[0]
-            rich.print(
-                {
-                    "prompt": self.prompt,
-                    "negative_prompt": self.negative_prompt,
-                    **control_params,
-                }
-            )
-            upscaled = self.__class__.upscale(result)
-            upscaled.save(temp_path.as_posix())
-            return temp_path
+        control_params = dict(
+            prompt_embeds=prompt_embeds,
+            negative_prompt_embeds=negative_prompt_embeds,
+            num_inference_steps=self.num_inference_steps,
+            generator=generator,
+            guidance_scale=self.guidance_scale,
+            controlnet_conditioning_scale=float(self.controlnet_conditioning_scale),
+            clip_skip=self.clip_skip,
+        )
+        latents = self.pipeline(
+            image=control_image_small, output_type="latent", **control_params
+        )
+        upscaled_latents = upscale(latents, "nearest-exact", 2)
+        result = self.image_pipe(
+            control_image=control_image_large, image=upscaled_latents, **control_params
+        ).images[0]
+        rich.print(
+            {
+                "prompt": self.prompt,
+                "negative_prompt": self.negative_prompt,
+                **control_params,
+            }
+        )
+        upscaled = self.__class__.upscale(result)
+        upscaled.save(temp_path.as_posix())
+        return temp_path
 
 
 class BaseQRCode(QRCode):

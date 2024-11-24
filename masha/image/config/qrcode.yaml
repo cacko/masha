@@ -19,9 +19,9 @@ baroque:
 castle:
   model: vision-novae
   control_net: qrCodeMonster
-  guidance_scale: 6
-  num_inference_steps: 25
-  controlnet_conditioning_scale: 1
+  guidance_scale: 4
+  num_inference_steps: 10
+  controlnet_conditioning_scale: 0.75
   prompt: >
     RAW photo of an Medievil castle surrounded by water and nature, village, 
     volumetric lighting, photorealistic, insanely detailed and intricate,
