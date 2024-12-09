@@ -200,3 +200,19 @@ embroidered:
   clip_skip: 2
   width: 512
   height: 768
+  guidance_scale: 3
+  strength: 0.5
+  num_inference_steps: 30
+  clip_skip: 2
+  width: 512
+  height: 768
+neo-punk:
+  model: f1d
+  prompt: >
+    dinppcmcpnk style, comic book cover for a second volume in a comic series called National Criminal Agency, title "National Criminal Agency" on the top with "Volume 2" underneath, retro comic book aesthetics, urban street art, dramatic shading, bold linework, high-contrast colors, vibrant colors, pop-art, multiple panels, expressive poses and intense facial expressions, punk style, edgy, action lines, comic-style typography and graphic shapes in the background, dynamic energy, <lora:Neo-Pop-Comic-Punk v3-17:1>
+  guidance_scale: 5
+  strength: 0.5
+  num_inference_steps: 20
+  clip_skip: 2
+  width: 768
+  height: 768

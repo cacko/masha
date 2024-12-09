@@ -64,7 +64,7 @@ async def api_streetview(
         params = instance.pipelineParams(**params.model_dump(exclude=["model", "name"]))
         print(instance)
         res = instance.generate_from_image(
-            img_path=street_view.image,
+            image_path=street_view.image,
             params=params,
             extra_exif=dict(DocumentName=raw_url),
         )
