@@ -1057,20 +1057,20 @@ facepatch:
     width: 768
     height: 768
     negative_prompt: out of borders
-neo-punk:
-  category: style, flux
-  models: 
-    - f1d
-  prompt: >
-    dinppcmcpnk style, comic book cover called "//", title 
-     on the top and with "CACKO" underneath, retro comic book aesthetics, 
-     Ancient grave. A silver pocket watch dangles from the pile, frozen at midnight, casting a soft, ethereal light. A large, elegant quill rests beside the watch, its feather shimmering as if woven from moonlight. The background is a deep, velvety black that accentuates the scene mysterious allure. Soft beams of light cascade from above, highlighting the skull intricate details and the worn, textured covers of the books. The atmosphere is a blend of eerie and magical, invoking a sense of timeless mystery and ancient knowledge <lora:Neo-Pop-Comic-Punk v3-17:1>
-  custom_params:
-    guidance_scale: 1
-    num_inference_steps: 20
-    clip_skip: 1
-    width: 1162
-    height: 1162
-    strength: 1
-    upscale: 2
+# neo-punk:
+#   category: style, flux
+#   models: 
+#     - f1d
+#   prompt: >
+#     dinppcmcpnk style, comic book cover, title "//" on the top,
+#      with "cacko" at the bottom, 
+#     retro comic book aesthetics, urban street art, dramatic shading, bold linework, high-contrast colors, vibrant colors, pop-art, multiple panels, expressive poses and intense facial expressions, punk style, edgy, action lines, comic-style typography and graphic shapes in the background, dynamic energy, Young woman with long, wavy brown hair, standing slightly turned with her back to the viewer, looking over her shoulder with a confident expression. She wears a fitted white tank top and high-waisted, shiny dark green leggings that accentuate her figure. The setting features lush green foliage, creating a natural and vibrant background. The lighting is soft and diffused, suggesting a warm, sunny day, highlighting her skin and the textures of her outfit. The composition is framed to capture her figure and the surrounding nature, emphasizing a feeling of confidence and poise.<lora:Neo-Pop-Comic-Punk v3-17:1>
+#   custom_params:
+#     guidance_scale: 1
+#     num_inference_steps: 20
+#     clip_skip: 1
+#     width: 1162
+#     height: 1162
+#     strength: 1
+#     upscale: 2
 
