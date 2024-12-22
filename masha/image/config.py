@@ -236,11 +236,29 @@ class StyleConfig(BaseModel, ApplyToParamsMixin):
 
     def apply(self, input_params: dict):
         params = input_params.copy()
-        params["prompt"] = f"{params.get('prompt', '')} {self.prompt}".strip()
+        prompt = params.get("prompt", "")
+        caption = input_params.get("caption")
+        pattern_suffix = []
+        try:
+            assert caption
+            if "//" not in self.prompt:
+                self.prompt += ",//"
+            pattern_suffix.append(caption)
+        except AssertionError:
+            pass
+        pattern_suffix = " ".join(pattern_suffix)
+        try:
+            m = OBJECT_PATTERN.match(prompt)
+            assert m
+            assert pattern_suffix not in prompt
+            tmp_prompt = self.prompt.replace("//", f"{pattern_suffix} {m.group(2)}")
+            prompt = prompt.replace(m.group(1), tmp_prompt)
+        except AssertionError:
+            prompt = self.prompt.replace("//", f"{pattern_suffix} {prompt}")
         return {
             **self.model_dump(exclude=["model", "name"], exclude_none=True),
             **{k: v for k, v in params.items() if v is not None},
-            **dict(style=self.name),
+            **dict(prompt=prompt, style=self.name),
         }
 
 
@@ -286,7 +304,8 @@ class Img2CaptionConfig(BaseModel):
 class DeepfaceConfig(BaseModel):
     age: str
     race: str
-    
+
+
 class StreetViewConfig(BaseModel):
     local_url: str
     url: str

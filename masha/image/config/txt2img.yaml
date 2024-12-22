@@ -119,24 +119,6 @@ clarity_3.safetensors:
     width: 512
     height: 768
     negative_prompt: (kid, child, childlike, loli), BadDream UnrealisticDream
-xtoons_v10.safetensors:
-  option: xtoons
-  scheduler_class: DPMSolverMultistepScheduler
-  scheduler_args:
-    use_karras_sigmas: True
-  sd_type: sd
-  category: nsfw,lora,sd,face,cartoon
-  custom_params:
-    num_inference_steps: 25
-    guidance_scale: 4
-    clip_skip: 2
-    width: 512
-    height: 768
-    negative_prompt: > 
-      (conjoined fingers, bad hands, poorly drawn hands, malformed hands, mutated hands, 
-      mutated fingers, deformed hands, deformed fingers), (bad anatomy, extra limb, missing limbs, 
-      long body, long neck, imperfect, unnatural face, unnatural body), ng_deepnegative_v1_75t, 
-      bad-hands-5, bad-picture-chill-75v,
 icomixFp16Cleaned_50.safetensors:
   option: icomix
   scheduler_class: DPMSolverMultistepScheduler

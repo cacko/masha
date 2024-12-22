@@ -890,22 +890,6 @@ fashion-photo:
     width: 832
     height: 1216
     negative_prompt: (worst quality:1.8, low quality:1.8), moles, mole, tears, piercing, freckles, skindentation, cutoffs, shiny skin, lucid skin, pendant, scars on face, interlocked fingers
-xtoon:
-  category: face
-  for_gender: female
-  models:
-    - xtoons
-  prompt: >
-    //, solo, ((half body shot:1.3, upper body)), ((facing viewer, looking at viewer)),
-    1, intricate, highest quality, extremely detailed, immaculate, 
-    masterpiece, epic, RAW photograph, 
-     <lora:add_detail:0.9> <lora:冷调_Cool tones:0.7> <lora:depth_of_field_slider_v1:8>
-  custom_params:
-    guidance_scale: 4
-    num_inference_steps: 25
-    clip_skip: 2
-    width: 640
-    height: 1024
 frenchart:
   category: face
   models:
@@ -1079,7 +1063,8 @@ neo-punk:
     - f1d
   prompt: >
     dinppcmcpnk style, comic book cover called "//", title 
-     on the top and with "CACKO" underneath, retro comic book aesthetics, adult photo, police women in uniforms, vagina exposed, high-contrast colors, vibrant colors, pop-art, multiple panels, expressive poses and intense facial expressions, edgy, action lines, comic-style typography and graphic shapes in the background, dynamic energy, <lora:Neo-Pop-Comic-Punk v3-17:1>
+     on the top and with "CACKO" underneath, retro comic book aesthetics, 
+     Ancient grave. A silver pocket watch dangles from the pile, frozen at midnight, casting a soft, ethereal light. A large, elegant quill rests beside the watch, its feather shimmering as if woven from moonlight. The background is a deep, velvety black that accentuates the scene mysterious allure. Soft beams of light cascade from above, highlighting the skull intricate details and the worn, textured covers of the books. The atmosphere is a blend of eerie and magical, invoking a sense of timeless mystery and ancient knowledge <lora:Neo-Pop-Comic-Punk v3-17:1>
   custom_params:
     guidance_scale: 1
     num_inference_steps: 20

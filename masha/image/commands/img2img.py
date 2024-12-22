@@ -45,7 +45,6 @@ def img2img(
     generate_caption: Annotated[
         bool, typer.Option("-gc", "--generate-caption")
     ] = False,
-    no_auto_caption: Annotated[bool, typer.Option("-nc", "--no-auto-caption")] = False,
     template: Annotated[
         Diffusers.templates_enum, typer.Option("-t", "--template")
     ] = None,
@@ -58,12 +57,12 @@ def img2img(
     StableDiffusion.is_superuser = True
     outdir = Path(output_directory)
     results = []
-    # try:
-    #     assert not no_auto_caption
-    #     assert any([generate_caption, not prompt])
-    #     prompt += f",{ImageCaption.caption(img_path)}"
-    # except AssertionError as e:
-    #     pass
+    caption = None
+    try:
+        assert generate_caption
+        caption = f"{ImageCaption.caption(img_path)}"
+    except AssertionError as e:
+        pass
     inputParams = dict(
         prompt=prompt,
         num_inference_steps=num_inference_steps,
@@ -75,6 +74,7 @@ def img2img(
         strength=strength,
         height=1024,
         width=1024,
+        caption=caption
     )
     for instance, params in img2img_iterations(
         inputParams=inputParams,
