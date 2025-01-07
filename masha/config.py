@@ -44,8 +44,10 @@ class TranslationConfig(BaseModel):
     cs_en_model: str
     pl_en_model: str
     en_pl_model: str
-    en_el_model: str
-    el_en_model: str
+    en_fr_model: str
+    fr_en_model: str
+    en_it_model: str
+    it_en_model: str
     yoda_model: str
 
 class GoogleConfig(BaseModel):

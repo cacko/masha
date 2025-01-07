@@ -1086,3 +1086,15 @@ coffeinated:
     width: 1024
     height: 1024
     strength: 1
+chalk-pastel:
+  category: face,style,xl
+  models:
+    - xlvae
+  prompt: novuschroma style cute magical fantasy // <lora:163_novuschromaSXL_a6:1>
+  custom_params:
+    guidance_scale: 4
+    num_inference_steps: 20
+    clip_skip: 2
+    width: 1024
+    height: 1024
+    scale: 0.5

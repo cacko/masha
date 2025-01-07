@@ -1,3 +1,4 @@
+from enum import StrEnum
 from masha.translate.translator import Translator
 from fastapi import APIRouter, Request, HTTPException, Path as FPath
 import typer
@@ -19,14 +20,13 @@ SUPPORTED = [
     "cs_en",
     "pl_en",
     "en_pl",
-    "sq_en",
-    "en_sq",
-    "en_ur",
-    "ur_en",
-    "pa_en",
-    "en_el",
-    "el_en",
+    "en_fr",
+    "fr_en",
+    "en_it",
+    "it_en",
 ]
+
+lang_options = StrEnum("langs", SUPPORTED)
 
 
 @router.post("/{lang}")
@@ -42,9 +42,12 @@ async def translate_command(
 
 
 @cli.command()
-def el_en(text: Annotated[list[str], typer.Argument()]):
+def translate(
+    text: Annotated[list[str], typer.Argument()],
+    langs: Annotated[lang_options, typer.Option("-l", "--langs")],
+):
     assert text
-    t = Translator.translated("el_en", " ".join(text))
+    t = Translator.translated(langs, " ".join(text))
     print(t)
 
 
