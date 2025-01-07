@@ -5,13 +5,14 @@ from tifffile import format_size
 import torch
 from masha.code.config import InstructConfig
 from masha.core import Choices, perftime
-from transformers import AutoModelForCausalLM, AutoTokenizer, LlamaForCausalLM
+from transformers import AutoModelForCausalLM, AutoTokenizer, LlamaForCausalLM, set_seed
 from masha.pipelines import DATA_ROOT, TORCH_DEVICE
 from torch.mps import (
     empty_cache,
     current_allocated_memory,
 )
 import gc
+from random import randint
 
 
 class InstructOption(Choices, StrEnum):
@@ -122,6 +123,32 @@ class Instruct(object, metaclass=InstructMeta):
 
 class InstructGeneral(Instruct):
     option = InstructOption.GENERAL
+
+    def get_result(self, user_query):
+        with perftime(f"{self.__class__.__name__}"):
+            prompt = self.get_prompt(user_query)
+            tokenizer = self.tokenizer
+            model: LlamaForCausalLM = self.model
+            logging.debug(prompt)
+            input_ids = tokenizer(
+                prompt,
+                return_tensors="pt",
+                add_special_tokens=False,
+            )["input_ids"]
+            set_seed(randint(40, 100))
+            generated_ids = model.generate(
+                input_ids.to(TORCH_DEVICE),
+                max_new_tokens=256,
+                pad_token_id=tokenizer.eos_token_id,
+                top_k=10,  # default=10
+                # top_p=0.5, # default=0.9
+                temperature=0.6,  # default=0.
+                do_sample=True,
+                num_return_sequences=1,
+            )
+            output = generated_ids[:, input_ids.shape[1] :].to(TORCH_DEVICE)
+            result = tokenizer.batch_decode(output, skip_special_tokens=True)
+            return self.clean_result("".join(result))
 
 
 class InstructPython(Instruct):
