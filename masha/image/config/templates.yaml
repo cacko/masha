@@ -1073,4 +1073,16 @@ facepatch:
 #     height: 1162
 #     strength: 1
 #     upscale: 2
-
+coffeinated:
+  category: style, flux
+  models:
+    - f1d
+  prompt: >
+    // <lora:DonM_-_Over_Coffeinated_Flux-000009:1>
+  custom_params:
+    guidance_scale: 3.6
+    num_inference_steps: 30
+    clip_skip: 1
+    width: 1024
+    height: 1024
+    strength: 1
