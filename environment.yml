@@ -255,7 +255,7 @@ dependencies:
       - addict==2.4.0
       - albucore==0.0.18
       - albumentations==1.4.14
-      - annotated-types==0.6.0
+      - annotated-types==0.7.0
       - antlr4-python3-runtime==4.9.3
       - anyio==4.1.0
       - appnope==0.1.3
@@ -293,7 +293,7 @@ dependencies:
       - cytoolz==0.12.2
       - dataclasses-json==0.6.3
       - deep-translator==1.11.4
-      - diffusers==0.31.0
+      - diffusers==0.32.2
       - dnspython==2.6.1
       - easydict==1.13
       - einops==0.8.0
@@ -312,7 +312,7 @@ dependencies:
       - floret==0.10.5
       - fonttools==4.46.0
       - fs==20.4.16
-      - fsspec==2024.6.1
+      - fsspec==2024.10.0
       - future==0.18.3
       - fuzzelinho==0.2.6
       - gast==0.6.0
@@ -329,7 +329,7 @@ dependencies:
       - google-crc32c==1.5.0
       - google-resumable-media==2.7.1
       - googleapis-common-protos==1.65.0
-      - grpcio==1.66.1
+      - grpcio==1.65.1
       - grpcio-status==1.60.0
       - h11==0.14.0
       - h5py==3.11.0
@@ -339,7 +339,7 @@ dependencies:
       - httptools==0.6.1
       - httpx==0.25.2
       - huggingface-hub==0.25.2
-      - idna==3.10
+      - idna==3.8
       - ifaddr==0.2.0
       - imageio==2.36.0
       - importlib-metadata==8.0.0
@@ -356,7 +356,7 @@ dependencies:
       - langcodes==3.4.1
       - langdetect==1.0.9
       - language-data==1.2.0
-      - lazy-loader==0.3
+      - lazy-loader==0.4
       - levenshtein==0.23.0
       - libclang==18.1.1
       - lmdb==1.4.1
@@ -369,17 +369,17 @@ dependencies:
       - marshmallow==3.20.1
       - matplotlib==3.9.2
       - mdurl==0.1.2
-      - mflux==0.4.1
+      - mflux==0.5.0
       - mgrs==1.4.5
       - ml-dtypes==0.4.0
-      - mlx==0.19.0
+      - mlx==0.22.0
       - msgpack==1.0.8
       - murmurhash==1.0.10
       - namex==0.0.8
       - networkx==3.4.2
       - ninja==1.11.1.1
       - nltk==3.8.1
-      - numpy==2.1.2
+      - numpy==2.1.3
       - olefile==0.47
       - omegaconf==2.3.0
       - onnx==1.16.1
@@ -400,15 +400,15 @@ dependencies:
       - pixelme==0.4.13
       - polygonize==0.1.5
       - preshed==3.0.9
-      - prettytable==3.11.0
+      - prettytable==3.10.2
       - prompt-toolkit==3.0.36
       - proto-plus==1.24.0
-      - protobuf==4.25.5
+      - protobuf==5.28.3
       - pyaml==24.7.0
       - pyasn1==0.5.1
       - pyasn1-modules==0.3.0
       - pycryptodomex==3.19.0
-      - pydantic==2.8.2
+      - pydantic==2.9.2
       - pydantic-core==2.23.4
       - pydantic-settings==2.1.0
       - pyequilib==0.5.8
@@ -429,9 +429,9 @@ dependencies:
       - regex==2024.9.11
       - reportlab==4.0.7
       - requests-toolbelt==1.0.0
-      - rich==13.9.2
+      - rich==13.8.0
       - s3transfer==0.10.2
-      - safetensors==0.4.1
+      - safetensors==0.4.5
       - scikit-image==0.22.0
       - scikit-learn==1.5.2
       - scipy==1.14.1
@@ -441,7 +441,7 @@ dependencies:
       - sentencepiece==0.2.0
       - setuptools==71.0.4
       - shellingham==1.5.4
-      - smart-open==7.0.4
+      - smart-open==6.4.0
       - sniffio==1.3.0
       - spacy-legacy==3.0.12
       - spacy-loggers==1.0.5
@@ -463,16 +463,16 @@ dependencies:
       - text-unidecode==1.3
       - tf-keras-nightly==2.16.0.dev2023120710
       - thinc==9.1.1
-      - tifffile==2024.9.20
-      - tokenizers==0.20.1
+      - tifffile==2023.9.26
+      - tokenizers==0.21.0
       - toolz==1.0.0
-      - torch==2.5.0
-      - torchaudio==2.5.0
+      - torch==2.5.1
+      - torchaudio==2.5.1
       - torchsde==0.2.6
-      - torchvision==0.20.0
+      - torchvision==0.20.1
       - tqdm==4.66.5
       - trampoline==0.1.2
-      - transformers==4.46.1
+      - transformers==4.48.0
       - typer==0.9.4
       - typing-inspect==0.9.0
       - tzdata==2024.2
@@ -484,7 +484,7 @@ dependencies:
       - waitress==3.0.0b0
       - wasabi==1.1.2
       - watchfiles==0.22.0
-      - wcwidth==0.2.13
+      - wcwidth==0.2.12
       - weasel==0.3.4
       - websockets==12.0
       - werkzeug==3.0.4
