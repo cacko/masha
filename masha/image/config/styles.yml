@@ -236,3 +236,42 @@ flux-pixar:
   clip_skip: 2
   width: 768
   height: 768
+darkcomic:
+  model: ultraspice
+  prompt: //, darkcomic <lora:Dark_Comic_SDXL:1>
+  guidance_scale: 8
+  strength: 0.5
+  num_inference_steps: 30
+  clip_skip: 2
+comicz:
+  model: f1d
+  prompt: >
+    //, C0MICZ2 <lora:stylized_comic_000002000:1>
+  guidance_scale: 5
+  strength: 0.5
+  num_inference_steps: 20
+  clip_skip: 1
+  width: 768
+  height: 768
+puzzle:
+  model: tvxl
+  prompt: //, Puzzle_Fantasy <lora:Puzzle_Fantasy__XL:1>
+  guidance_scale: 7.5
+  strength: 0.55
+  num_inference_steps: 20
+  clip_skip: 1
+puppet:
+  model: faetastic
+  prompt: //, ArsMJStyle, Artisan Oddities Fantasy <lora:Felt_Puppet_Fantasy:1>
+  guidance_scale: 7
+  strength: 0.55
+  num_inference_steps: 30
+  clip_skip: 2
+fantasia:
+  model: dreamturbo
+  prompt: //, Digital painting style, (brushstrokes:1.2), dark a sleek racing car at the starting line of a grand prix <lora:PainterlyFantasiaSDXL:1.2>
+  guidance_scale: 7.8
+  strength: 0.5
+  num_inference_steps: 30
+  clip_skip: 2
+  
