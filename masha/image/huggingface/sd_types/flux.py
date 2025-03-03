@@ -162,7 +162,7 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
         model_path = self.__class__.img2imgModelPath
         params = dict(
             model_config=ModelConfig.from_alias(model_path.name),
-            quantize=8,
+            quantize=4,
         )
         try:
             paths, scales = self.loadLoraWeights()
@@ -198,7 +198,7 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
         model_path = self.__class__.modelPath
         params = dict(
             model_config=ModelConfig.from_alias(model_path.name),
-            quantize=8,
+            quantize=4,
         )
         try:
             paths, scales = self.loadLoraWeights()

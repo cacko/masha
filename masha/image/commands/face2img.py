@@ -182,6 +182,7 @@ async def api_face2img_options():
         "safe": {
             "models": Diffusers.options_for_category("face"),
             "templates": [t.name for t in image_config.get_template_category("face")],
+            "styles": [s.name for s in image_config.styles]
         },
         "nsfw": {
             "models": Diffusers.options_for_category("face-nsfw"),

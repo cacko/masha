@@ -95,7 +95,7 @@ tasks:
 
   restart-botyo:
     desc: restart restart-botyo
-    dir: /Volume/Devo/Code/botyo
+    dir: /Volumes/Devo/Code/botyo
     cmds:
       - task restart
 

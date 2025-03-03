@@ -243,16 +243,6 @@ darkcomic:
   strength: 0.5
   num_inference_steps: 30
   clip_skip: 2
-comicz:
-  model: f1d
-  prompt: >
-    //, C0MICZ2 <lora:stylized_comic_000002000:1>
-  guidance_scale: 5
-  strength: 0.5
-  num_inference_steps: 20
-  clip_skip: 1
-  width: 768
-  height: 768
 puzzle:
   model: tvxl
   prompt: //, Puzzle_Fantasy <lora:Puzzle_Fantasy__XL:1>

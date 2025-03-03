@@ -481,21 +481,21 @@ feathers:
   custom_params:
     num_inference_steps: 40
 selfie-yacht:
-  category: face-nsfw
+  category: face
   for_gender: female
   no_race: True
   models:
     - tvxl
   prompt: >
     selfie, fish eye, very beautiful // on the deck of a yacht,, hard nipples,
-    wind in her hair, wide hips, seductiveness, happiness, Egypt, nsfw
+    wind in her hair, wide hips, seductiveness, happiness, Egypt
   custom_params:
     guidance_scale: 2.8
     num_inference_steps: 10
     clip_skip: 2
     width: 832
     height: 1216
-    negative_prompt: CGI, Unreal, Airbrushed, Digital
+    negative_prompt: CGI, Unreal, Airbrushed, Digital, nsfw
 red-sweater:
   category: face
   for_gender: female
@@ -936,6 +936,10 @@ shadybug:
     guidance_scale: 5
     num_inference_steps: 30
     scale: 0.6
+
+
+
+storybook:
 storybook:
   category: style,face
   models:
@@ -1081,10 +1085,10 @@ coffeinated:
     // <lora:DonM_-_Over_Coffeinated_Flux-000009:1>
   custom_params:
     guidance_scale: 3.6
-    num_inference_steps: 30
+    num_inference_steps: 10
     clip_skip: 1
-    width: 1024
-    height: 1024
+    width: 768
+    height: 768
     strength: 1
 chalk-pastel:
   category: face,style,xl
