@@ -6,6 +6,7 @@ from masha.image.huggingface.sd_types.base import BaseStableDiffusion
 from masha.image.models import OutputParams
 import torch
 from diffusers.pipelines.flux.pipeline_output import FluxPipelineOutput
+from diffusers import FluxPipeline
 from mflux import Config, Flux1, ModelConfig
 import logging
 from humanfriendly import format_size
@@ -18,7 +19,22 @@ from pathlib import Path
 from masha.image.config import image_config
 import logging
 from ip_adapter.ip_adapter_faceid import IPAdapterFaceIDPlusXL
+from enum import StrEnum
+from stringcase import constcase
 
+class FLUX_MODELS(StrEnum):
+    SCHNELL="dhairyashil/FLUX.1-schnell-mflux-4bit"
+    DEV = "dhairyashil/FLUX.1-dev-mflux-4bit"
+    DEV_FILL = "black-forest-labs/FLUX.1-Fill-dev"
+    DEV_DEPTH =  "black-forest-labs/FLUX.1-Depth-dev"
+    DEV_REDUX =  "black-forest-labs/FLUX.1-Redux-dev"
+    LITE = "Freepik/flux.1-lite-8B-alpha"
+
+def get_model_config(name: str) -> ModelConfig:
+    cfg = ModelConfig.from_name(name)
+    cfg.model_name = FLUX_MODELS[constcase(name)].value
+    return cfg
+    
 
 class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
     _params = dict(negative_prompt="blurry")
@@ -105,9 +121,9 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
     def set_face2img_pipeline(self, pipe_args):
         model_path = self.__class__.modelPath
         logging.info(f"MODEL PATH {model_path}")
-        assert model_path.is_file()
+        # assert model_path.is_file()
         pipe = FluxPipeline.from_pretrained(
-            "black-forest-labs/FLUX.1-schnell",
+            FLUX_MODELS.LITE,
             add_watermarker=False,
             torch_dtype=torch.bfloat16,
             **pipe_args,
@@ -147,8 +163,8 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
             height=height,
             width=width,
             guidance=output_params.guidance_scale,
-            init_image_path=image_path.as_posix(),
-            init_image_strength=output_params.strength,
+            image_path=image_path.as_posix(),
+            image_strength=output_params.strength,
         )
         rich.inspect(cfg)
         image = self.pipeline.generate_image(
@@ -161,7 +177,7 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
     def set_img2img_pipeline(self, pipe_args) -> Flux1:
         model_path = self.__class__.img2imgModelPath
         params = dict(
-            model_config=ModelConfig.from_alias(model_path.name),
+            model_config=get_model_config(model_path.name),
             quantize=4,
         )
         try:
@@ -197,7 +213,7 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
     def set_text2img_pipeline(self, pipe_args) -> Flux1:
         model_path = self.__class__.modelPath
         params = dict(
-            model_config=ModelConfig.from_alias(model_path.name),
+            model_config=get_model_config(model_path.name),
             quantize=4,
         )
         try:

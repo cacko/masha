@@ -936,10 +936,6 @@ shadybug:
     guidance_scale: 5
     num_inference_steps: 30
     scale: 0.6
-
-
-
-storybook:
 storybook:
   category: style,face
   models:
