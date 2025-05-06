@@ -198,10 +198,10 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
         self.pipeline = StableDiffusionXLPipeline.from_single_file(
             model_path.as_posix(),
             add_watermarker=False,
+            torch_dtype=torch.float16,
             **pipe_args,
         )
         self.pipeline.to(device=self.__class__.device)
-        self.pipeline.enable_attention_slicing()
         self.pipeline.scheduler = self.scheduler.from_config(
             self.pipeline.scheduler.config, **self.scheduler_args
         )

@@ -52,6 +52,7 @@ def create_app():
     from masha.text import router as text_router
     from masha.translate import router as translate_router
     from masha.hue import router as hue_router
+    from masha.geo import router as geo_router
 
     app.include_router(code_router, prefix="/code", tags=["code"])
     app.include_router(chat_router, prefix="/chat", tags=["chat"])
@@ -61,6 +62,7 @@ def create_app():
     app.include_router(text_router, prefix="/text", tags=["text"])
     app.include_router(translate_router, prefix="/translate", tags=["translate"])
     app.include_router(hue_router, prefix="/hue", tags=["hue"])
+    app.include_router(geo_router, prefix="/geo", tags=["geo"])
     return app
 
 

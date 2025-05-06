@@ -1098,3 +1098,42 @@ chalk-pastel:
     width: 1024
     height: 1024
     scale: 0.5
+neo-rasta:
+  category: style,flux
+  models:
+    - f1d
+  prompt: >
+    Comic Rebellion, retro pop art //,  multicolor neon tones, wabi-sabi art, abstract, punk collage, urbanpunk, random textures, random graffiti strokes, Impermanence, vintage abstract composition, weed leaves, dynamic angles,  dynamic pose,  8k, ultra violet,  black background <lora:NeoRasta_000001:1>
+  custom_params:
+    guidance_scale: 3.6
+    num_inference_steps: 10
+    clip_skip: 1
+    width: 768
+    height: 768
+    strength: 0.4
+plush:
+  category: style,flux
+  models:
+    - f1d
+  prompt: >
+    // Plush material <lora:FLUX-maorong-F:1>
+  custom_params:
+    guidance_scale: 3.6
+    num_inference_steps: 10
+    clip_skip: 1
+    width: 768
+    height: 768
+    strength: 0.4
+origami:
+  category: style,flux
+  models:
+    - f1s
+  prompt: > 
+    // Origami <lora:DJ_Origami_Flux-35:1>
+  custom_params:
+    guidance_scale: 3.6
+    num_inference_steps: 10
+    clip_skip: 1
+    width: 768
+    height: 768
+    strength: 0.4

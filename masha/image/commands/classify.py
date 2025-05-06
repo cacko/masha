@@ -4,7 +4,6 @@ from pydantic import BaseModel
 import typer
 from pathlib import Path
 from typing_extensions import Annotated
-from masha.image.age import AgeClassifier
 from masha.image.classify import Age, Attraction, Classifier, Ethnic, Gender
 from masha.image.cli import cli
 from masha.image.deepface import AgeClient, RaceClient
@@ -14,9 +13,24 @@ from fastapi import UploadFile, File
 from masha.core.request import uploaded_file
 from coreimage.terminal import print_term_image
 from coreimage.transform.crop import Cropper
+from masha.image.yolo import detect_objects
+from masha.image.dog import get_dog_breed
 
 
 from masha.pipelines.image_clasify.models import ClassifyResult
+
+
+@cli.command()
+def dog(img_path: Annotated[Path, typer.Argument()]):
+    print_term_image(image_path=img_path, height=20)
+    get_dog_breed(image=img_path)
+
+
+@cli.command()
+def detect(img_path: Annotated[Path, typer.Argument()]):
+    print_term_image(image_path=img_path, height=20)
+    detect_objects(img_path=img_path)
+
 
 class ClassifyResponse(BaseModel):
     objects: Optional[list[ClassifyResult]] = None
@@ -24,11 +38,9 @@ class ClassifyResponse(BaseModel):
     gender: Optional[list[ClassifyResult]] = None
     attraction: Optional[list[ClassifyResult]] = None
     ethnicity: Optional[list[ClassifyResult]] = None
-    
+
     def response(self):
-        result = [
-            *self.objects
-        ]
+        result = [*self.objects]
         try:
             assert len(self.age)
             result.append(self.age.pop(0))
@@ -41,8 +53,6 @@ class ClassifyResponse(BaseModel):
         except AssertionError:
             return result
         return result
-        
-    
 
 
 @router.post("/classify")
@@ -55,9 +65,18 @@ async def api_classify(
         age=Age.classify(tmp_path),
         gender=Gender.classify(tmp_path),
         attraction=Attraction.classify(tmp_path),
-        ethnicity=Ethnic.classify(tmp_path)
+        ethnicity=Ethnic.classify(tmp_path),
     )
     return {"response": res.response()}
+
+
+@router.post("/dog")
+async def api_dog(
+    file: Annotated[UploadFile, File()],
+):
+    tmp_path = await uploaded_file(file)
+    res = get_dog_breed(image=tmp_path)
+    return {"response": res}
 
 
 @cli.command()
@@ -73,6 +92,6 @@ def classify(img_path: Annotated[Path, typer.Argument()]):
         age=Age.classify(img_path),
         gender=Gender.classify(img_path),
         attraction=Attraction.classify(img_path),
-        ethnicity=Ethnic.classify(img_path)
+        ethnicity=Ethnic.classify(img_path),
     )
     print(res.response())

@@ -1,5 +1,6 @@
 from typing import Any
 from corestring import split_with_quotes
+from stringcase import snakecase
 from masha.pipelines.text_classifier import TextClassifier
 from enum import StrEnum
 from gender_predictor import GenderPredictor
@@ -34,15 +35,19 @@ class Ethnicity(StrEnum):
     HISPANIC = "hispanic"
     INDIAN = "indian"
     ARABIC="arabic"
-    EAST_ASIAN="east asian"
+    EAST_ASIAN="east_asian"
     WHITE="white"
     MIDDLE_EASTERN="middle_eastern",
     LATINO_HISPANIC="latino_hispanic",
     SOUTHEAST_ASIAN="southeast_asian"
     
+    
     @classmethod
     def _missing_(cls, value: object) -> Any:
-        value = value.lower()
+        value = snakecase(value.lower().strip())
+        for member in cls:
+            if member.value == value:
+                return member
         match value:
             case "black":
                 return cls.BLACK

@@ -14,6 +14,7 @@ from PIL import Image
 
 def convertor_upscale(image: Image.Image):
     try:
+        image = image.convert("RGB")
         w, h = image.width, image.height
         min_dim = min(w, h)
         assert 1200 > min_dim
@@ -54,11 +55,11 @@ class ImageClassify(BasePipeline):
                 image_processor=self.tokenizer,
                 model=self.model,
                 device=TORCH_DEVICE,
-                use_fast=True
+                use_fast=True,
             )
         return self._pipeline
 
-    def getAnswer(self, image: Path, threshold=0.2) -> list[ClassifyResult]:
+    def getAnswer(self, image: Path, threshold=0.2, **kwargs) -> list[ClassifyResult]:
 
         processor = self.tokenizer
         model = self.model

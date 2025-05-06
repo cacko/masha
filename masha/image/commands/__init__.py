@@ -6,6 +6,7 @@ from . import txt2img
 from . import img2img
 from . import qr
 from . import caption
+from . import ask
 
 __all__ = [
     "pixel",
@@ -15,5 +16,6 @@ __all__ = [
     "txt2img",
     "img2img",
     "qr",
-    "caption"
+    "caption",
+    "ask"
 ]

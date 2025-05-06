@@ -24,6 +24,10 @@ class CoverLetterConfig(BaseModel):
     
 class SynonimsConfig(BaseModel):
     model: str
+    
+class GenaiConfig(BaseModel):
+    api_key: str
+    model: str
 
 class TextConfig(BaseModel):
     gemini: GeminiConfig
@@ -33,6 +37,7 @@ class TextConfig(BaseModel):
     skills: SkillsConfig
     cover_letter: CoverLetterConfig
     synonims: SynonimsConfig
+    genai: GenaiConfig
 
 config_path = Path(__file__).parent / "config.yaml"
 data = yaml.full_load(config_path.read_text())

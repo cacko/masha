@@ -5,7 +5,7 @@ from masha.text.detector import TextDetector
 from masha.text.generator import TextGenerator
 from masha.text.skills import SkillExtractor
 import pycountry
-from masha.text.gemini import Gemini
+from masha.text.genai import Gemini
 from masha.core.request import make_response
 from PIL import Image
 from io import BytesIO
@@ -19,7 +19,7 @@ import typer
 from typing_extensions import Annotated
 from masha.text.config import text_config
 
-Gemini.register(text_config.gemini)
+Gemini.register(text_config.genai)
 TextGenerator.register(text_config.generator)
 SkillExtractor.register(text_config.skills)
 CoverLetter.register(text_config.cover_letter)
@@ -77,9 +77,12 @@ def detect(text: Annotated[list[str], typer.Argument()]):
     print(TextDetector.detect(" ".join(text)))
 
 
+
+
 @cli.command()
 def gemini(text: Annotated[list[str], typer.Argument()]):
     res = Gemini.ask(" ".join(text))
+    
     if res.images:
         resp = requests.get(res.images[0])
         img = Image.open(BytesIO(resp.content))

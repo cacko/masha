@@ -7,7 +7,8 @@ from masha import (
     name, 
     text,
     hue,
-    translate
+    translate,
+    geo
 )
 
 cli = typer.Typer()
@@ -19,6 +20,7 @@ cli.add_typer(name.cli, name="name")
 cli.add_typer(text.cli, name="text")
 cli.add_typer(hue.cli, name="hue")
 cli.add_typer(translate.cli, name="translate")
+cli.add_typer(geo.cli, name="geo")
 
 @cli.command()
 def serve():

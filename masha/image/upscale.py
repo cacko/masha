@@ -14,7 +14,6 @@ import torch
 from torchvision.transforms.functional import to_pil_image, to_tensor
 import cv2
 
-
 # def to_pil_image(tensor: torch.Tensor) -> Image.Image:
 #     image = tensor.cpu().squeeze().detach().numpy()
 #     image = np.transpose(image, (1, 2, 0))
@@ -22,7 +21,6 @@ import cv2
 #     image = image.astype(np.uint8)
 #     image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 #     return Image.fromarray(image)
-
 
 
 class UpscaleMeta(type):
@@ -36,9 +34,8 @@ class UpscaleMeta(type):
         40: "BSRGAN.pth",
         400: "Swin2SR_RealworldSR_X4_64_BSRGAN_PSNR.pth",
         1000: "scunet_color_real_psnr.pth",
-        1001: "Uformer_B.pth"
+        1001: "Uformer_B.pth",
     }
-    
 
     def get_upscaler(cls, scale: int) -> ImageModelDescriptor:
         model_path = cls.__models_root / cls.__models[scale]
@@ -46,7 +43,6 @@ class UpscaleMeta(type):
         model.to(cls.device)
         model.eval()
         return model
-        
 
     def __call__(cls, *args: Any, **kwds: Any) -> Any:
         return type.__call__(cls, *args, **kwds)

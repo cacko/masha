@@ -3,7 +3,7 @@ classify:
   tokenizer: vit-base-patch16-224
   attraction_model: attractive_faces_celebs_detection
   age_model: photo_age_detection
-  ethnicity_model: trained-race
+  ethnicity_model: Race-CLS-FairFace_yolov8m.pt
   gender_model: gender-classification-2
 age:
   age_model: age_net.caffemodel

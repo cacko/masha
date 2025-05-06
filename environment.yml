@@ -253,16 +253,16 @@ dependencies:
       - absl-py==2.1.0
       - accelerate==0.34.0
       - addict==2.4.0
-      - albucore==0.0.17
-      - albumentations==1.4.14
+      - albucore==0.0.18
+      - albumentations==1.4.18
       - annotated-types==0.7.0
       - antlr4-python3-runtime==4.9.3
-      - anyio==4.1.0
+      - anyio==4.9.0
       - appnope==0.1.3
       - args==0.1.0
       - autoflake8==0.4.1
       - bardapi==0.1.38
-      - basicsr==1.4.2
+      - basicsr==11.4.2
       - better-exceptions==0.3.3
       - bitsandbytes==0.42.0
       - blis==1.0.1
@@ -293,7 +293,7 @@ dependencies:
       - cytoolz==0.12.2
       - dataclasses-json==0.6.3
       - deep-translator==1.11.4
-      - diffusers==0.32.2
+      - diffusers==0.33.1
       - dnspython==2.6.1
       - easydict==1.13
       - einops==0.8.0
@@ -327,6 +327,9 @@ dependencies:
       - google-cloud-storage==2.17.0
       - google-cloud-translate==3.13.0
       - google-crc32c==1.5.0
+      - google-genai==1.12.1
+      - google-geo-type==0.3.12
+      - google-maps-places==0.1.25
       - google-resumable-media==2.7.1
       - googleapis-common-protos==1.65.0
       - grpcio==1.65.1
@@ -337,11 +340,11 @@ dependencies:
       - httpcore==1.0.2
       - httplib2==0.22.0
       - httptools==0.6.1
-      - httpx==0.25.2
+      - httpx==0.28.1
       - huggingface-hub==0.26.1
       - idna==3.10
       - ifaddr==0.2.0
-      - imageio==2.33.0
+      - imageio==2.36.0
       - importlib-metadata==8.0.0
       - insightface==0.7.3
       - ip-adapter==0.1.0
@@ -353,10 +356,11 @@ dependencies:
       - keras-nightly==3.6.0.dev2024101603
       - kiwisolver==1.4.7
       - lambo==10.0.8
-      - langcodes==3.3.0
+      - langcodes==3.4.1
       - langdetect==1.0.9
       - language-data==1.2.0
-      - lazy-loader==0.3
+      - lap==0.5.12
+      - lazy-loader==0.4
       - levenshtein==0.23.0
       - libclang==18.1.1
       - lmdb==1.4.1
@@ -369,20 +373,20 @@ dependencies:
       - marshmallow==3.20.1
       - matplotlib==3.9.2
       - mdurl==0.1.2
-      - mflux==0.5.1
+      - mflux==0.7.0
       - mgrs==1.4.5
       - ml-dtypes==0.4.0
       - mlx==0.22.0
       - msgpack==1.0.8
       - murmurhash==1.0.10
       - namex==0.0.8
-      - networkx==3.2.1
+      - networkx==3.4.2
       - ninja==1.11.1.1
       - nltk==3.8.1
       - numpy==2.1.3
       - olefile==0.47
       - omegaconf==2.3.0
-      - onnx==1.16.1
+      - onnx==1.17.0
       - onnxruntime==1.19.0
       - onnxruntime--silicon==1.16.3
       - opencv-python==4.10.0.84
@@ -393,6 +397,7 @@ dependencies:
       - optree==0.12.1
       - orjson==3.9.10
       - paletko==0.1.19
+      - pandas==2.2.3
       - peewee==3.17.7
       - peft==0.11.1
       - piexif==1.1.3
@@ -403,7 +408,8 @@ dependencies:
       - prettytable==3.10.2
       - prompt-toolkit==3.0.36
       - proto-plus==1.24.0
-      - protobuf==4.25.5
+      - protobuf==4.25.1
+      - py-cpuinfo==9.0.0
       - pyaml==24.7.0
       - pyasn1==0.5.1
       - pyasn1-modules==0.3.0
@@ -431,15 +437,17 @@ dependencies:
       - requests-toolbelt==1.0.0
       - rich==13.9.2
       - s3transfer==0.10.2
-      - safetensors==0.4.3
-      - scikit-image==0.22.0
-      - scikit-learn==1.5.2
+      - safetensors==0.4.1
+      - scikit-image==0.24.0
+      - scikit-learn==1.5.1
       - scipy==1.14.1
+      - seaborn==0.13.2
       - secretcolors==1.2.6
       - segno==1.6.0
       - semver==3.0.2
       - sentencepiece==0.2.0
-      - setuptools==75.2.0
+      - setuptools==75.1.0
+      - shapely==2.1.0
       - shellingham==1.5.4
       - smart-open==6.4.0
       - sniffio==1.3.0
@@ -453,7 +461,7 @@ dependencies:
       - stringzilla==3.10.4
       - structlog==24.4.0
       - svglib==1.5.1
-      - sympy==1.13.1
+      - sympy==1.14.0
       - tb-nightly==2.19.0a20241023
       - tensorboard==2.18.0
       - tensorboard-data-server==0.7.2
@@ -466,27 +474,29 @@ dependencies:
       - tifffile==2023.9.26
       - tokenizers==0.21.0
       - toolz==1.0.0
-      - torch==2.7.0.dev20250204
-      - torchaudio==2.6.0.dev20250204
+      - torch==2.7.0
+      - torchaudio==2.7.0
       - torchsde==0.2.6
-      - torchvision==0.22.0.dev20250204
+      - torchvision==0.22.0
       - tqdm==4.66.5
       - trampoline==0.1.2
-      - transformers==4.48.0
+      - transformers==4.51.3
       - typer==0.9.4
       - typing-inspect==0.9.0
       - tzdata==2024.2
+      - ultralytics==8.3.127
+      - ultralytics-thop==2.0.14
       - unidecode==1.3.8
       - uritemplate==4.1.1
-      - urllib3==2.2.3
+      - urllib3==2.0.7
       - uvicorn==0.30.6
       - uvloop==0.20.0
       - waitress==3.0.0b0
       - wasabi==1.1.2
       - watchfiles==0.22.0
-      - wcwidth==0.2.12
+      - wcwidth==0.2.13
       - weasel==0.3.4
-      - websockets==12.0
+      - websockets==15.0.1
       - werkzeug==3.0.4
       - wheel==0.44.0
       - wikipedia-api==0.6.0
