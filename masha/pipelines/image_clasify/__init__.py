@@ -89,7 +89,7 @@ class ImageClassify(BasePipeline):
             logging.debug(e)
             return [
                 ClassifyResult(
-                    label=model.config.id2label[predicted_class_idx],
+                    value=model.config.id2label[predicted_class_idx],
                     score=0.5,
                     cls=self.__class__.__name__,
                 )

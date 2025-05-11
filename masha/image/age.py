@@ -36,7 +36,7 @@ class AgeMeta(type):
         return cls().getAnswer(image, threshold)
     
     def label2age(cls, res: ClassifyResult):
-        return randrange(*[int(x) for x in res.label.split("-", 2)])
+        return randrange(*[int(x) for x in res.value.split("-", 2)])
 
 
 class AgeClassifier(ImageClassify, metaclass=AgeMeta):

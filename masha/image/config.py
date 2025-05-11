@@ -45,6 +45,7 @@ class ClassifyConfig(BaseModel):
     age_model: str
     ethnicity_model: str
     gender_model: str
+    dog_breed_model: str
 
 
 class AgenConfig(BaseModel):

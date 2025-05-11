@@ -27,7 +27,7 @@ def make_multipart_response(image_path: Path, message: Optional[str] = None):
     return Response(m.to_string(), media_type=m.content_type)
 
 
-async def uploaded_file(file: UploadFile) -> Path:
+async def uploaded_file(file: UploadFile) -> TempPath:
     tmp_path = TempPath(f"uploaded_file_{file.filename}")
     logging.warning(tmp_path)
     data = await file.read()

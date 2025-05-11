@@ -4,7 +4,6 @@ from typing import Optional
 from masha.image.caption import ImageCaption
 from masha.image.classify import Gender as GenderClassifier, Ethnic as EthnicClassifier
 from masha.image.deepface import AgeClient
-from masha.image.deepface import RaceClient
 from masha.image.models import Sex
 from masha.name.classifiers import Ethnicity
 from insightface.app import FaceAnalysis
@@ -183,14 +182,14 @@ class FaceId:
         try:
             results = EthnicClassifier.classify(image=cropped, cropped=True)
             assert results
-            return Ethnicity(results[0].label.lower())
+            return Ethnicity(results[0].value.lower())
         except AssertionError:
             return Ethnicity.WHITE
 
     def __get_gender(self, cropped: Path, default: str) -> str:
         try:
             results = GenderClassifier.classify(image=cropped)
-            return results[0].label
+            return results[0].value
         except Exception as e:
             logging.exception(e)
             return Sex(default)

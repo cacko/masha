@@ -2,9 +2,10 @@ classify:
   model: vit-base-patch16-224
   tokenizer: vit-base-patch16-224
   attraction_model: attractive_faces_celebs_detection
-  age_model: photo_age_detection
-  ethnicity_model: Race-CLS-FairFace_yolov8m.pt
+  age_model: fairface_age_image_detection
+  ethnicity_model: Race-CLS-FairFace_yolo11x.pt
   gender_model: gender-classification-2
+  dog_breed_model: Dog-Breed-120
 age:
   age_model: age_net.caffemodel
   age_proto: age_deploy.prototxt

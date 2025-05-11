@@ -62,7 +62,7 @@ class Ethnic(ImageClassify, metaclass=ClassifyMeta):
         res = model.predict(source=crop_path)[0]
         return [
             ClassifyResult(
-                label=res.names[res.probs.top1], score=res.probs.top1conf, cls="Ethnic"
+                value=res.names[res.probs.top1], score=res.probs.top1conf, cls="Ethnic"
             )
         ]
 

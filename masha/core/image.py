@@ -19,23 +19,19 @@ def load_remote_image(url):
 
 
 def crop_offset(
-    facial_area: list[int],
-    w: int,
-    h: int,
-    distance: int = 5
+    facial_area: list[int], w: int, h: int, distance: int = 5
 ) -> list[float]:
     left, top, right, bottom = facial_area
     offset = floor((right - left) / distance)
-    return [max(0, left - offset),
-            max(0, top - offset),
-            min(right + offset, w),
-            min(bottom + offset, h)]
+    return [
+        max(0, left - offset),
+        max(0, top - offset),
+        min(right + offset, w),
+        min(bottom + offset, h),
+    ]
 
 
-def add_tags(
-    img_path,
-    faces: list[tuple[Optional[list[int]], str]]
-) -> Image.Image:
+def add_tags(img_path, faces: list[tuple[Optional[list[int]], str]]) -> Image.Image:
     pil_image = Image.open(img_path)
     h, w = pil_image.height, pil_image.width
     fnt_path = Path(__file__).parent / "MesloLGS NF Regular.ttf"
@@ -43,22 +39,25 @@ def add_tags(
         draw = ImageDraw.Draw(pil_image)
         if facial_area:
             left, top, right, bottom = crop_offset(facial_area, w, h)
-            draw.rectangle(((left, top), (right, bottom)),
-                           outline=(239, 108, 0))
+            draw.rectangle(((left, top), (right, bottom)), outline=(239, 108, 0))
             if name:
-                fnt_size = max(
-                    10, min(25, floor((bottom - top) / 20))
-                )
+                fnt_size = max(10, min(25, floor((bottom - top) / 20)))
                 fnt = ImageFont.truetype(fnt_path.as_posix(), fnt_size)
                 name = f"{name}"
                 text_width, text_height = draw.textsize(name, font=fnt)
                 if right - left < text_width + 6:
                     name = truncate(name)
-                draw.rectangle((
-                    (left, bottom - text_height - 10), (right, bottom)
-                ), fill=(239, 108, 0), outline=(239, 108, 0))
-                draw.text((left + 6, bottom - text_height - 5),
-                          name, fill=(255, 243, 224), font=fnt)
+                draw.rectangle(
+                    ((left, bottom - text_height - 10), (right, bottom)),
+                    fill=(239, 108, 0),
+                    outline=(239, 108, 0),
+                )
+                draw.text(
+                    (left + 6, bottom - text_height - 5),
+                    name,
+                    fill=(255, 243, 224),
+                    font=fnt,
+                )
 
         del draw
     return pil_image
@@ -87,7 +86,6 @@ def show_image(image=None, path: Optional[Path] = None):
     cv2.waitKey(10 * 1000)
 
 
-
 def normalize_image(photo: Path) -> Path:
     img = cv2.imread(photo.as_posix())
     image_rows, image_cols = img.shape[:2]
@@ -99,18 +97,21 @@ def normalize_image(photo: Path) -> Path:
         dsize=(int(2000 * row_ratio), int(2000 * col_ratio)),
         fx=int(ratio),
         fy=int(ratio),
-        interpolation=cv2.INTER_LANCZOS4
+        interpolation=cv2.INTER_LANCZOS4,
     )
     tmp_path = TempPath(f"{photo.stem}.png")
     cv2.imwrite(tmp_path.as_posix(), img)
     return tmp_path
 
 
-def load_image(img: Union[str, np.ndarray], color: Optional[FaceColor] = None):
+def load_image(img: Union[str, np.ndarray, Path], color: Optional[FaceColor] = None):
     if type(img).__module__ == np.__name__:
         img_array = img
     elif isinstance(img, str):
         img_array = cv2.imread(img)
+    elif isinstance(img, Path):
+        img_array = cv2.imread(img.as_posix())
+
     else:
         raise NotImplementedError
     match color:
@@ -121,7 +122,6 @@ def load_image(img: Union[str, np.ndarray], color: Optional[FaceColor] = None):
                 return res
         case _:
             return img_array
-        
 
 
 def download_image(url: str) -> TempPath:
@@ -131,8 +131,8 @@ def download_image(url: str) -> TempPath:
         shutil.copyfileobj(response.raw, out_file)
     return tmp_file
 
-def get_width_height(img: Path, max: int = 1024) -> tuple[int,int]:
+
+def get_width_height(img: Path, max: int = 1024) -> tuple[int, int]:
     image = Image.open(img)
     image.thumbnail((max, max))
     return image.size
-    

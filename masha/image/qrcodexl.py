@@ -235,7 +235,7 @@ class QRCode(LoadersSDXLMixin, metaclass=QRCodeMeta):
             clssifiers = Classifier.classify(image=image)
             assert len(clssifiers)
             logging.debug(f"classifiers -> {clssifiers}")
-            return " ".join([c.label for c in clssifiers])
+            return " ".join([c.value for c in clssifiers])
         except AssertionError:
             return result
 
