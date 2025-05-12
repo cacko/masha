@@ -46,7 +46,7 @@ def detect(img_path: Annotated[Path, typer.Argument()]):
     cropper = ObjectCropper()
     results = cropper.process(load_image(img_path))
     print(results)
-    print_term_image(image=results.plot_im, height=20)
+    print_term_image(image=results.plot_im, height=40)
 
 
 # class ClassifyResponse(BaseModel):

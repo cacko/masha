@@ -7,7 +7,7 @@ import os
 from masha.core.image import load_image
 from masha.image.yolo.object_cropper import ObjectCropper
 from uuid import uuid4
-from masha.image.classify import Age, Attraction, Ethnic, Gender
+from masha.image.classify import Age, Expression, Ethnic, Gender
 from coreimage.transform.crop import Cropper
 
 from masha.pipelines.image_clasify.models import ClassifyResult
@@ -71,9 +71,9 @@ class Person(object, metaclass=PersonMeta):
             ages: list[ClassifyResult] = Age.classify(crop_path)
             genders = Gender.classify(crop_path)
             ethnos = Ethnic.classify(crop_path)
-            attractiveness: list[ClassifyResult] = Attraction.classify(crop_path)
+            expression: list[ClassifyResult] = Expression.classify(crop_path)
             return ClassifierResult(
-                label=list(map(lambda c: c.pop(0), [genders, ages, ethnos, attractiveness])),
+                label=list(map(lambda c: c.pop(0), [genders, ages, ethnos, expression])),
                 cls=self.__class__.__name__,
                 image=image,
                 object_idx=object_idx,

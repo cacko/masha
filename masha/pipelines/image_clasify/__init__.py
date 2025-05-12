@@ -35,7 +35,8 @@ class ImageClassify(BasePipeline):
     @property
     def tokenizer(self):
         self._tokenizer = AutoImageProcessor.from_pretrained(
-            self.tokenizerPath.as_posix()
+            self.tokenizerPath.as_posix(),
+            use_fast=True,
         )
         self._tokenizer.model_max_length = 1024
         return self._tokenizer
@@ -55,7 +56,6 @@ class ImageClassify(BasePipeline):
                 image_processor=self.tokenizer,
                 model=self.model,
                 device=TORCH_DEVICE,
-                use_fast=True,
             )
         return self._pipeline
 

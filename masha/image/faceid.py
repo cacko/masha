@@ -180,7 +180,7 @@ class FaceId:
 
     def __get_face_ethicity(self, cropped: Path) -> Ethnicity:
         try:
-            results = EthnicClassifier.classify(image=cropped, cropped=True)
+            results = EthnicClassifier.classify(image=cropped)
             assert results
             return Ethnicity(results[0].value.lower())
         except AssertionError:

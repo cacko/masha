@@ -13,9 +13,11 @@ from ultralytics.utils import LOGGER
 from ultralytics.utils.plotting import Annotator, colors, save_one_box
 from ultralytics.utils.torch_utils import smart_inference_mode
 import cv2
+from PIL import Image
 
 from masha.image.classifiers.models import OBJECT
 
+MODELS_PATH = Path("/Volumes/Devo/mldata/yolo")
 
 class ObjectCrop(BaseModel, arbitrary_types_allowed=True):
     path: Path
@@ -28,7 +30,7 @@ class ObjectCrop(BaseModel, arbitrary_types_allowed=True):
 
 
 class CropResults(BaseModel, arbitrary_types_allowed=True):
-    plot_im: np.ndarray
+    plot_im: np.ndarray|Image.Image
     objects: list[ObjectCrop]
 
     def forClass(self, cls: str):

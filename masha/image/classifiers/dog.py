@@ -37,7 +37,8 @@ class Dog(object, metaclass=DogBreedMeta):
 
     def __init__(self):
         self.image_processor = AutoImageProcessor.from_pretrained(
-            self.__class__.model_path.as_posix()
+            self.__class__.model_path.as_posix(),
+            use_fast=True,
         )
         self.model = AutoModelForImageClassification.from_pretrained(
             self.__class__.model_path.as_posix()

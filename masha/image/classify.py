@@ -71,3 +71,8 @@ class Attraction(ImageClassify, metaclass=ClassifyMeta):
 
     def __init__(self, config: ClassifyConfig):
         super().__init__(config.attraction_model, config.attraction_model)
+        
+class Expression(ImageClassify, metaclass=ClassifyMeta):
+
+    def __init__(self, config: ClassifyConfig):
+        super().__init__(config.expression_model, config.expression_model)

@@ -1137,3 +1137,14 @@ origami:
     width: 768
     height: 768
     strength: 0.4
+illustration:
+  category: style,face,xl
+  models: 
+    - juglight
+  prompt: // illustrStyle,<lora:Illustration_style:1>
+  custom_params:
+    guidance_scale: 7
+    scale: 0.5
+    strength: 0.5
+    num_inference_steps: 10
+    negative_prompt: (worst quality:2), (low quality:2), (normal quality:2), lowres, bad anatomy, bad hands, normal quality, ((monochrome)), ((grayscale)

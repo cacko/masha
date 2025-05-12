@@ -8,12 +8,13 @@ import numpy as np
 from ultralytics.utils.plotting import save_one_box
 
 from masha.image.classifiers.models import OBJECT
-from .models import Results, ObjectCrop, CropResults
+from .models import Results, ObjectCrop, CropResults, MODELS_PATH
 
 
 class ObjectCropper(BaseSolution):
     def __init__(self, **kwargs):
-        kwargs["model"] = "yolo11s.pt"
+        kwargs["model"] = MODELS_PATH / "yolov8x-worldv2.pt"
+        kwargs["conf"] = 0.4
         super().__init__(**kwargs)
 
         self.crop_dir = TempPath("objects-cropped")
@@ -63,9 +64,8 @@ class ObjectCropper(BaseSolution):
         # Return SolutionResults
         return CropResults(
             plot_im=results.plot(
-                font="Ubuntu Mono derivative Powerline.ttf",
-                font_size=5,
                 show_only=[],
+                line_width=2
             ),
             objects=objects,
         )
