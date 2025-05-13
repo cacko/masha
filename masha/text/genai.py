@@ -1,3 +1,4 @@
+from importlib.util import source_from_cache
 from pathlib import Path
 from urllib import response
 from google import genai
@@ -38,8 +39,8 @@ class GeminiMeta(type):
     def model_name(cls) -> str:
         return cls.__cfg.model
 
-    def ask(cls, query: str) -> GeminiResponse:
-        return cls().do_ask(query)
+    def ask(cls, query: str, source: Optional[str] = None) -> GeminiResponse:
+        return cls().do_ask(query=query, source=source)
     
     def ask_image(cls, img_path: Path, query: str):
         return cls().do_ask_image(img_path=img_path, query=query)
@@ -66,6 +67,9 @@ from markdown.extensions import Extension
 
 
 class Gemini(object, metaclass=GeminiMeta):
+    
+    __chat : dict[str, any] = {}
+    
     def __init__(self) -> None:
         try:
             self.__client = genai.Client(api_key=self.__class__.api_key)
@@ -73,8 +77,19 @@ class Gemini(object, metaclass=GeminiMeta):
             logging.exception(e)
             logging.info(f"api_key={self.__class__.api_key}")
             raise e
+        
+    def get_chat(self, source):
+        if source not in self.__chat:
+            self.__chat[source] = self.__client.chats.create(model='gemini-2.0-flash-001')
+        return self.__chat[source]
 
-    def do_ask(self, query: str) -> GeminiResponse:
+    def do_ask(self, query: str, source: Optional[str] = None) -> GeminiResponse:
+        
+        if source:
+            chat = self.get_chat(source)
+            res = chat.send_message(query)
+            return GeminiResponse(content=res.text)
+        
         response = self.__client.models.generate_content(
             model=self.__class__.model_name, contents=query
         )

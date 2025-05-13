@@ -1,4 +1,5 @@
 import logging
+from pathlib import Path
 from cachable import BinaryStruct
 from cachable.storage.filestorage.image import CachableFileImage as CachableFile
 from cachable.storage.file import FileStorage
@@ -187,9 +188,10 @@ def tell(
 
 @cli.command()
 def sum(
-    question: Annotated[list[str], typer.Argument()],
+    fp: Annotated[Path, typer.Argument()],
 ):
-    print(WikiSummarization.summarization(' '.join(question)))
+    
+    print(WikiSummarization.summarization(fp.read_text(), max_length=1000))
 
 
 @cli.command()

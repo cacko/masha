@@ -10,10 +10,7 @@ class WikiSummarizationMeta(type):
     def __call__(cls, *args, **kwds):
         if not cls._instance:
             cls._instance = type.__call__(
-                cls,
-                cls.config.summarization_model,
-                *args,
-                **kwds
+                cls, cls.config.summarization_model, *args, **kwds
             )
         return cls._instance
 
@@ -21,8 +18,8 @@ class WikiSummarizationMeta(type):
     def register(cls, config: WikiConfig):
         cls.config = config
 
-    def summarization(cls, text) -> str:
-        summarized = Summarized(text)
+    def summarization(cls, text, max_length: int = 200) -> str:
+        summarized = Summarized(text, max_length=max_length)
         cls().summarize(summarized)
         assert summarized.summary
         return summarized.summary

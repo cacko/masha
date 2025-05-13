@@ -1,8 +1,10 @@
 import logging
+from pathlib import Path
 from masha.core.term import TermColor, ccze
 from masha.text.cover_letter import CoverLetter
 from masha.text.detector import TextDetector
 from masha.text.generator import TextGenerator
+from masha.text.models import Payload
 from masha.text.skills import SkillExtractor
 import pycountry
 from masha.text.genai import Gemini
@@ -54,10 +56,9 @@ async def api_skills(request: Request):
 
 
 @router.post("/gemini")
-async def api_gemini(request: Request):
-    message = await request.json()
-    logging.info(message)
-    res = Gemini.ask(message["message"])
+async def api_gemini(payload: Payload):
+    logging.info(payload)
+    res = Gemini.ask(query=payload.message, source=payload.source)
     try:
         logging.debug(res.images)
         image_path = download_image(res.images[0])
@@ -77,12 +78,14 @@ def detect(text: Annotated[list[str], typer.Argument()]):
     print(TextDetector.detect(" ".join(text)))
 
 
-
-
 @cli.command()
-def gemini(text: Annotated[list[str], typer.Argument()]):
-    res = Gemini.ask(" ".join(text))
-    
+def ask(
+    text: Annotated[list[str], typer.Argument()],
+    file: Annotated[Path, typer.Option("-f", "--file")] = None,
+):
+    if file:
+        res = Gemini.ask(file.read_text(), source="localhost")
+    res = Gemini.ask(" ".join(text), source="localhost")
     if res.images:
         resp = requests.get(res.images[0])
         img = Image.open(BytesIO(resp.content))
@@ -94,6 +97,7 @@ def gemini(text: Annotated[list[str], typer.Argument()]):
 def skills(text: Annotated[list[str], typer.Argument()]):
     res = SkillExtractor.getSkills(" ".join(text))
     rich.print(res)
+
 
 @cli.command("cover_letter")
 def cli_cover(
