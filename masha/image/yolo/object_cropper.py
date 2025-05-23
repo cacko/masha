@@ -13,8 +13,8 @@ from .models import Results, ObjectCrop, CropResults, MODELS_PATH
 
 class ObjectCropper(BaseSolution):
     def __init__(self, **kwargs):
-        kwargs["model"] = MODELS_PATH / "yolov8x-worldv2.pt"
-        kwargs["conf"] = 0.4
+        kwargs["model"] = MODELS_PATH / "yolo12x.pt"
+        # kwargs["conf"] = 0.2
         super().__init__(**kwargs)
 
         self.crop_dir = TempPath("objects-cropped")

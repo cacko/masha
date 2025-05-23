@@ -49,29 +49,6 @@ def detect(img_path: Annotated[Path, typer.Argument()]):
     print_term_image(image=results.plot_im, height=40)
 
 
-# class ClassifyResponse(BaseModel):
-#     objects: Optional[list[ClassifyResult]] = None
-#     age: Optional[list[ClassifyResult]] = None
-#     gender: Optional[list[ClassifyResult]] = None
-#     attraction: Optional[list[ClassifyResult]] = None
-#     ethnicity: Optional[list[ClassifyResult]] = None
-
-#     def response(self):
-#         result = [*self.objects]
-#         try:
-#             assert len(self.age)
-#             result.append(self.age.pop(0))
-#             assert len(self.gender)
-#             result.append(self.gender.pop(0))
-#             assert len(self.attraction)
-#             result.append(self.attraction.pop(0))
-#             assert len(self.ethnicity)
-#             result.append(self.ethnicity.pop(0))
-#         except AssertionError:
-#             return result
-#         return result
-
-
 @router.post("/classify")
 async def api_classify(
     file: Annotated[UploadFile, File()],

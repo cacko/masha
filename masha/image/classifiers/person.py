@@ -1,4 +1,3 @@
-import logging
 from pathlib import Path
 from typing import Any
 from corefile import TempPath
@@ -9,7 +8,6 @@ from masha.image.yolo.object_cropper import ObjectCropper
 from uuid import uuid4
 from masha.image.classify import Age, Expression, Ethnic, Gender
 from coreimage.transform.crop import Cropper
-
 from masha.pipelines.image_clasify.models import ClassifyResult
 from .models import OBJECT, ClassifierResult
 

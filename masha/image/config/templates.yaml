@@ -59,6 +59,20 @@ appicon2:
       bad art, ugly, deformed, watermark, duplicated
   models:
     - tvxl
+appicon3:
+  prompt: //, app icon, <lora:-appicons:1>
+  category: logo,appicon
+  custom_params:
+    width: 1024
+    height: 1024
+    negative_prompt: >
+      bad art, ugly, deformed, watermark, duplicated
+  models:
+    - faetastic
+    - jugrun
+    - nightvision
+    - paradox
+
 fake_person:
   prompt: >
     // years old,profile photo,octane,detailed face,35mm,F/2.8, 4k
