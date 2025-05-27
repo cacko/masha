@@ -192,6 +192,15 @@ async def api_face2img_options():
         },
     }
 
+@router.get("/face-options")
+async def api_face_options():
+    return {
+        "face": {
+            "models": Diffusers.options_for_category("face"),
+            "templates": [t.name for t in image_config.get_template_category("face")],
+            "styles": [s.name for s in image_config.styles]
+        },
+    }
 
 @router.post("/face2img/{prompt}")
 async def api_face2img(

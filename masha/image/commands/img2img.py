@@ -11,6 +11,7 @@ import logging
 from masha.image.config import StyleConfig, TemplateConfig, GENERATED_PATH
 from masha.image.cli import cli
 from masha.image.router import router
+from masha.image.config import image_config
 
 from fastapi import File, HTTPException, UploadFile, Form
 import typer
@@ -147,3 +148,13 @@ async def api_img2img(
     except Exception as e:
         logging.exception(e)
         raise HTTPException(500)
+
+@router.get("/img2img-options")
+async def api_img2img_options():
+    return {
+        "img2img": {
+            "models": Diffusers.options_for_category("face"),
+            "templates": [t.name for t in image_config.get_template_category("img2img")],
+            "styles": [s.name for s in image_config.styles]
+        }
+    }

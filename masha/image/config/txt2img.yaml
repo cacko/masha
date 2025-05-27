@@ -5,7 +5,7 @@ realisticVisionV60B1_v51HyperVAE.safetensors:
     use_karras_sigmas: True
     algorithm_type: dpmsolver++
   sd_type: sd
-  category: realistic,nsfw,porn,lora,sd1,qr
+  category: realistic,nsfw,porn,lora,sd1,qr,img2img
   custom_params:
     clip_skip: 2
     guidance_scale: 2
@@ -21,7 +21,7 @@ realisticVisionV60B1_v20Novae.safetensors:
   option: vision-novae
   scheduler_class: EulerAncestralDiscreteScheduler
   sd_type: sd
-  category: realistic,nsfw,porn,lora,sd1,qr
+  category: realistic,nsfw,porn,lora,sd1,qr,img2img
   custom_params:
     clip_skip: 2
     guidance_scale: 7
@@ -40,7 +40,7 @@ revAnimated_v2Rebirth.safetensors:
     use_karras_sigmas: True
     algorithm_type: dpmsolver++
   sd_type: sd
-  category: realistic,nsfw,lora,sd1,face
+  category: realistic,nsfw,lora,sd1,face,img2img
   custom_params:
     clip_skip: 2
     guidance_scale: 7
@@ -52,7 +52,7 @@ cuteCartoon_v10.safetensors:
   option: cutecartoon
   scheduler_class: EulerAncestralDiscreteScheduler
   sd_type: sd
-  category: cartoon,lora,sd1,qr,face
+  category: cartoon,lora,sd1,qr,face,img2img
   custom_params:
     num_inference_steps: 25
     guidance_scale: 7
@@ -67,7 +67,7 @@ AnythingXL_v50.safetensors:
   option: anything
   scheduler_class: EulerAncestralDiscreteScheduler
   sd_type: sd
-  category: cartoon,lora,sd1,qr
+  category: cartoon,lora,sd1,qr,img2img
   custom_params:
     num_inference_steps: 30
     guidance_scale: 7
@@ -82,7 +82,7 @@ toonyou_beta6.safetensors:
     use_karras_sigmas: True
     algorithm_type: dpmsolver++
   sd_type: sd
-  category: cartoon,lora,sd1,qr
+  category: cartoon,lora,sd1,qr,img2img
   custom_params:
     num_inference_steps: 30
     guidance_scale: 8
@@ -96,7 +96,7 @@ epicrealism_naturalSinRC1VAE.safetensors:
   scheduler_args:
     use_karras_sigmas: True
   sd_type: sd
-  category: realistic,nsfw,lora,sd,face
+  category: realistic,nsfw,lora,sd,face,img2img
   custom_params:
     num_inference_steps: 30
     guidance_scale: 5
@@ -140,7 +140,7 @@ sdvn53dcutewave_v1VAE.safetensors:
   option: cutewave
   scheduler_class: EulerAncestralDiscreteScheduler
   sd_type: sd
-  category: cartoon,lora,sd1,qr
+  category: cartoon,lora,sd1,qr,img2img
   custom_params:
     prefix: (masterpiece,best quality:1.5),waves,3dcutecharacter
     num_inference_steps: 32
@@ -154,7 +154,7 @@ animatix_v1LCM.safetensors:
   option: animatix
   scheduler_class: LCMScheduler
   sd_type: sd
-  category: cartoon,lora,sd1,lcm,qr
+  category: cartoon,lora,sd1,lcm,qr,img2img
   custom_params:
     num_inference_steps: 10
     guidance_scale: 2
@@ -169,7 +169,7 @@ dreamshaper_8LCM.safetensors:
   option: dreamlcm
   scheduler_class: LCMScheduler
   sd_type: sd
-  category: cartoon,lora,sd1,lcm,qr,face
+  category: cartoon,lora,sd1,lcm,qr,face,img2img
   custom_params:
     num_inference_steps: 15
     guidance_scale: 2
@@ -181,7 +181,7 @@ absolutereality_lcm.safetensors:
   option: absolute
   scheduler_class: LCMScheduler
   sd_type: sd
-  category: cartoon,lora,sd1,lcm,qr`
+  category: cartoon,lora,sd1,lcm,qr,img2img
   custom_params:
     num_inference_steps: 15
     guidance_scale: 2
@@ -207,7 +207,7 @@ sd_xl_base_1.0.safetensors:
 sdxlFixedvaeFp16Remove_baseFxiedVaeV2Fp16.safetensors:
   option: xlvae
   sd_type: sdxl
-  category: general,art,wall,loraxl,xl,face
+  category: general,art,wall,loraxl,xl,face,img2img
   img2img_model: sdXL_v10RefinerVAEFix
   scheduler_class: DPMSolverMultistepScheduler
   scheduler_args:
@@ -222,7 +222,7 @@ sdxlFixedvaeFp16Remove_baseFxiedVaeV2Fp16.safetensors:
 realvisxlV40_v40LightningBakedvae.safetensors:
   option: realvisxl-light
   sd_type: sdxl
-  category: loraxl,realistic,xl,vision,nsfw,face,lightning,face-nsfw
+  category: loraxl,realistic,xl,vision,nsfw,face,lightning,face-nsfw,img2img
   scheduler_class: DPMSolverSinglestepScheduler
   scheduler_args:
     use_karras_sigmas: True
@@ -235,7 +235,7 @@ realvisxlV40_v40LightningBakedvae.safetensors:
 SDXLFaetastic_v24.safetensors:
   option: faetastic
   sd_type: sdxl
-  category: loraxl,xl,art,helloween,horror,face
+  category: loraxl,xl,art,helloween,horror,face,img2img
   scheduler_class: DPMSolverMultistepScheduler
   scheduler_args:
     use_karras_sigmas: True
@@ -256,7 +256,7 @@ PixArt-XL-2-1024-MS:
 dynavisionXLAllInOneStylized_releaseV0610Bakedvae.safetensors:
   option: dyna
   sd_type: sdxl
-  category: nsfw,loraxl,xl,cartoon,wall,face
+  category: nsfw,loraxl,xl,cartoon,wall,face,img2img
   scheduler_class: DPMSolverSinglestepScheduler
   scheduler_args:
     use_karras_sigmas: True
@@ -269,7 +269,7 @@ dynavisionXLAllInOneStylized_releaseV0610Bakedvae.safetensors:
 paradox3SDXL10_paradox3SDXL10.safetensors:
   option: paradox
   sd_type: sdxl
-  category: nsfw,loraxl,xl,cartoon,wall
+  category: nsfw,loraxl,xl,cartoon,wall,img2img
   scheduler_class: DPMSolverMultistepScheduler
   scheduler_args:
     use_karras_sigmas: True
@@ -284,7 +284,7 @@ paradox3SDXL10_paradox3SDXL10.safetensors:
 turbovisionxlSuperFastXLBasedOnNew_tvxlV431Bakedvae.safetensors:
   option: tvxl
   sd_type: sdxl
-  category: general,art,wall,loraxl,xl,turbo,face
+  category: general,art,wall,loraxl,xl,turbo,face,img2img
   scheduler_class: DPMSolverSinglestepScheduler
   scheduler_args:
     use_karras_sigmas: True
@@ -298,7 +298,7 @@ turbovisionxlSuperFastXLBasedOnNew_tvxlV431Bakedvae.safetensors:
 nightvisionxl_v0811.safetensors:
   option: nightvision
   sd_type: sdxl
-  category: general,art,wall,loraxl,xl,face
+  category: general,art,wall,loraxl,xl,face,img2img
   scheduler_class: DPMSolverMultistepScheduler
   scheduler_args:
     algorithm_type: sde-dpmsolver++
@@ -311,7 +311,7 @@ nightvisionxl_v0811.safetensors:
 envyStarlightXL01Lightning_galaxyV20.safetensors:
   option: starlight
   sd_type: sdxl
-  category: loraxl,xl,general,wall,face,lightning
+  category: loraxl,xl,general,wall,face,lightning,img2img
   scheduler_class: DPMSolverMultistepScheduler
   scheduler_args:
     use_karras_sigmas: True
@@ -325,7 +325,7 @@ envyStarlightXL01Lightning_galaxyV20.safetensors:
 copaxTimelessxlSDXL1_v11Lightning.safetensors:
   option: copax
   sd_type: sdxl
-  category: loraxl,xl,general,wall,face,lightning
+  category: loraxl,xl,general,wall,face,lightning,img2img
   scheduler_class: DPMSolverMultistepScheduler
   scheduler_args:
     use_karras_sigmas: True
@@ -340,7 +340,7 @@ copaxTimelessxlSDXL1_v11Lightning.safetensors:
 juggernautXL_juggXIByRundiffusion.safetensors:
   option: jugrun
   sd_type: sdxl
-  category: loraxl,xl,general,nsfw,face,wall,face-nsfw
+  category: loraxl,xl,general,nsfw,face,wall,face-nsfw,img2img
   scheduler_class: DPMSolverSinglestepScheduler
   scheduler_args:
     use_karras_sigmas: True
@@ -353,7 +353,7 @@ juggernautXL_juggXIByRundiffusion.safetensors:
 juggernautXL_juggXILightningByRD.safetensors:
   option: juglight
   sd_type: sdxl
-  category: loraxl,xl,general,nsfw,face,lightning,wall
+  category: loraxl,xl,general,nsfw,face,lightning,wall,img2img
   scheduler_class: DPMSolverSinglestepScheduler
   scheduler_args:
     use_karras_sigmas: True
@@ -366,7 +366,7 @@ juggernautXL_juggXILightningByRD.safetensors:
 dreamshaperXL_v21TurboDPMSDE.safetensors:
   option: dreamturbo
   sd_type: sdxl
-  category: turbo,xl,loraxl,art,general,face,wall
+  category: turbo,xl,loraxl,art,general,face,wall,img2img
   scheduler_class: DPMSolverSinglestepScheduler
   scheduler_args:
     use_karras_sigmas: True
@@ -383,7 +383,7 @@ dreamshaperXL_v21TurboDPMSDE.safetensors:
 dreamshaperXL_lightningDPMSDE.safetensors:
   option: dreamlight
   sd_type: sdxl
-  category: lightning,xl,loraxl,art,general,face,wall
+  category: lightning,xl,loraxl,art,general,face,wall,img2img
   scheduler_class: DPMSolverSinglestepScheduler
   scheduler_args:
     use_karras_sigmas: True
@@ -400,7 +400,7 @@ dreamshaperXL_lightningDPMSDE.safetensors:
 socafaeXL_20.safetensors:
   option: socafae
   sd_type: sdxl
-  category: xl,loraxl,art,general,face,wall
+  category: xl,loraxl,art,general,face,wall,img2img
   scheduler_class: DPMSolverMultistepScheduler
   scheduler_args:
     use_karras_sigmas: True
@@ -414,7 +414,7 @@ socafaeXL_20.safetensors:
 sdxlNijiSeven_sdxlNijiSeven.safetensors:
   option: niji
   sd_type: sdxl
-  category: xl,loraxl,art,general,face,wall
+  category: xl,loraxl,art,general,face,wall,img2img
   scheduler_class: DPMSolverMultistepScheduler
   scheduler_args:
     use_karras_sigmas: True
@@ -428,7 +428,7 @@ sdxlNijiSeven_sdxlNijiSeven.safetensors:
 zbaseHighQualityAesthetic_sdxlV30.safetensors:
   option: zbase
   sd_type: sdxl
-  category: xl,loraxl,disney,cartoon,face,logo,wall
+  category: xl,loraxl,disney,cartoon,face,logo,wall,img2img
   scheduler_class: DPMSolverMultistepScheduler
   scheduler_args:
     use_karras_sigmas: True
@@ -460,7 +460,7 @@ socababesTurboXL_v12Hybrid.safetensors:
 fitcordermix_fcturbosdxl.safetensors:
   option: fc-turbo
   sd_type: sdxl
-  category: turbo,xl,loraxl,art,general,face,logo,wall
+  category: turbo,xl,loraxl,art,general,face,logo,wall,img2img
   scheduler_class: DPMSolverSinglestepScheduler
   scheduler_args:
     use_karras_sigmas: True
@@ -477,7 +477,7 @@ fitcordermix_fcturbosdxl.safetensors:
 wildcardxXLTURBO_wildcardxXLTURBOV10.safetensors:
   option: wc-turbo
   sd_type: sdxl
-  category: turbo,xl,loraxl,art,general,face,logo,wall
+  category: turbo,xl,loraxl,art,general,face,logo,wall,img2img
   scheduler_class: DPMSolverSinglestepScheduler
   scheduler_args:
     use_karras_sigmas: True 
@@ -496,7 +496,7 @@ wildcardxXLTURBO_wildcardxXLTURBOV10.safetensors:
 wildcardxXLLIGHTNING_wildcardxXL.safetensors:
   option: wc-light
   sd_type: sdxl
-  category: lightning,xl,loraxl,art,general,face,logo,wall
+  category: lightning,xl,loraxl,art,general,face,logo,wall,img2img
   scheduler_class: DPMSolverSinglestepScheduler
   scheduler_args:
     use_karras_sigmas: True
@@ -514,7 +514,7 @@ wildcardxXLLIGHTNING_wildcardxXL.safetensors:
 ultraspice_24.safetensors:
   option: ultraspice
   sd_type: sdxl
-  category: turbo,xl,loraxl,art,general,face,logo
+  category: turbo,xl,loraxl,art,general,face,logo,img2img
   scheduler_class: DPMSolverSinglestepScheduler
   scheduler_args:
     use_karras_sigmas: True
@@ -536,7 +536,7 @@ sd3_medium_incl_clips_t5xxlfp16.safetensors:
 dev:
   option: f1d
   sd_type: flux
-  category: general,art,wall
+  category: general,art,wall,img2img
   custom_params:
     width: 512
     height: 512
@@ -546,7 +546,7 @@ dev:
 schnell:
   option: f1s
   sd_type: flux
-  category: general,art,wall
+  category: general,art,wall,img2img
   custom_params:
     width: 768
     height: 1024
