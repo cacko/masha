@@ -107,6 +107,7 @@ def get_compel_prompts(pipe, prompt=None, negative_prompt=None):
         )
     return prompt_embeds, negative_prompt_embeds
 
+
 @torch.no_grad()
 def get_compel_prompts_xl(pipe, prompt=None, negative_prompt=None):
     compel = Compel(
@@ -159,7 +160,7 @@ def txt2img_iterations(
     sex: Optional[Sex] = None,
     age: Optional[int] = None,
     race: Optional[Ethnicity] = None,
-    throw_exception = False,
+    throw_exception=False,
 ) -> Generator[tuple[Diffusers, PipelineParams], None, None]:
     auto_prompts: list[Optional[str]] = [auto_prompt]
     auto_templates: list[Optional[str]] = [None]
@@ -275,7 +276,6 @@ def img2img_iterations(
         auto_templates.remove(None)
     except AssertionError:
         pass
-    logging.debug(models)
     if category:
         models = (
             Diffusers.options[:]
@@ -317,7 +317,10 @@ def img2img_iterations(
                 mdl = tpl.models[0]
             cls = Diffusers.cls_for_option(mdl)()
             params = cls.pipelineParams(
-                **tpl.apply(input_params=inputParams), model=mdl
+                **{
+                    **tpl.apply(input_params=inputParams),
+                    **dict(model=mdl),
+                }
             )
         except AssertionError:
             pass

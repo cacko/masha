@@ -72,7 +72,16 @@ appicon3:
     - jugrun
     - nightvision
     - paradox
-
+modern-logo:
+  prompt: modern_logo image of a // simple, <lora:Modern_Logo_v1_1:1.0>
+  category: logo,appicon
+  custon_params:
+    width: 1024
+    height: 1024
+    guidance_scale: 7.5
+    num_inference_steps: 24
+  models:
+    - dreamturbo
 fake_person:
   prompt: >
     // years old,profile photo,octane,detailed face,35mm,F/2.8, 4k

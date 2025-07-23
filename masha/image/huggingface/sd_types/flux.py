@@ -7,7 +7,9 @@ from masha.image.models import OutputParams
 import torch
 from diffusers.pipelines.flux.pipeline_output import FluxPipelineOutput
 from diffusers import FluxPipeline
-from mflux import Config, Flux1, ModelConfig
+from mflux.flux.flux import Flux1
+from mflux.config.config import Config
+from mflux.config.model_config import ModelConfig
 import logging
 from humanfriendly import format_size
 from torch.mps import current_allocated_memory
@@ -34,7 +36,7 @@ def get_model_config(name: str) -> ModelConfig:
     cfg = ModelConfig.from_name(name)
     cfg.model_name = FLUX_MODELS[constcase(name)].value
     return cfg
-    
+
 
 class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
     _params = dict(negative_prompt="blurry")

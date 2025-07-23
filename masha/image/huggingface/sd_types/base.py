@@ -1,3 +1,4 @@
+import logging
 from masha.image.huggingface.stablediffusion import StableDiffusion
 from masha.image.models import PipelineParams
 

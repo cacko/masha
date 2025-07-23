@@ -153,7 +153,7 @@ async def api_img2img(
 async def api_img2img_options():
     return {
         "img2img": {
-            "models": Diffusers.options_for_category("face"),
+            "models": Diffusers.options_for_category("img2img"),
             "templates": [t.name for t in image_config.get_template_category("img2img")],
             "styles": [s.name for s in image_config.styles]
         }
