@@ -10,12 +10,12 @@ tasks:
   default:
     desc: run flask cli
     cmds:
-      - direnv exec . mamba run --live-stream -n {{.PROJECT}} python -m {{.PROJECT}} {{.CLI_ARGS}}
+      - direnv exec . mamba run -n {{.PROJECT}} python -m {{.PROJECT}} {{.CLI_ARGS}}
 
   env:
     desc: run in env
     cmds:
-      - direnv exec . mamba run --live-stream -n {{.PROJECT}} {{.CLI_ARGS}}
+      - direnv exec . mamba run -n {{.PROJECT}} {{.CLI_ARGS}}
 
   run:
     desc: systemd exec
@@ -26,16 +26,16 @@ tasks:
   face2img:
     desc: face tasks
     cmds:
-      - direnv exec . mamba run --live-stream -n {{.PROJECT}} python -m {{.PROJECT}} image face2img {{.CLI_ARGS}}
+      - direnv exec . mamba run -n {{.PROJECT}} python -m {{.PROJECT}} image face2img {{.CLI_ARGS}}
   txt:
     desc: text to image
     cmds:
-      - direnv exec . mamba run --live-stream -n {{.PROJECT}} python -m {{.PROJECT}} image txt2img {{.CLI_ARGS}}
+      - direnv exec . mamba run -n {{.PROJECT}} python -m {{.PROJECT}} image txt2img {{.CLI_ARGS}}
 
   img2img:
     desc: text to image
     cmds:
-      - direnv exec . mamba run --live-stream -n {{.PROJECT}} python -m {{.PROJECT}} image img2img {{.CLI_ARGS}}
+      - direnv exec . mamba run -n {{.PROJECT}} python -m {{.PROJECT}} image img2img {{.CLI_ARGS}}
 
   retrain:
     desc: retrain
@@ -45,10 +45,10 @@ tasks:
       INDEX_E: "{{.CLI_ARGS}}e"
       INDEX_EL2: "{{.CLI_ARGS}}c"
     cmds:
-      # - mamba run --live-stream -n {{.PROJECT}} flask face train {{.TRAIN_CONFIG}}
-      - direnv exec . mamba run --live-stream -n {{.PROJECT}} flask --app {{.PROJECT}} face index -c {{.INDEX_C}}
-      - direnv exec . mamba run --live-stream -n {{.PROJECT}} flask --app {{.PROJECT}} face index -c {{.INDEX_E}}
-      - direnv exec . mamba run --live-stream -n {{.PROJECT}} flask --app {{.PROJECT}} face index -c {{.INDEX_EL2}}
+      # - mamba run -n {{.PROJECT}} flask face train {{.TRAIN_CONFIG}}
+      - direnv exec . mamba run -n {{.PROJECT}} flask --app {{.PROJECT}} face index -c {{.INDEX_C}}
+      - direnv exec . mamba run -n {{.PROJECT}} flask --app {{.PROJECT}} face index -c {{.INDEX_E}}
+      - direnv exec . mamba run -n {{.PROJECT}} flask --app {{.PROJECT}} face index -c {{.INDEX_EL2}}
 
   redis:
     desc: open redis-cli

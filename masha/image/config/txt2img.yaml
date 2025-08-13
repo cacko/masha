@@ -553,3 +553,23 @@ schnell:
     guidance_scale: 4
     num_inference_steps: 2
     negative_prompt: 
+krea-dev:
+  option: f1k
+  sd_type: flux
+  category: general,art,wall,img2img
+  custom_params:
+    width: 512
+    height: 512
+    guidance_scale: 4
+    num_inference_steps: 20
+    negative_prompt: 
+dev-kontext:
+  option: f1c
+  sd_type: flux
+  category: general,art,wall,img2img,face
+  custom_params:
+    width: 512
+    height: 512
+    guidance_scale: 4
+    num_inference_steps: 20
+    negative_prompt: 

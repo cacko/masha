@@ -25,18 +25,19 @@ from enum import StrEnum
 from stringcase import constcase
 
 class FLUX_MODELS(StrEnum):
-    SCHNELL="dhairyashil/FLUX.1-schnell-mflux-4bit"
+    SCHNELL = "dhairyashil/FLUX.1-schnell-mflux-v0.6.2-4bit"
     DEV = "dhairyashil/FLUX.1-dev-mflux-4bit"
     DEV_FILL = "black-forest-labs/FLUX.1-Fill-dev"
     DEV_DEPTH =  "black-forest-labs/FLUX.1-Depth-dev"
     DEV_REDUX =  "black-forest-labs/FLUX.1-Redux-dev"
     LITE = "Freepik/flux.1-lite-8B-alpha"
+    KREA_DEV = "filipstrand/FLUX.1-Krea-dev-mflux-4bit"
+    DEV_KONTEXT = "akx/FLUX.1-Kontext-dev-mflux-4bit"
 
 def get_model_config(name: str) -> ModelConfig:
     cfg = ModelConfig.from_name(name)
     cfg.model_name = FLUX_MODELS[constcase(name)].value
     return cfg
-
 
 class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
     _params = dict(negative_prompt="blurry")
@@ -189,7 +190,6 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersFluxMixin):
             pass
         except Exception as e:
             logging.error(e)
-        rich.print(params)
         flux = Flux1(**params)
         self.pipeline = flux
 

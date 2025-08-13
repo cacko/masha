@@ -32,6 +32,7 @@ dependencies:
   - certifi=2024.8.30
   - cffi=1.16.0
   - chardet=5.2.0
+  - charset-normalizer=3.3.2
   - click=8.1.7
   - colorama=0.4.6
   - conda=24.5.0
@@ -42,11 +43,13 @@ dependencies:
   - cryptography=42.0.8
   - cssselect2=0.2.1
   - cycler=0.12.1
+  - cython=3.0.10
   - dav1d=1.2.1
   - decorator=5.1.1
   - distro=1.9.0
   - expat=2.6.2
   - ffmpeg=6.1.1
+  - filelock=3.15.4
   - flake8=7.1.0
   - fmt=10.2.1
   - font-ttf-dejavu-sans-mono=2.37
@@ -74,9 +77,11 @@ dependencies:
   - h2=4.1.0
   - harfbuzz=8.5.0
   - hdf5=1.14.3
+  - hpack=4.0.0
   - humanfriendly=10.0
   - hyperframe=6.0.1
   - icu=73.2
+  - idna=3.7
   - importlib_resources=6.4.0
   - itsdangerous=2.2.0
   - jasper=4.2.4
@@ -86,6 +91,7 @@ dependencies:
   - jsonpointer=3.0.0
   - jsonschema=4.23.0
   - jsonschema-specifications=2023.12.1
+  - kiwisolver=1.4.5
   - krb5=1.21.3
   - lame=3.100
   - lcms2=2.16
@@ -160,6 +166,7 @@ dependencies:
   - llvm-openmp=18.1.8
   - lz4-c=1.9.4
   - lzo=2.10
+  - markupsafe=2.1.5
   - mccabe=0.7.0
   - menuinst=2.1.1
   - more-itertools=10.3.0
@@ -172,6 +179,7 @@ dependencies:
   - mypy_extensions=1.0.0
   - ncurses=6.5
   - nettle=3.9.1
+  - ninja=1.12.1
   - oauthlib=3.2.2
   - openh264=2.4.0
   - openjpeg=2.5.2
@@ -190,6 +198,7 @@ dependencies:
   - psutil=6.0.0
   - pthread-stubs=0.4
   - pugixml=1.14
+  - pyasn1=0.6.1
   - pybind11-abi=4
   - pycairo=1.26.1
   - pycodestyle=2.12.0
@@ -205,6 +214,7 @@ dependencies:
   - python-libarchive-c=5.1
   - python_abi=3.12
   - pyu2f=0.1.5
+  - pyyaml=6.0.1
   - re2=2023.02.01
   - readline=8.2
   - referencing=0.35.1
@@ -215,9 +225,10 @@ dependencies:
   - ripgrep=14.1.0
   - rlpycairo=0.2.0
   - rpds-py=0.19.0
-  - rsa=4.9
+  - rsa=4.9.1
   - ruamel.yaml=0.18.6
   - ruamel.yaml.clib=0.2.8
+  - setuptools=80.9.0
   - sigtool=0.1.3
   - six=1.16.0
   - sleef=3.6.1
@@ -231,11 +242,15 @@ dependencies:
   - tk=8.6.13
   - toml=0.10.2
   - tomli=2.0.1
+  - toolz=0.12.1
   - truststore=0.8.0
   - typing-extensions=4.12.2
   - typing_extensions=4.12.2
+  - tzdata=2024a
   - unicodedata2=15.1.0
+  - urllib3=2.2.2
   - webencodings=0.5.1
+  - wheel=0.43.0
   - x264=1!164.3095
   - x265=3.5
   - xorg-libxau=1.0.11
@@ -244,301 +259,115 @@ dependencies:
   - yaml=0.2.5
   - yaml-cpp=0.8.0
   - yarl=1.9.4
+  - zipp=3.19.2
   - zlib=1.3.1
   - zstandard=0.23.0
   - zstd=1.5.6
   - pip:
-      - absl-py==2.1.0
-      - accelerate==0.34.0
-      - addict==2.4.0
-      - albucore==0.0.17
-      - albumentations==1.4.18
-      - annotated-types==0.7.0
-      - antlr4-python3-runtime==4.9.3
-      - anyio==4.9.0
-      - appnope==0.1.3
-      - args==0.1.0
-      - autoflake8==0.4.1
-      - babel==2.17.0
-      - bardapi==0.1.38
-      - basicsr==11.4.2
-      - better-exceptions==0.3.3
-      - bitsandbytes==0.42.0
-      - blis==1.0.1
-      - boto3==1.38.14
-      - boto3-stubs-lite==1.38.14
-      - botocore==1.38.14
-      - botocore-stubs==1.38.14
-      - browser-cookie3==0.19.1
-      - bs4==0.0.1
-      - bsrgan==14.0.3
-      - cachable==0.3.48
-      - cachecontrol==0.14.0
-      - cachetools==5.4.0
-      - cairocffi==1.7.1
-      - cairosvg==2.7.1
-      - catalogue==2.0.10
-      - charset-normalizer==3.4.0
-      - clint==0.5.1
-      - cloudpathlib==0.18.1
-      - coloredlogs==15.0.1
-      - compel==2.0.2
-      - confection==0.1.5
-      - contourpy==1.3.0
-      - coreface==0.1.14
-      - corefile==0.1.11
-      - coreimage==0.0.138
-      - corelog==0.0.20
-      - corestring==0.3.16
-      - courlan==1.3.2
-      - coverage==7.6.1
-      - cymem==2.0.8
-      - cython==3.0.11
-      - cytoolz==0.12.2
-      - dataclasses-json==0.6.3
-      - datasets==3.6.0
-      - dateparser==1.2.1
-      - deep-translator==1.11.4
-      - defusedxml==0.7.1
-      - diffusers==0.33.1
-      - dill==0.3.8
-      - dnspython==2.6.1
-      - easydict==1.13
-      - einops==0.8.0
-      - email-validator==2.2.0
-      - emoji==2.9.0
-      - equilib==0.0.1
-      - eval-type-backport==0.2.0
-      - extruct==0.18.0
-      - facenet-pytorch==20.5.2
-      - faker==20.1.0
-      - fastapi==0.112.2
-      - filelock==3.16.1
-      - filetype==1.2.0
-      - firebase-admin==6.5.0
-      - flask==3.0.3
-      - flatbuffers==24.3.25
-      - floret==0.10.5
-      - fonttools==4.54.1
-      - fs==20.4.16
-      - fsspec==2024.10.0
-      - future==0.18.3
-      - fuzzelinho==0.2.6
-      - gast==0.6.0
-      - gender-predictor==1.0.2
-      - google-api-core==2.19.2
-      - google-api-python-client==2.137.0
-      - google-auth==2.32.0
-      - google-auth-httplib2==0.2.0
-      - google-auth-oauthlib==1.1.0
-      - google-cloud-core==2.4.1
-      - google-cloud-firestore==2.18.0
-      - google-cloud-storage==2.17.0
-      - google-cloud-translate==3.13.0
-      - google-crc32c==1.5.0
-      - google-genai==1.12.1
-      - google-geo-type==0.3.12
-      - google-maps-places==0.1.25
-      - google-resumable-media==2.7.1
-      - googleapis-common-protos==1.65.0
-      - grpcio==1.66.1
-      - grpcio-status==1.60.0
-      - h11==0.14.0
-      - h5py==3.11.0
-      - hpack==4.0.0
-      - html-text==0.7.0
-      - html2text==2025.4.15
-      - html5lib==1.1
-      - htmldate==1.9.3
-      - httpcore==1.0.2
-      - httplib2==0.22.0
-      - httptools==0.6.1
-      - httpx==0.28.1
-      - huggingface-hub==0.26.1
-      - idna==3.8
-      - ifaddr==0.2.0
-      - imageio==2.33.0
-      - importlib-metadata==8.0.0
-      - insightface==0.7.3
-      - ip-adapter==0.1.0
-      - isoflask==0.1.7
-      - jaraco-context==4.3.0
-      - jellyfish==1.0.3
-      - jmespath==1.0.1
-      - jstyleson==0.0.2
-      - justext==3.0.2
-      - keras==3.5.0
-      - keras-nightly==3.6.0.dev2024101603
-      - kiwisolver==1.4.7
-      - lambo==10.0.8
-      - langcodes==3.4.1
-      - langdetect==1.0.9
-      - language-data==1.2.0
-      - lap==0.5.12
-      - lazy-loader==0.4
-      - levenshtein==0.23.0
-      - libclang==18.1.1
-      - lmdb==1.4.1
-      - loguru==0.7.2
-      - lxml==5.4.0
-      - lxml-html-clean==0.4.2
-      - lz4==4.3.2
-      - maincontentextractor==0.0.4
-      - marisa-trie==1.2.0
-      - markdown==3.6
-      - markdown-it-py==3.0.0
-      - markupsafe==3.0.2
-      - marshmallow==3.20.1
-      - matplotlib==3.9.2
-      - mdurl==0.1.2
-      - mf2py==2.0.1
-      - mflux==0.7.1
-      - mgrs==1.4.5
-      - ml-dtypes==0.4.0
-      - mlx==0.22.0
-      - msgpack==1.0.8
-      - multiprocess==0.70.16
-      - murmurhash==1.0.10
-      - mypy-boto3-bedrock-runtime==1.38.4
-      - namex==0.0.8
-      - networkx==3.4.2
-      - ninja==1.11.1.1
-      - nltk==3.8.1
-      - numpy==2.1.3
-      - olefile==0.47
-      - omegaconf==2.3.0
-      - onnx==1.16.1
-      - onnxruntime==1.19.0
-      - onnxruntime--silicon==1.16.3
-      - opencv-python==4.10.0.84
-      - opencv-python-headless==4.10.0.84
-      - opengraph-parse==0.0.6
-      - opt-einsum==3.3.0
-      - optimum-quanto==0.2.5
-      - optree==0.12.1
-      - orjson==3.9.10
-      - paletko==0.1.19
-      - pandas==2.2.3
-      - peewee==3.17.7
-      - peft==0.11.1
-      - piexif==1.1.3
-      - pillow==10.4.0
-      - pixelme==0.4.13
-      - polygonize==0.1.5
-      - potrace==0.3
-      - preshed==3.0.9
-      - prettytable==3.10.2
-      - prompt-toolkit==3.0.36
-      - proto-plus==1.24.0
-      - protobuf==5.28.3
-      - py-cpuinfo==9.0.0
-      - pyaml==24.7.0
-      - pyarrow==20.0.0
-      - pyasn1==0.5.1
-      - pyasn1-modules==0.3.0
-      - pycryptodomex==3.19.0
-      - pydantic==2.8.2
-      - pydantic-core==2.23.4
-      - pydantic-settings==2.1.0
-      - pyequilib==0.5.8
-      - pyfiglet==1.0.2
-      - pygments==2.18.0
-      - pyparsing==3.2.0
-      - pyphen==0.14.0
-      - pypotrace==0.3
-      - pyrdfa3==3.6.4
-      - python-dateutil==2.9.0.post0
-      - python-dotenv==1.0.0
-      - python-gemini-api==2.4.12
-      - python-hue-v2==2.0.1
-      - python-multipart==0.0.9
-      - pytz==2025.2
-      - pyyaml==6.0.2
-      - questionary==2.0.1
-      - random-user-agent==1.0.1
-      - rapidfuzz==3.5.2
-      - rdflib==7.1.4
-      - redis==5.0.1
-      - regex==2024.5.15
-      - reportlab==4.0.7
-      - requests-toolbelt==1.0.0
-      - rich==13.8.0
-      - s3transfer==0.12.0
-      - safetensors==0.4.1
-      - scikit-image==0.22.0
-      - scikit-learn==1.5.1
-      - scipy==1.14.1
-      - seaborn==0.13.2
-      - secretcolors==1.2.6
-      - segno==1.6.0
-      - semver==3.0.2
-      - sentencepiece==0.2.0
-      - setuptools==75.1.0
-      - shapely==2.1.0
-      - shellingham==1.5.4
-      - smart-open==6.4.0
-      - sniffio==1.3.0
-      - spacy-legacy==3.0.12
-      - spacy-loggers==1.0.5
-      - spandrel==0.3.4
-      - squiz==0.3.1
-      - srsly==2.4.8
-      - starlette==0.37.2
-      - stenogen==0.1.20
-      - stringcase==1.2.0
-      - stringzilla==3.10.4
-      - structlog==24.4.0
-      - svglib==1.5.1
-      - sympy==1.14.0
-      - tb-nightly==2.19.0a20241023
-      - tensorboard==2.18.0
-      - tensorboard-data-server==0.7.2
-      - tensorflow==2.18.0rc2
-      - term-image==0.18.0.1
-      - termcolor==2.4.0
-      - text-unidecode==1.3
-      - tf-keras-nightly==2.16.0.dev2023120710
-      - thinc==9.1.1
-      - tifffile==2023.9.26
-      - tld==0.13
-      - tokenizers==0.21.0
-      - toolz==1.0.0
-      - torch==2.7.0
-      - torchaudio==2.7.0
-      - torchsde==0.2.6
-      - torchvision==0.22.0
-      - tqdm==4.66.5
-      - trafilatura==2.0.0
-      - trampoline==0.1.2
-      - transformers==4.52.2
-      - typer==0.9.4
-      - types-awscrt==0.27.1
-      - types-s3transfer==0.12.0
-      - typing-inspect==0.9.0
-      - tzdata==2024.2
-      - tzlocal==5.3.1
-      - ultralytics==8.3.127
-      - ultralytics-thop==2.0.14
-      - unidecode==1.3.8
-      - uritemplate==4.1.1
-      - urllib3==2.2.3
-      - uvicorn==0.30.6
-      - uvloop==0.20.0
-      - w3lib==2.3.1
-      - waitress==3.0.0b0
-      - wasabi==1.1.2
-      - watchfiles==0.22.0
-      - wcwidth==0.2.13
-      - weasel==0.3.4
-      - websockets==15.0.1
-      - werkzeug==3.0.4
-      - wheel==0.44.0
-      - wikipedia-api==0.6.0
-      - wolframalpha==5.0.0
-      - wrapt==1.16.0
-      - xmltodict==0.13.0
-      - xxhash==3.5.0
-      - yapf==0.40.2
-      - zeroconf==0.132.2
-      - zipp==3.20.2
-prefix: /Volumes/Devo/Users/jago/miniforge3/envs/masha
+    - CairoSVG==2.7.1
+    - Faker==20.1.0
+    - MainContentExtractor==0.0.4
+    - Markdown==3.6
+    - PyYAML==6.0.1
+    - Pygments==2.18.0
+    - Scrapy==2.13.0
+    - Werkzeug==3.0.4
+    - Wikipedia-API==0.6.0
+    - accelerate==0.34.0
+    - albucore==0.0.18
+    - albumentations==1.4.14
+    - appnope==0.1.3
+    - bardapi==0.1.38
+    - basicsr==11.4.2
+    - bitsandbytes==0.42.0
+    - bsrgan==14.0.3
+    - cachable==0.3.48
+    - cachetools==5.4.0
+    - certifi==2024.8.30
+    - cloudpathlib==0.16.0
+    - compel==2.0.2
+    - contourpy==1.3.0
+    - coreface==0.1.14
+    - corefile==0.1.11
+    - coreimage==0.0.138
+    - corelog==0.0.20
+    - corestring==0.3.16
+    - cytoolz==0.12.2
+    - datasets==3.6.0
+    - diffusers==0.34.0
+    - equilib==0.0.1
+    - extruct==0.18.0
+    - fake-http-header==0.3.5
+    - fastapi==0.112.2
+    - filetype==1.2.0
+    - firebase-admin==6.5.0
+    - fs==20.4.16
+    - fuzzelinho==0.2.6
+    - gender-predictor==1.0.2
+    - google-api-core==2.19.2
+    - google-cloud-firestore==2.18.0
+    - google-genai==1.12.1
+    - google-maps-places==0.1.25
+    - googleapis-common-protos==1.65.0
+    - grpcio==1.66.1
+    - html2text==2025.4.15
+    - html5lib==1.1
+    - importlib_metadata==8.0.0
+    - insightface==0.7.3
+    - ip-adapter==0.1.0
+    - isoflask==0.1.7
+    - jellyfish==1.0.3
+    - keras==3.5.0
+    - lambo==10.0.8
+    - langdetect==1.0.9
+    - lap==0.5.12
+    - marisa-trie==1.2.0
+    - matplotlib==3.9.2
+    - mflux==0.10.0
+    - mgrs==1.4.5
+    - olefile==0.47
+    - omegaconf==2.3.0
+    - onnxruntime==1.19.0
+    - onnxruntime--silicon==1.16.3
+    - opengraph-parse==0.0.6
+    - optimum-quanto==0.2.5
+    - packaging==24.1
+    - peft==0.16.0
+    - pillow==10.4.0
+    - potrace==0.3
+    - proto-plus==1.24.0
+    - pyaml==24.7.0
+    - pydantic-settings==2.1.0
+    - pyequilib==0.5.8
+    - pyphen==0.14.0
+    - pypotrace==0.3
+    - python-gemini-api==2.4.12
+    - safetensors==0.6.2
+    - scikit-image==0.22.0
+    - scikit-learn==1.5.1
+    - scipy==1.14.1
+    - sentencepiece==0.2.0
+    - shapely==2.1.0
+    - squiz==0.3.1
+    - stenogen==0.1.20
+    - svglib==1.5.1
+    - tabulate==0.9.0
+    - tensorflow==2.18.0rc2
+    - thinc==9.1.1
+    - threadpoolctl==3.5.0
+    - torch==2.7.0
+    - torchaudio==2.7.0
+    - torchsde==0.2.6
+    - torchvision==0.22.0
+    - tqdm==4.66.5
+    - trafilatura==2.0.0
+    - transformers==4.55.0
+    - ultralytics==8.3.127
+    - uvicorn==0.30.6
+    - uvloop==0.20.0
+    - waitress==3.0.0b0
+    - wasabi==1.1.2
+    - weasel==0.3.4
+    - wolframalpha==5.0.0
+
+prefix: "/Volumes/Devo/Users/jago/miniforge3/envs/masha"

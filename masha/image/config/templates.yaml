@@ -124,14 +124,14 @@ fake_poster:
     //, 3dmm style,(masterpiece, top quality, best quality, official art, beautiful and aesthetic:1.2), <lora:3DMM_V12:1>
   models:
     - cutecartoon
-pepo:
-  category: style, face,img2img
-  for_gender: female
-  prompt: >
-    <lora:P2p0:0.8> 1girl, white mini skirt, as pvc figure, looking at viewer, perfect hands, big breast, wide hips, thick thighs, upper body, cowboy shot, clean scene, white background, high detailed, masterpiece
-  models:
-    - dreamlcm
-  upscale: 2
+# pepo:
+#   category: style, face,img2img
+#   for_gender: female
+#   prompt: >
+#     <lora:P2p0:0.8> 1girl, white mini skirt, as pvc figure, looking at viewer, perfect hands, big breast, wide hips, thick thighs, upper body, cowboy shot, clean scene, white background, high detailed, masterpiece
+#   models:
+#     - dreamlcm
+#   upscale: 2
 rembrandt:
   category: style,img2img
   scheduler_class: DPMSolverSDEScheduler
@@ -503,22 +503,22 @@ feathers:
     ais-featherz // <lora:Feathers_Glue_SDXL:1>
   custom_params:
     num_inference_steps: 40
-selfie-yacht:
-  category: face
-  for_gender: female
-  no_race: True
-  models:
-    - tvxl
-  prompt: >
-    selfie, fish eye, very beautiful // on the deck of a yacht,, hard nipples,
-    wind in her hair, wide hips, seductiveness, happiness, Egypt
-  custom_params:
-    guidance_scale: 2.8
-    num_inference_steps: 10
-    clip_skip: 2
-    width: 832
-    height: 1216
-    negative_prompt: CGI, Unreal, Airbrushed, Digital, nsfw
+# selfie-yacht:
+#   category: face
+#   for_gender: female
+#   no_race: True
+#   models:
+#     - tvxl
+#   prompt: >
+#     selfie, fish eye, very beautiful // on the deck of a yacht,, hard nipples,
+#     wind in her hair, wide hips, seductiveness, happiness, Egypt
+#   custom_params:
+#     guidance_scale: 2.8
+#     num_inference_steps: 10
+#     clip_skip: 2
+#     width: 832
+#     height: 1216
+#     negative_prompt: CGI, Unreal, Airbrushed, Digital, nsfw
 red-sweater:
   category: face
   for_gender: female
