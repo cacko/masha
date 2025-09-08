@@ -190,6 +190,7 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
         except Exception as e:
             logging.exception(e)
             logging.warning("failed")
+        self.pipeline.enable_attention_slicing()
 
     def set_text2img_pipeline(self, pipe_args):
         model_path = self.__class__.modelPath

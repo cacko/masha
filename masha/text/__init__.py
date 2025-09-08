@@ -1,5 +1,6 @@
 import logging
 from pathlib import Path
+from turtle import pd
 from masha.core.term import TermColor, ccze
 from masha.text.cover_letter import CoverLetter
 from masha.text.detector import TextDetector
@@ -20,6 +21,8 @@ from fastapi import APIRouter, Request, HTTPException
 import typer
 from typing_extensions import Annotated
 from masha.text.config import text_config
+import pandas as pd
+import json
 
 Gemini.register(text_config.genai)
 TextGenerator.register(text_config.generator)
@@ -91,6 +94,24 @@ def ask(
         img = Image.open(BytesIO(resp.content))
         print_term_image(image=asarray(img), height=30)
     print(res.content)
+    
+    
+@cli.command()
+def ask_json(
+    text: Annotated[list[str], typer.Argument()],
+    file: Annotated[Path, typer.Option("-f", "--file")] = None,
+):
+    if file:
+        res = Gemini.ask_json(file.read_text())
+    else:
+        res = Gemini.ask_json(" ".join(text))
+    if res.images:
+        resp = requests.get(res.images[0])
+        img = Image.open(BytesIO(resp.content))
+        print_term_image(image=asarray(img), height=30)
+    df = pd.DataFrame.from_dict(json.loads(res.content))
+    with pd.option_context('display.max_colwidth', None):
+        print(df)
 
 
 @cli.command()

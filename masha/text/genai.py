@@ -10,6 +10,12 @@ from typing import Optional
 from pydantic import BaseModel
 import rich
 
+class Recipe(BaseModel):
+    name: str
+    teams: list[str]
+    goals: int
+    games: int
+
 from masha.text.config import GenaiConfig
 
 
@@ -41,10 +47,12 @@ class GeminiMeta(type):
 
     def ask(cls, query: str, source: Optional[str] = None) -> GeminiResponse:
         return cls().do_ask(query=query, source=source)
-    
+
     def ask_image(cls, img_path: Path, query: str):
         return cls().do_ask_image(img_path=img_path, query=query)
 
+    def ask_json(cls, query: str, source: Optional[str] = None) -> GeminiResponse:
+        return cls().do_ask_json(query=query, source=source)
 
 
 import markdown
@@ -67,9 +75,9 @@ from markdown.extensions import Extension
 
 
 class Gemini(object, metaclass=GeminiMeta):
-    
-    __chat : dict[str, any] = {}
-    
+
+    __chat: dict[str, any] = {}
+
     def __init__(self) -> None:
         try:
             self.__client = genai.Client(api_key=self.__class__.api_key)
@@ -77,38 +85,64 @@ class Gemini(object, metaclass=GeminiMeta):
             logging.exception(e)
             logging.info(f"api_key={self.__class__.api_key}")
             raise e
-        
+
     def get_chat(self, source):
         if source not in self.__chat:
-            self.__chat[source] = self.__client.chats.create(model='gemini-2.0-flash-001')
+            self.__chat[source] = self.__client.chats.create(
+                model="gemini-2.5-flash"
+            )
         return self.__chat[source]
 
     def do_ask(self, query: str, source: Optional[str] = None) -> GeminiResponse:
-        
+
         if source:
             chat = self.get_chat(source)
             res = chat.send_message(query)
             return GeminiResponse(content=res.text)
-        
+
         response = self.__client.models.generate_content(
             model=self.__class__.model_name, contents=query
         )
-        
-    
+
         # md = markdown.Markdown()
         # # Now let's test it out:
         # html = md.convert(' '.join(response.text))
         # print(html)
         # print(md.images)
-        
+
         resp = GeminiResponse(content=response.text)
         return resp
-    
+
     def do_ask_image(self, img_path: Path, query: str):
-        
+
         uploaded = self.__client.files.upload(file=img_path)
-        
+
         response = self.__client.models.generate_content(
             model=self.__class__.model_name, contents=[uploaded, query]
         )
         rich.print(response)
+
+    def do_ask_json(self, query: str, source: Optional[str] = None) -> GeminiResponse:
+
+        if source:
+            chat = self.get_chat(source)
+            res = chat.send_message(query)
+            return GeminiResponse(content=res.text)
+
+        response = self.__client.models.generate_content(
+            model=self.__class__.model_name,
+            contents=query,
+            config={
+                "response_mime_type": "application/json",
+                # "response_schema": list[Recipe],
+            },
+        )
+        
+        # md = markdown.Markdown()
+        # # Now let's test it out:
+        # html = md.convert(' '.join(response.text))
+        # print(html)
+        # print(md.images)
+
+        resp = GeminiResponse(content=response.text)
+        return resp

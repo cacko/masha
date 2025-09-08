@@ -82,6 +82,22 @@ modern-logo:
     num_inference_steps: 24
   models:
     - dreamturbo
+logo-archive:
+  prompt: > 
+    logoarchive, A logo featuring a // <lora:logoarchive:1>
+  category: logo
+  custon_params:
+    width: 1024
+    height: 1024
+    guidance_scale: 7.5
+    num_inference_steps: 24
+    negative_prompt: > 
+      worst quality, low quality, medium quality, deleted, lowres, comic, bad anatomy, bad hands, 
+      text, error, missing fingers, extra digit, fewer digits, cropped, jpeg artifacts, signature, 
+      watermark, username, blurry, less than 5 fingers, more than 5 fingers, bad hands, bad hand anatomy, missing fingers, extra fingers, mutated hands, disfigured hands, deformed hands, (double eyebrows:1.3), 
+      deformed lips, bad teeth, deformed teeth, (multiple tails:1.1)
+  models:
+    - vision
 fake_person:
   prompt: >
     // years old,profile photo,octane,detailed face,35mm,F/2.8, 4k
@@ -1154,3 +1170,31 @@ illustration:
     strength: 0.5
     num_inference_steps: 10
     negative_prompt: (worst quality:2), (low quality:2), (normal quality:2), lowres, bad anatomy, bad hands, normal quality, ((monochrome)), ((grayscale)
+text-logo:
+  category: style,face,xl,img2img,text
+  models: 
+    - xlvae
+  prompt: (//) text logo, cartoon, simple, donkey, <lora:Harrlogos_v2_0:1>
+  custom_params:
+    guidance_scale: 7
+    num_inference_steps: 20
+    negative_prompt:
+perfect-text:
+  category: style, flux, text
+  models:
+    - f1d
+  prompt: > 
+    A perfect text title of a fire with the words "// ", 
+    movie themed, sharp, detailed, epic cinematic image, 
+    artistic style, creative style, perfection, cinematic style, 
+      q1w2e3
+      
+    
+    <lora:perfect text title style v21:>
+  custom_params:
+    guidance_scale: 3.6
+    num_inference_steps: 10
+    clip_skip: 1
+    width: 768
+    height: 768
+    strength: 0.4

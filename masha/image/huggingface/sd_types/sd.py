@@ -1,15 +1,10 @@
-from re import template
 import cv2
-import rich
 from masha.image.huggingface.sd_types.base import BaseStableDiffusion
 from masha.image.models import OutputParams
 import torch
 from diffusers import (
     StableDiffusionPipeline,
-    DiffusionPipeline,
     StableDiffusionImg2ImgPipeline,
-    AutoencoderKL,
-    DDIMScheduler,
 )
 import logging
 from humanfriendly import format_size
@@ -22,8 +17,7 @@ from pathlib import Path
 from masha.image.huggingface.lora.sd_loaders import LoadersSDMixin
 from rich import print
 from masha.image.config import image_config
-from ip_adapter.ip_adapter_faceid import IPAdapterFaceIDPlus
-from insightface.utils import face_align
+from ip_adapter.ip_adapter_faceid_separate import IPAdapterFaceIDPlus
 
 
 class StableDiffusionSD(BaseStableDiffusion, LoadersSDMixin):
@@ -208,6 +202,7 @@ class StableDiffusionSD(BaseStableDiffusion, LoadersSDMixin):
         except Exception as e:
             logging.exception(e)
             logging.info("failed")
+        self.pipeline.enable_attention_slicing
         logging.info(f"SCHEDULER {self.pipeline.scheduler.__class__.__name__}")
         logging.debug(f"SCHEDULER {self.pipeline.scheduler}")
         logging.debug(f"MEM LORA - {format_size(current_allocated_memory())}")

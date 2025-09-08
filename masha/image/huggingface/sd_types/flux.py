@@ -11,10 +11,7 @@ from mflux.flux.flux import Flux1
 from mflux.config.config import Config
 from mflux.config.model_config import ModelConfig
 import logging
-from humanfriendly import format_size
-from torch.mps import current_allocated_memory
 from masha.image.huggingface.utils import (
-    load_image,
     get_compel_prompts_xl,
 )
 from pathlib import Path

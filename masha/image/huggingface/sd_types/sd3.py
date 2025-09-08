@@ -22,7 +22,6 @@ from masha.image.config import image_config
 import logging
 from masha.image.huggingface.lora.sd3_loaders import LoadersSD3Mixin
 from ip_adapter.ip_adapter_faceid import IPAdapterFaceIDPlusXL
-from transformers import T5EncoderModel, BitsAndBytesConfig
 
 
 class StableDiffusion3(BaseStableDiffusion, LoadersSD3Mixin):

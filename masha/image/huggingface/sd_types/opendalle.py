@@ -1,5 +1,3 @@
-from importlib_metadata import PathDistribution
-from kiwisolver import strength
 from masha.image.huggingface.sd_types.base import BaseStableDiffusion
 from masha.image.models import OutputParams
 import torch
@@ -13,7 +11,7 @@ from diffusers.pipelines import (
     DiffusionPipeline,
     AutoPipelineForImage2Image,
 )
-from compel import Compel, ReturnedEmbeddingsType
+from pathlib import Path
 import logging
 from humanfriendly import format_size
 from torch.mps import current_allocated_memory
@@ -24,9 +22,7 @@ from masha.image.huggingface.utils import (
     get_compel_prompts_xl,
 )
 from pathlib import Path
-from masha.config import app_config
 from masha.image.config import image_config
-from rich import print
 import logging
 
 
@@ -68,7 +64,7 @@ class StableDiffusionOpenDalle(BaseStableDiffusion):
             clip_skip=params.clip_skip,
         )
 
-    def get_img2img_result(self, seed, image_path: PathDistribution):
+    def get_img2img_result(self, seed, image_path: Path):
         self.pipeline: DiffusionPipeline = self.img2img_pipe
         output_params = self.__get_output_params(seed)
         to_pipe = output_params.to_pipe_img2img_xl()

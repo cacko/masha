@@ -1,4 +1,3 @@
-from kiwisolver import strength
 from masha.image.huggingface.sd_types.base import BaseStableDiffusion
 from masha.image.models import OutputParams
 import torch

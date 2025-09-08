@@ -168,7 +168,7 @@ class QRCodeMeta(type):
         qr = cls.get_qrcode_image(data, no_padding=True, border=2)
         name = to_token("_".join(data))
         result = TempPath(f"{name}.jpg")
-        upscaled = Upscale.upscale_img(qr, scale=4)
+        upscaled = Upscale.upscale_img(qr, scale=20)
         upscaled.save(result.as_posix())
         return result
 

@@ -5,37 +5,6 @@ flat:
   strength: 0.3
   num_inference_steps: 30
   negative_prompt: (worst quality, low quality:1.4), (bad_prompt_version2:0.8), EasyNegative, badhandv4, text, name, letters, watermark
-water:
-  model: wc-light
-  prompt: > 
-    concept art, award winning, wearing ral-wtrclr,
-    <lora:ral-wtrclr-sdxl:1>, gorgeous, dramatic, cinematic light, 
-    dynamic cinematic perfect background, winning, inspired
-  guidance_scale: 2
-  strength: 0.6
-  num_inference_steps: 10
-oil:
-  model: tvxl
-  prompt:  dark black oil theme, dark noir style, Greg Rutkowski, (oil painting) <lora:ClassipeintXL2_0:1>
-  guidance_scale: 2
-  strength: 0.6
-  num_inference_steps: 10
-illustration:
-  model: juglight
-  prompt: illustrStyle,<lora:Illustration_style:1>
-  guidance_scale: 2
-  strength: 0.6
-  num_inference_steps: 10
-  negative_prompt: (worst quality:2), (low quality:2), (normal quality:2), lowres, bad anatomy, bad hands, normal quality, ((monochrome)), ((grayscale)
-cyberpunk:
-  model: ultraspice
-  prompt: >
-    (DORLA), nighttime, cyberpunk, dark, raining, neon lights , (<lora:cybergraphic_sdxl:1>), 
-    synthwave, 1980s, futurism, brutalism, neuromancer, palette knife soft brushstrokes, 
-    highly detailed,art by Adrian Tomine
-  guidance_scale: 5
-  strength: 0.6
-  num_inference_steps: 10
 cartoon:
   model: ultraspice
   prompt: cartoon, striking, balanced, perfect composition, pristine, high resolution quality, high detailed,(Quentin Blake Style) <lora:QuentinBlakeStyle:1>
@@ -76,14 +45,6 @@ colorswirl:
   num_inference_steps: 20
   clip_skip: 2
   model: dreamlcm
-linedraw:
-  prompt: vivid colors, vibrant colors, intricate details,intricate line drawing <lora:zenodoXL:0.6>
-  guidance_scale: 8
-  strength: 0.6
-  num_inference_steps: 9
-  clip_skip: 1
-  model: dreamturbo
-  negative_prompt: (worst quality:1.4), (bad artist:1.4), simple background, out of frame, (bad proportions:1.4), underage, child, symmetric, monochrome, (blurry:1), nipples
 dissolve:
   prompt: > 
     painting, [:style of vincent van gogh and leonardo da vinci:0.4] 
@@ -191,21 +152,6 @@ wlad:
     lowres,bad anatomy,bad hands,text,error,missing fingers,extra digit,fewer digits,
     cropped,worst quality,low quality,normal quality,jpeg artifacts,signature,watermark,
     username,blurry,nsfw,
-embroidered:
-  model: ultraspice
-  prompt: ral-embroideredpatch <lora:ral-embroideredpatch-sdxl:1> 
-  guidance_scale: 3
-  strength: 0.5
-  num_inference_steps: 30
-  clip_skip: 2
-  width: 512
-  height: 768
-  guidance_scale: 3
-  strength: 0.5
-  num_inference_steps: 30
-  clip_skip: 2
-  width: 512
-  height: 768
 neo-punk:
   model: f1d
   prompt: >
@@ -264,4 +210,108 @@ fantasia:
   strength: 0.5
   num_inference_steps: 30
   clip_skip: 2
-  
+3d-cartoon:
+  model: f1d
+  prompt: fff,3D chibi cartoon style, //, <lora:flux-lora-chibi-cartoon-style:1>
+  guidance_scale: 3.8
+  strength: 0.3
+  num_inference_steps: 30
+  clip_skip: 2
+claytoy:
+  model: f1c
+  prompt: >
+    Turn this image into the Claytoy style. <InScene-v1.0:0.4> <Clay_Toy_lora_weights:0.4>
+  num_inference_steps: 24
+  guidance_scale: 7.5
+  strength: 0.4
+vector:
+  model: f1c
+  prompt: >
+    Turn this image into the Vector style. <InScene-v1.0:0.4> <Vector_lora_weights:1>
+  num_inference_steps: 24
+  guidance_scale: 7.5
+  strength: 0.4
+rick-morty:
+  model: f1c
+  prompt: >
+    Turn this image into the Rick Morty style. <InScene-v1.0:0.4> <Rick_Morty_lora_weights:1>
+  num_inference_steps: 24
+  guidance_scale: 7.5
+  strength: 0.3
+jojo:
+  model: f1c
+  prompt: >
+    Turn this image into the Jojo style. <InScene-v1.0:0.4> <Jojo_lora_weights:1>
+  num_inference_steps: 24
+  guidance_scale: 7.5
+  strength: 0.3
+pop-art:
+  model: f1c
+  prompt: >
+    Turn this image into the Pop Art style. <InScene-v1.0:0.4> <Pop_Art_lora_weights:1>
+  num_inference_steps: 24
+  guidance_scale: 7.5
+  strength: 0.3
+lego:
+  model: f1c
+  prompt: >
+    Turn this image into the Lego style. <InScene-v1.0:0.4> <LEGO_lora_weights:1>
+  num_inference_steps: 24
+  guidance_scale: 7.5
+  strength: 0.3
+oil-painting:
+  model: f1c
+  prompt: >
+    Turn this image into the Oil Painting style. <InScene-v1.0:0.4> <Oil_Painting_lora_weights:1>
+  num_inference_steps: 24
+  guidance_scale: 7.5
+  strength: 0.3
+pixel:
+  model: f1c
+  prompt: >
+    Turn this image into the Pixel style. <InScene-v1.0:0.4> <Pixel_lora_weights:1>
+  num_inference_steps: 24
+  guidance_scale: 7.5
+  strength: 0.3
+snoopy:
+  model: f1c
+  prompt: >
+    Turn this image into the Snoopy style. <InScene-v1.0:0.4> <Snoopy_lora_weights:1>
+  num_inference_steps: 24
+  guidance_scale: 7.5
+  strength: 0.3
+snoopy:
+  model: f1c
+  prompt: >
+    Turn this image into  the Fabric style. <InScene-v1.0:0.4> <Fabric_lora_weights:1>
+  num_inference_steps: 24
+  guidance_scale: 7.5
+  strength: 0.3
+ghibli:
+  model: f1c
+  prompt: >
+    Turn this image into the Ghibli style. <InScene-v1.0:0.4> <Ghibli_lora_weights:1>
+  num_inference_steps: 24
+  guidance_scale: 7.5
+  strength: 0.3
+van-gogh:
+  model: f1c
+  prompt: >
+    Turn this image into the Van Gogh style. <InScene-v1.0:0.4> <Van_Gogh_lora_weights:1>
+  num_inference_steps: 24
+  guidance_scale: 7.5
+  strength: 0.3
+picasso:
+  model: f1c
+  prompt: >
+    Turn this image into the Picasso style <InScene-v1.0:0.4> <Picasso_lora_weights:1>
+  num_inference_steps: 24
+  guidance_scale: 7.5
+  strength: 0.3
+3d-chibi:
+  model: f1c
+  prompt: >
+    Turn this image into 3d chibi style <InScene-v1.0:0.4> <3D_Chibi_lora_weights:1>
+  num_inference_steps: 24
+  guidance_scale: 7.5
+  strength: 0.3

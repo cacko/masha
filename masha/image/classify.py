@@ -15,7 +15,7 @@ class Config(BaseModel):
     model: str
     tokenizer: str
 
-
+                                        
 class ClassifyMeta(type):
 
     _instance: Optional[ImageClassify] = None

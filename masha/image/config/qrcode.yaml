@@ -4,13 +4,13 @@ default:
   negative_prompt: blurry
   guidance_scale: 7
   num_inference_steps: 25
-  controlnet_conditioning_scale: 0.75
+  controlnet_conditioning_scale: 1.4
 baroque:
   model: vision-novae
   control_net: qrCodeMonster
   guidance_scale: 7
   num_inference_steps: 25
-  controlnet_conditioning_scale: 0.8
+  controlnet_conditioning_scale: 1.2
   prompt: >
     A RAW photo of Baroque rococo architecture, architectural photography, 
     post apocalyptic New York, hyperrealism, [roots], hyperrealistic, 
@@ -20,8 +20,9 @@ castle:
   model: vision-novae
   control_net: qrCodeMonster
   guidance_scale: 7
-  num_inference_steps: 40
+  num_inference_steps: 25
   controlnet_conditioning_scale: 1.3
+  scheduler_class: UniPCMultistepScheduler
   prompt: >
     RAW photo of an Medievil castle surrounded by water and nature, village, 
     volumetric lighting, photorealistic, insanely detailed and intricate,
@@ -33,7 +34,7 @@ landscape:
   control_net: qrCodeMonster
   guidance_scale: 2
   num_inference_steps: 10
-  controlnet_conditioning_scale: 0.8
+  controlnet_conditioning_scale: 0.5
   prompt: >
     (masterpiece:1.2, best quality), (ultra-detailed), (illustration), 
     (ultra highres), (delicate illustration), (hyper-detailed), 

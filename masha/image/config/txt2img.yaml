@@ -19,7 +19,7 @@ realisticVisionV60B1_v51HyperVAE.safetensors:
         bad anatomy, bad proportions, extra limbs, b&w
 realisticVisionV60B1_v20Novae.safetensors:
   option: vision-novae
-  scheduler_class: EulerAncestralDiscreteScheduler
+  scheduler_class: DPMSolverMultistepScheduler
   sd_type: sd
   category: realistic,nsfw,porn,lora,sd1,qr,img2img
   custom_params:
@@ -536,7 +536,7 @@ sd3_medium_incl_clips_t5xxlfp16.safetensors:
 dev:
   option: f1d
   sd_type: flux
-  category: general,art,wall,img2img
+  category: general,art,wall,img2img,flux
   custom_params:
     width: 512
     height: 512
@@ -546,7 +546,7 @@ dev:
 schnell:
   option: f1s
   sd_type: flux
-  category: general,art,wall,img2img
+  category: general,art,wall,img2img,flux
   custom_params:
     width: 768
     height: 1024
@@ -556,7 +556,7 @@ schnell:
 krea-dev:
   option: f1k
   sd_type: flux
-  category: general,art,wall,img2img
+  category: general,art,wall,img2img,flux
   custom_params:
     width: 512
     height: 512
@@ -566,10 +566,10 @@ krea-dev:
 dev-kontext:
   option: f1c
   sd_type: flux
-  category: general,art,wall,img2img,face
+  category: general,art,wall,img2img,face,flux
   custom_params:
     width: 512
     height: 512
     guidance_scale: 4
-    num_inference_steps: 20
+    num_inference_steps: 50
     negative_prompt: 
