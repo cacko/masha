@@ -1,22 +1,18 @@
 import cv2
 import rich
 from masha.core.image import get_width_height
-from masha.image.huggingface.lora.mflux_loaders import LoadersMFluxMixin
+from masha.image.huggingface.lora.qwen_loaders import LoadersQwenMixin
 from masha.image.huggingface.sd_types.base import BaseStableDiffusion
 from masha.image.models import OutputParams
 import torch
-from diffusers import FluxPipeline, FluxKontextPipeline, FluxImg2ImgPipeline
+from diffusers import QwenImagePipeline
 import logging
-from masha.image.huggingface.utils import (
-    get_compel_prompts_xl,
-)
 from pathlib import Path
 from masha.image.config import image_config
-from masha.image.huggingface.utils import load_image
 import logging
 
 
-class StableDiffusionFlux(BaseStableDiffusion, LoadersMFluxMixin):
+class StableDiffusionQwen(BaseStableDiffusion, LoadersQwenMixin):
     _params = dict(negative_prompt="blurry")
 
     @property
@@ -25,7 +21,7 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersMFluxMixin):
 
     @property
     def lora_path(self) -> Path:
-        return self.__class__.lorafluxPath
+        return self.__class__.loraqwenPath
 
 
     def __get_output_params(self, seed, no_compel=False) -> OutputParams:
@@ -121,35 +117,43 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersMFluxMixin):
         #     logging.warning("failed")
         return self.pipeline
 
-    def get_img2img_result(self, seed, image_path: Path):
-        self.init_img2img_pipe()
-        output_params = self.__get_output_params(seed, no_compel=True)
-        width, height = get_width_height(
-            image_path, max(output_params.height, output_params.width)
-        )
-        result = self.pipeline(
-            image=load_image(image_path),
-            prompt=output_params.prompt,
-            guidance_scale=output_params.guidance_scale,
-            width=output_params.width,
-            height=output_params.height,
-        )
-        return (result, output_params)
+    # def get_img2img_result(self, seed, image_path: Path):
+    #     self.init_img2img_pipe()
+    #     output_params = self.__get_output_params(seed, no_compel=True)
+    #     width, height = get_width_height(
+    #         image_path, max(output_params.height, output_params.width)
+    #     )
+    #     cfg = Config(
+    #         num_inference_steps=output_params.num_inference_steps,
+    #         height=height,
+    #         width=width,
+    #         guidance=output_params.guidance_scale,
+    #         image_path=image_path.as_posix(),
+    #         image_strength=output_params.strength,
+    #     )
+    #     rich.inspect(cfg)
+    #     image = self.pipeline.generate_image(
+    #         seed=output_params.seed,
+    #         prompt=output_params.prompt,
+    #         config=cfg,
+    #     )
+    #     return (FluxPipelineOutput(images=[image.image]), output_params)
 
-    def set_img2img_pipeline(self, pipe_args) -> FluxKontextPipeline|FluxImg2ImgPipeline:
-        model_path = self.__class__.img2imgModelPath
-        if 'kontext' in str(model_path):
-            self.pipeline = FluxKontextPipeline.from_pretrained(f"{model_path}", torch_dtype=torch.bfloat16)
-        else:
-            self.pipeline = FluxImg2ImgPipeline.from_pretrained(f"{model_path}", torch_dtype=torch.bfloat16)
-        self.pipeline.enable_model_cpu_offload()
-        try:
-            self.loadLoraWeights()
-        except AssertionError as e:
-            pass
-        except Exception as e:
-            logging.error(e)
-        return self.pipeline
+    # def set_img2img_pipeline(self, pipe_args) -> Flux1:
+    #     model_path = self.__class__.img2imgModelPath
+    #     params = dict(
+    #         model_config=get_model_config(model_path.name),
+    #         quantize=4,
+    #     )
+    #     try:
+    #         paths, scales = self.loadLoraWeights()
+    #         params.update(dict(lora_paths=paths, lora_scales=scales))
+    #     except AssertionError as e:
+    #         pass
+    #     except Exception as e:
+    #         logging.error(e)
+    #     flux = Flux1(**params)
+    #     self.pipeline = flux
 
     def get_txt2img_result(
         self,
@@ -157,16 +161,17 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersMFluxMixin):
     ):
         self.init_txt2img_pipe()
         output_params = self.__get_output_params(seed, no_compel=True)
-        to_pipe = output_params.to_pipe_flux()
+        to_pipe = output_params.to_pipe_qwen()
         result = self.pipeline(
             **to_pipe,
+            true_cfg_scale=4.0,
             callback_on_step_end=self.__class__.interrupt_callback,
         )
         return (result, output_params)
 
-    def set_text2img_pipeline(self, pipe_args) -> FluxPipeline:
+    def set_text2img_pipeline(self, pipe_args) -> QwenImagePipeline:
         model_path = self.__class__.modelPath
-        self.pipeline = FluxPipeline.from_pretrained(f"{model_path}", torch_dtype=torch.bfloat16)
+        self.pipeline = QwenImagePipeline.from_pretrained(f"{model_path}", torch_dtype=torch.bfloat16)
         self.pipeline.enable_model_cpu_offload()
         try:
             self.loadLoraWeights()

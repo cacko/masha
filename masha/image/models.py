@@ -288,6 +288,8 @@ class PipelineType(StrEnum):
     SDXL_TURBO = ""
     SD3 = "StableDiffusion3Pipeline"
     FLUX = "FluxPipeline"
+    MFLUX = "FluxPipeline"
+    QWEN = "QwenImagePipeline"
 
 
 class SDModelType(StrEnum):
@@ -301,6 +303,8 @@ class SDModelType(StrEnum):
     LCM = "lcm"
     OPENDALLE = "opendalle"
     FLUX = "flux"
+    MFLUX = "mflux"
+    QWEN = "qwen"
 
 
 class PipelineParams(BaseModel):
@@ -523,6 +527,21 @@ class OutputParams(BaseModel, arbitrary_types_allowed=True):
         )
         
     def to_pipe_flux(self) -> dict:
+        return self.__to_pipe(
+            [
+                "seed",
+                "model",
+                "aspect",
+                "prompt_embeds",
+                "negative_prompt_embeds",
+                "negative_pooled_prompt_embeds",
+                "pooled_prompt_embeds",
+                "scale",
+                "strength",
+            ],
+        )
+        
+    def to_pipe_qwen(self) -> dict:
         return self.__to_pipe(
             [
                 "seed",

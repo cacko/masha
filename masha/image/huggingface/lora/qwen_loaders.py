@@ -1,11 +1,11 @@
+
 import logging
 from masha.image.huggingface.utils import (
     get_lora_models,
 )
-from masha.image.config import image_config
 
 
-class LoadersFluxMixin(object):
+class LoadersQwenMixin(object):
 
     def loadLoraWeights(self):
         try:

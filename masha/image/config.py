@@ -30,6 +30,7 @@ class LoraConfig(BaseModel):
     root_xl: str
     root_3: str
     root_flux: str
+    root_qwen: str
 
 
 class TIConfig(BaseModel):

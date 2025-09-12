@@ -222,96 +222,96 @@ claytoy:
   prompt: >
     Turn this image into the Claytoy style. <InScene-v1.0:0.4> <Clay_Toy_lora_weights:0.4>
   num_inference_steps: 24
-  guidance_scale: 7.5
+  guidance_scale: 5
   strength: 0.4
 vector:
   model: f1c
   prompt: >
     Turn this image into the Vector style. <InScene-v1.0:0.4> <Vector_lora_weights:1>
   num_inference_steps: 24
-  guidance_scale: 7.5
+  guidance_scale: 5
   strength: 0.4
 rick-morty:
   model: f1c
   prompt: >
     Turn this image into the Rick Morty style. <InScene-v1.0:0.4> <Rick_Morty_lora_weights:1>
   num_inference_steps: 24
-  guidance_scale: 7.5
+  guidance_scale: 5
   strength: 0.3
 jojo:
   model: f1c
   prompt: >
     Turn this image into the Jojo style. <InScene-v1.0:0.4> <Jojo_lora_weights:1>
   num_inference_steps: 24
-  guidance_scale: 7.5
+  guidance_scale: 5
   strength: 0.3
 pop-art:
   model: f1c
   prompt: >
     Turn this image into the Pop Art style. <InScene-v1.0:0.4> <Pop_Art_lora_weights:1>
   num_inference_steps: 24
-  guidance_scale: 7.5
+  guidance_scale: 5
   strength: 0.3
 lego:
   model: f1c
   prompt: >
     Turn this image into the Lego style. <InScene-v1.0:0.4> <LEGO_lora_weights:1>
   num_inference_steps: 24
-  guidance_scale: 7.5
+  guidance_scale: 5
   strength: 0.3
 oil-painting:
   model: f1c
   prompt: >
     Turn this image into the Oil Painting style. <InScene-v1.0:0.4> <Oil_Painting_lora_weights:1>
   num_inference_steps: 24
-  guidance_scale: 7.5
+  guidance_scale: 5
   strength: 0.3
 pixel:
   model: f1c
   prompt: >
     Turn this image into the Pixel style. <InScene-v1.0:0.4> <Pixel_lora_weights:1>
   num_inference_steps: 24
-  guidance_scale: 7.5
+  guidance_scale: 5
   strength: 0.3
 snoopy:
   model: f1c
   prompt: >
     Turn this image into the Snoopy style. <InScene-v1.0:0.4> <Snoopy_lora_weights:1>
   num_inference_steps: 24
-  guidance_scale: 7.5
+  guidance_scale: 5
   strength: 0.3
 snoopy:
   model: f1c
   prompt: >
     Turn this image into  the Fabric style. <InScene-v1.0:0.4> <Fabric_lora_weights:1>
   num_inference_steps: 24
-  guidance_scale: 7.5
+  guidance_scale: 5
   strength: 0.3
 ghibli:
   model: f1c
   prompt: >
     Turn this image into the Ghibli style. <InScene-v1.0:0.4> <Ghibli_lora_weights:1>
   num_inference_steps: 24
-  guidance_scale: 7.5
+  guidance_scale: 5
   strength: 0.3
 van-gogh:
   model: f1c
   prompt: >
     Turn this image into the Van Gogh style. <InScene-v1.0:0.4> <Van_Gogh_lora_weights:1>
   num_inference_steps: 24
-  guidance_scale: 7.5
+  guidance_scale: 5
   strength: 0.3
 picasso:
   model: f1c
   prompt: >
     Turn this image into the Picasso style <InScene-v1.0:0.4> <Picasso_lora_weights:1>
   num_inference_steps: 24
-  guidance_scale: 7.5
+  guidance_scale: 5
   strength: 0.3
 3d-chibi:
   model: f1c
   prompt: >
     Turn this image into 3d chibi style <InScene-v1.0:0.4> <3D_Chibi_lora_weights:1>
   num_inference_steps: 24
-  guidance_scale: 7.5
+  guidance_scale: 5
   strength: 0.3

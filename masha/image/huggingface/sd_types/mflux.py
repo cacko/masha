@@ -5,18 +5,39 @@ from masha.image.huggingface.lora.mflux_loaders import LoadersMFluxMixin
 from masha.image.huggingface.sd_types.base import BaseStableDiffusion
 from masha.image.models import OutputParams
 import torch
-from diffusers import FluxPipeline, FluxKontextPipeline, FluxImg2ImgPipeline
+from diffusers.pipelines.flux.pipeline_output import FluxPipelineOutput
+from diffusers import FluxPipeline
+from mflux.flux.flux import Flux1
+from mflux.kontext.flux_kontext import Flux1Kontext
+from mflux.config.config import Config
+from mflux.config.model_config import ModelConfig
 import logging
 from masha.image.huggingface.utils import (
     get_compel_prompts_xl,
 )
 from pathlib import Path
 from masha.image.config import image_config
-from masha.image.huggingface.utils import load_image
 import logging
+from ip_adapter.ip_adapter_faceid import IPAdapterFaceIDPlusXL
+from enum import StrEnum
+from stringcase import constcase
 
+class FLUX_MODELS(StrEnum):
+    SCHNELL = "dhairyashil/FLUX.1-schnell-mflux-v0.6.2-4bit"
+    DEV = "dhairyashil/FLUX.1-dev-mflux-4bit"
+    DEV_FILL = "black-forest-labs/FLUX.1-Fill-dev"
+    DEV_DEPTH =  "black-forest-labs/FLUX.1-Depth-dev"
+    DEV_REDUX =  "black-forest-labs/FLUX.1-Redux-dev"
+    LITE = "Freepik/flux.1-lite-8B-alpha"
+    KREA_DEV = "filipstrand/FLUX.1-Krea-dev-mflux-4bit"
+    DEV_KONTEXT = "akx/FLUX.1-Kontext-dev-mflux-4bit"
 
-class StableDiffusionFlux(BaseStableDiffusion, LoadersMFluxMixin):
+def get_model_config(name: str) -> ModelConfig:
+    cfg = ModelConfig.from_name(name)
+    cfg.model_name = FLUX_MODELS[constcase(name)].value
+    return cfg
+
+class StableDiffusionMFlux(BaseStableDiffusion, LoadersMFluxMixin):
     _params = dict(negative_prompt="blurry")
 
     @property
@@ -27,6 +48,17 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersMFluxMixin):
     def lora_path(self) -> Path:
         return self.__class__.lorafluxPath
 
+    @property
+    def ip_adapter_faceid_model_path(self) -> Path:
+        return (
+            self.__class__.dataRoot
+            / "IP-Adapter-FaceID"
+            / "ip-adapter-faceid-plusv2_sdxl.bin"
+        )
+
+    @property
+    def ip_adapter_faceid_encoder_path(self) -> Path:
+        return self.__class__.dataRoot / "CLIP-ViT-H-14-laion2B-s32B-b79K"
 
     def __get_output_params(self, seed, no_compel=False) -> OutputParams:
         params = self.params
@@ -127,29 +159,49 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersMFluxMixin):
         width, height = get_width_height(
             image_path, max(output_params.height, output_params.width)
         )
-        result = self.pipeline(
-            image=load_image(image_path),
-            prompt=output_params.prompt,
-            guidance_scale=output_params.guidance_scale,
-            width=output_params.width,
-            height=output_params.height,
-        )
-        return (result, output_params)
-
-    def set_img2img_pipeline(self, pipe_args) -> FluxKontextPipeline|FluxImg2ImgPipeline:
-        model_path = self.__class__.img2imgModelPath
-        if 'kontext' in str(model_path):
-            self.pipeline = FluxKontextPipeline.from_pretrained(f"{model_path}", torch_dtype=torch.bfloat16)
+        if isinstance(self.pipeline, Flux1Kontext):
+            cfg = Config(
+                num_inference_steps=output_params.num_inference_steps,
+                height=height,
+                width=width,
+                guidance=output_params.guidance_scale,
+                image_path=image_path.as_posix(),
+            )
         else:
-            self.pipeline = FluxImg2ImgPipeline.from_pretrained(f"{model_path}", torch_dtype=torch.bfloat16)
-        self.pipeline.enable_model_cpu_offload()
+            cfg = Config(
+                num_inference_steps=output_params.num_inference_steps,
+                height=height,
+                width=width,
+                guidance=output_params.guidance_scale,
+                image_path=image_path.as_posix(),
+                image_strength=output_params.strength,
+            )
+        image = self.pipeline.generate_image(
+            seed=output_params.seed,
+            prompt=output_params.prompt,
+            config=cfg,
+        )
+        return (FluxPipelineOutput(images=[image.image]), output_params)
+
+    def set_img2img_pipeline(self, pipe_args) -> Flux1:
+        model_path = self.__class__.img2imgModelPath
+        params = dict(
+            model_config=get_model_config(model_path.name),
+            quantize=4,
+        )
         try:
-            self.loadLoraWeights()
+            paths, scales = self.loadLoraWeights()
+            params.update(dict(lora_paths=paths, lora_scales=scales))
         except AssertionError as e:
             pass
         except Exception as e:
             logging.error(e)
-        return self.pipeline
+        if 'kontext' in str(model_path):
+            params.pop('model_config', None)
+            flux = Flux1Kontext(**params)
+        else:
+            flux = Flux1(**params)
+        self.pipeline = flux
 
     def get_txt2img_result(
         self,
@@ -158,20 +210,31 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersMFluxMixin):
         self.init_txt2img_pipe()
         output_params = self.__get_output_params(seed, no_compel=True)
         to_pipe = output_params.to_pipe_flux()
-        result = self.pipeline(
-            **to_pipe,
-            callback_on_step_end=self.__class__.interrupt_callback,
+        image = self.pipeline.generate_image(
+            seed=output_params.seed,
+            prompt=output_params.prompt,
+            config=Config(
+                num_inference_steps=output_params.num_inference_steps,
+                height=output_params.height,
+                width=output_params.width,
+                guidance=output_params.guidance_scale,
+            ),
         )
-        return (result, output_params)
+        return (FluxPipelineOutput(images=[image.image]), output_params)
 
-    def set_text2img_pipeline(self, pipe_args) -> FluxPipeline:
+    def set_text2img_pipeline(self, pipe_args) -> Flux1:
         model_path = self.__class__.modelPath
-        self.pipeline = FluxPipeline.from_pretrained(f"{model_path}", torch_dtype=torch.bfloat16)
-        self.pipeline.enable_model_cpu_offload()
+        params = dict(
+            model_config=get_model_config(model_path.name),
+            quantize=4,
+        )
         try:
-            self.loadLoraWeights()
+            paths, scales = self.loadLoraWeights()
+            params.update(dict(lora_paths=paths, lora_scales=scales))
         except AssertionError:
             pass
         except Exception as e:
             logging.error(e)
-        return self.pipeline
+
+        flux = Flux1(**params)
+        self.pipeline = flux

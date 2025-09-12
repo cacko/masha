@@ -535,8 +535,8 @@ sd3_medium_incl_clips_t5xxlfp16.safetensors:
     negative_prompt: 
 dev:
   option: f1d
-  sd_type: flux
-  category: general,art,wall,img2img,flux
+  sd_type: mflux
+  category: general,art,wall,img2img,mflux
   custom_params:
     width: 512
     height: 512
@@ -545,8 +545,8 @@ dev:
     negative_prompt: 
 schnell:
   option: f1s
-  sd_type: flux
-  category: general,art,wall,img2img,flux
+  sd_type: mflux
+  category: general,art,wall,img2img,mflux
   custom_params:
     width: 768
     height: 1024
@@ -555,8 +555,8 @@ schnell:
     negative_prompt: 
 krea-dev:
   option: f1k
-  sd_type: flux
-  category: general,art,wall,img2img,flux
+  sd_type: mflux
+  category: general,art,wall,img2img,mflux
   custom_params:
     width: 512
     height: 512
@@ -565,8 +565,58 @@ krea-dev:
     negative_prompt: 
 dev-kontext:
   option: f1c
+  sd_type: mflux
+  category: general,art,wall,img2img,face,mflux
+  custom_params:
+    width: 512
+    height: 512
+    guidance_scale: 4
+    num_inference_steps: 50
+    negative_prompt: 
+black-forest-labs/FLUX.1-schnell:
+  option: flux-schnell
+  sd_type: flux
+  category: general,art,wall,img2img,flux
+  custom_params:
+    width: 768
+    height: 1024
+    guidance_scale: 0
+    num_inference_steps: 2
+    negative_prompt: 
+black-forest-labs/FLUX.1-dev:
+  option: flux-dev
+  sd_type: flux
+  category: general,art,wall,img2img,mflux
+  custom_params:
+    width: 512
+    height: 512
+    guidance_scale: 3.5
+    num_inference_steps: 20
+    negative_prompt: 
+black-forest-labs/FLUX.1-Krea-dev:
+  option: flux-krea
+  sd_type: flux
+  category: general,art,wall,img2img,flux
+  custom_params:
+    width: 512
+    height: 512
+    guidance_scale: 4
+    num_inference_steps: 20
+    negative_prompt: 
+black-forest-labs/FLUX.1-Kontext-dev:
+  option: flux-kontext
   sd_type: flux
   category: general,art,wall,img2img,face,flux
+  custom_params:
+    width: 512
+    height: 512
+    guidance_scale: 4
+    num_inference_steps: 50
+    negative_prompt: 
+Qwen/Qwen-Image:
+  option: qwen
+  sd_type: qwen
+  category: general,art,wall,img2img,face,qwen
   custom_params:
     width: 512
     height: 512

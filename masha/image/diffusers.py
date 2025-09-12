@@ -18,7 +18,6 @@ from diffusers import (
     EulerDiscreteScheduler,
     LMSDiscreteScheduler,
 )
-import rich
 import torch
 from masha.config import app_config
 from queue import Queue
@@ -110,6 +109,8 @@ class DiffusersType(type):
 
     @property
     def modelPath(cls) -> Path:
+        if "/" in cls.configs[cls.__name__].model:
+            return Path(cls.configs[cls.__name__].model)
         return cls.dataRoot / cls.configs[cls.__name__].model
 
     @property
@@ -160,6 +161,10 @@ class DiffusersType(type):
     @property
     def lorafluxPath(cls) -> Path:
         return cls.dataRoot / image_config.lora.root_flux
+    
+    @property
+    def loraqwenPath(cls) -> Path:
+        return cls.dataRoot / image_config.lora.root_qwen
 
     @property
     def textualInversionRoot(cls) -> Path:
