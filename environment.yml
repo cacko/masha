@@ -11,7 +11,7 @@ dependencies:
   - libsqlite=3.50.4
   - libzlib=1.3.1
   - ncurses=6.5
-  - openssl=3.5.2
+  - openssl=3.5.3
   - pip=25.2
   - python=3.12.11
   - readline=8.2
@@ -20,61 +20,45 @@ dependencies:
   - tzdata=2025b
   - wheel=0.45.1
   - pip:
-    - Cerberus==1.3.7
-    - Faker==37.6.0
+    - Faker==37.8.0
     - Markdown==3.9
     - Wikipedia-API==0.8.1
     - appnope==0.1.4
-    - black==25.1.0
-    - boto3==1.40.24
-    - cachable==0.3.53
+    - boto3==1.40.37
+    - cachable==0.3.54
     - compel==2.1.1
     - coreface==0.1.14
-    - corefile==0.1.11
-    - coreimage==0.1.5
-    - corelog==0.0.20
-    - corestring==0.3.18
+    - corefile==0.1.14
+    - coreimage==0.4.0
+    - corelog==0.0.22
     - diffusers==0.35.1
-    - fastapi==0.116.1
-    - fastapi-cli==0.0.10
-    - filetype==1.2.0
+    - fastapi==0.117.1
     - firebase_admin==7.1.0
-    - fuzzelinho==0.2.8
+    - fuzzelinho==0.3.1
     - gender-predictor==1.0.2
-    - google-api-core==2.25.1
-    - google-cloud-firestore==2.21.0
-    - google-genai==1.33.0
+    - google-api-python-client==2.183.0
+    - google-genai==1.38.0
     - google-maps-places==0.2.2
-    - googleapis-common-protos==1.70.0
+    - hf_transfer==0.1.9
     - humanfriendly==10.0
     - insightface==0.7.3
     - ip-adapter==0.1.0
-    - isort==6.0.1
     - lambo==10.0.8
     - langdetect==1.0.9
     - mflux==0.10.0
-    - onnxmltools==1.14.0
-    - onnxruntime==1.22.1
+    - onnxruntime==1.20.0
     - opengraph-parse==0.0.6
     - pandas==2.3.2
-    - parameterized==0.9.0
-    - pipx==1.7.1
-    - psutil==7.0.0
+    - psutil==7.1.0
     - pycountry==24.6.1
-    - pydantic-settings==2.10.1
-    - pydocstyle==6.3.0
+    - pydantic-settings==2.11.0
     - pyequilib==0.5.8
-    - pytest==8.4.2
-    - pytest-cov==6.2.1
     - python-multipart==0.0.20
-    - scikit-image==0.25.2
-    - scikit-learn==1.7.1
-    - scipy==1.16.1
-    - stenogen==0.1.20
+    - stenogen==0.2.2
     - svglib==1.5.1
-    - tf_keras==2.20.1
-    - ultralytics==8.3.193
-    - uvicorn==0.35.0
+    - tensorflow==2.19.0
+    - tf_keras==2.19.0
+    - ultralytics==8.3.203
     - wolframalpha==5.1.3
 
 prefix: "/Volumes/Devo/Users/jago/miniforge3/envs/masha"

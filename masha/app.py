@@ -20,10 +20,8 @@ async def lifespan(app: FastAPI):
     from masha.firebase.db import OptionsDb
     from masha.image import OPTIONS as ImageOptions
     from masha.code.instruct import InstructOption
-    OptionsDb().options(
-        code={"instruct": InstructOption.values()},
-        image=ImageOptions
-    )    
+
+    OptionsDb().options(code={"instruct": InstructOption.values()}, image=ImageOptions)
     yield
     logging.info("lifespan")
 
@@ -31,7 +29,10 @@ async def lifespan(app: FastAPI):
 def create_app():
     app = FastAPI(
         title="masha@cacko.net",
-        lifespan=lifespan
+        lifespan=lifespan,
+        docs_url="/api/docs",
+        openapi_url="/api/openapi.json",
+        redoc_url="/api/redoc",
     )
 
     @app.middleware("http")

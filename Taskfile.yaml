@@ -11,31 +11,39 @@ tasks:
     desc: run flask cli
     cmds:
       - direnv exec . mamba run -n {{.PROJECT}} python -m {{.PROJECT}} {{.CLI_ARGS}}
+    silent: true
 
   env:
     desc: run in env
     cmds:
       - direnv exec . mamba run -n {{.PROJECT}} {{.CLI_ARGS}}
+    silent: true
+
 
   run:
     desc: systemd exec
     dir: $WORKDIR
     cmds:
       - ./run.sh
+    silent: true
 
   face2img:
     desc: face tasks
     cmds:
       - direnv exec . mamba run -n {{.PROJECT}} python -m {{.PROJECT}} image face2img {{.CLI_ARGS}}
+    silent: true
+
   txt:
     desc: text to image
     cmds:
       - direnv exec . mamba run -n {{.PROJECT}} python -m {{.PROJECT}} image txt2img {{.CLI_ARGS}}
+    silent: true
 
   img2img:
     desc: text to image
     cmds:
       - direnv exec . mamba run -n {{.PROJECT}} python -m {{.PROJECT}} image img2img {{.CLI_ARGS}}
+    silent: true
 
   retrain:
     desc: retrain
@@ -49,35 +57,42 @@ tasks:
       - direnv exec . mamba run -n {{.PROJECT}} flask --app {{.PROJECT}} face index -c {{.INDEX_C}}
       - direnv exec . mamba run -n {{.PROJECT}} flask --app {{.PROJECT}} face index -c {{.INDEX_E}}
       - direnv exec . mamba run -n {{.PROJECT}} flask --app {{.PROJECT}} face index -c {{.INDEX_EL2}}
+    silent: true
 
   redis:
     desc: open redis-cli
     cmds:
       - keydb-cli $REDIS_CLI
+    silent: true
 
   redis-face:
     cmds:
       - redis-cli $FACE_REDIS_CLI
+    silent: true
 
   logs:
     desc: logs
     cmds:
       - tail -f ~/Library/Logs/net.cacko.masha/masha.log
+    silent: true
 
   export:
     desc: export env
     cmds:
       - direnv exec . mamba env export --no-builds -n {{.PROJECT}} > environment.yml
+    silent: true
 
-  start:
+  bootstrap:
     desc: start
     cmds:
-      - sudo launchctl start net.cacko.masha
+      - sudo launchctl bootstrap system /Library/LaunchDaemons/net.cacko.masha.plist
+    silent: true
 
-  stop:
+  bootout:
     desc: stop
     cmds:
-      - sudo launchctl stop net.cacko.masha
+      - sudo launchctl bootout system/net.cacko.masha
+    silent: true
 
   restart:
     desc: stop
@@ -85,6 +100,7 @@ tasks:
       - task: stop
       - sleep 10
       - task: start
+    silent: true
 
   push:
     desc: commit and pushes current changes
@@ -92,12 +108,14 @@ tasks:
       - git add .  || true
       - gcom || true
       - git push || true
+    silent: true
 
   restart-botyo:
     desc: restart restart-botyo
     dir: /Volumes/Devo/Code/botyo
     cmds:
       - task restart
+    silent: true
 
   rehash:
     desc: rehash the image oiptions
@@ -105,3 +123,4 @@ tasks:
       - task: restart
       - sleep 10
       - task: restart-botyo
+    silent: true

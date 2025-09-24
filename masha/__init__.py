@@ -15,7 +15,8 @@ from corelog import register, Handlers
 
 
 register(os.environ.get("MASHA_LOG_LEVEL", "INFO"), handler_type=Handlers.RICH)
-
+logging.getLogger("pytorch").setLevel(os.environ.get("PYTORCH_LOG_LEVEL", "INFO"))
+logging.getLogger("lightning.pytorch.utilities.rank_zero").setLevel(os.environ.get("PYTORCH_LOG_LEVEL", "INFO"))
 import warnings
 
 warnings.filterwarnings("ignore", category=UserWarning)

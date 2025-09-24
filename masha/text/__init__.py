@@ -82,7 +82,7 @@ def detect(text: Annotated[list[str], typer.Argument()]):
 
 
 @cli.command()
-def ask(
+def gemini(
     text: Annotated[list[str], typer.Argument()],
     file: Annotated[Path, typer.Option("-f", "--file")] = None,
 ):

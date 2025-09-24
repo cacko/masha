@@ -280,7 +280,7 @@ snoopy:
   num_inference_steps: 24
   guidance_scale: 5
   strength: 0.3
-snoopy:
+fabric:
   model: f1c
   prompt: >
     Turn this image into  the Fabric style. <InScene-v1.0:0.4> <Fabric_lora_weights:1>

@@ -1,20 +1,19 @@
 import logging
 import click
-import torch
 from masha.config import ChatConfig
 from masha.pipelines import TORCH_DEVICE
 from masha.pipelines.conversational import Conversational
 from masha.translate.translator import Translator
 from masha.text.detector import TextDetector
 from humanfriendly.prompts import prompt_for_input
-from typing import Any, Optional
+from typing import Optional
 from transformers import (
     AutoModelForSeq2SeqLM,
     AutoTokenizer,
     pipeline,
 )
 from uuid import uuid4
-from fastapi import APIRouter, Request, HTTPException
+from fastapi import APIRouter, Request
 import typer
 from typing_extensions import Annotated
 
@@ -59,7 +58,15 @@ class ChatDialogMeta(type):
         return cls(
             cls.config.dialog_sarcastic_model,
             cls.config.dialog_sarcastic_tokenizer,
-        ).conversation_response(text=message, out_lang=lang, **kw)
+        ).conversation_response(
+            text=message,
+            out_lang=lang,
+            system_role={
+                "role": "system",
+                "content": "You always responds in sarcastic manner!",
+            },
+            **kw,
+        )
 
 
 class ChatTranslator(object):
@@ -108,13 +115,13 @@ class ChatDialog(Conversational, metaclass=ChatDialogMeta):
     def __init__(self, model_name, tokenizer_path=None):
         self._pipeline = None
         super().__init__(model_name, tokenizer_path)
-        
+
     @property
     def pipeline(self):
         if not self._pipeline:
             self._pipeline = pipeline(
                 "text-generation",
-                model=self.modelPath.as_posix(),
+                model=self.modelPath,
                 model_kwargs={
                     # "torch_dtype": torch.float16,
                     # "low_cpu_mem_usage": True,
@@ -127,12 +134,8 @@ class ChatDialog(Conversational, metaclass=ChatDialogMeta):
         resp = ""
         out_lang = kwargs.get("out_lang", "en")
         pipe = self.pipeline
-        messages = [
-            {
-                "role": "system",
-                "content": "You always responds in sarcastic manner!",
-            },
-        ]
+        system_role = kwargs.get("system_role", [])
+        messages = [*[system_role]]
         if kwargs and kwargs.get("detect_lang"):
             trans = ChatTranslator(text, out_lang)
             native_text = trans.native_input
@@ -143,8 +146,13 @@ class ChatDialog(Conversational, metaclass=ChatDialogMeta):
         else:
             messages.append({"role": "user", "content": text})
         prompt = pipe.tokenizer.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
-        )
+            messages,
+            tokenize=True,
+            add_generation_prompt=True,
+            return_dict=True,
+            return_tensors="pt",
+        ).to(TORCH_DEVICE)
+        
         terminators = [
             pipe.tokenizer.eos_token_id,
             pipe.tokenizer.convert_tokens_to_ids("<|eot_id|>"),
@@ -152,8 +160,8 @@ class ChatDialog(Conversational, metaclass=ChatDialogMeta):
 
         outputs = pipe(
             prompt,
-            max_new_tokens=256,
-            eos_token_id=terminators,
+            max_new_tokens=128,
+            # eos_token_id=terminators,
             # do_sample=True,
             # temperature=0.6,
             # top_p=0.9,
@@ -218,7 +226,7 @@ def dialog():
         while True:
             tt = prompt_for_input("me > ")
             print(f"bot> {chat.conversation_response(text=tt,detect_lang=True)}")
-    except KeyboardInterrupt:
+    except (KeyboardInterrupt, EOFError):
         pass
 
 
@@ -231,11 +239,11 @@ def sarcastic():
             print(
                 f"bot> {Sarcastic.sarcastic(source=src,message=tt, detect_lang=True)}"
             )
-    except KeyboardInterrupt:
+    except (KeyboardInterrupt, EOFError):
         pass
 
 
 @cli.command()
-def phrase(phrase: Annotated[str, typer.Argument()]):
-    resp = Phrase.phrase(source=uuid4(), message=phrase)  # type: ignore
+def phrase(phrase: Annotated[list[str], typer.Argument()]):
+    resp = Phrase.phrase(source=uuid4(), message=" ".join(phrase))  # type: ignore
     output(resp)

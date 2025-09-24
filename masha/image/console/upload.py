@@ -4,7 +4,7 @@ from typing import Optional
 from coreimage.terminal import print_term_image
 from coreimage.transform.upscale import Upscale
 from corefile import filepath
-import filetype
+from corefile import find_mime_extension
 import requests
 from pydantic import BaseModel
 
@@ -39,14 +39,13 @@ def cmd_upload(path: list[str], upscale: bool, category: Optional[str] = None):
             except AssertionError as e:
                 logging.exception(e)
                 pass
-        kind = filetype.guess(p.as_posix())
-        assert kind
-        mime = kind.mime
+        mime, extension = find_mime_extension(p.as_posix())
+        assert mime
         with p.open("rb") as fp:
             params = {
                 "files": {
                     "file": (
-                        f"{p.stat}.{kind.extension}",
+                        f"{p.stat}.{extension}",
                         fp,
                         mime,
                         {

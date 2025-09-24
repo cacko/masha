@@ -1,7 +1,7 @@
 import boto3
 from pathlib import Path
 from masha.config import app_config
-import filetype
+from corefile import find_mime_type
 import logging
 
 
@@ -36,7 +36,7 @@ class S3(object, metaclass=S3Meta):
         )
 
     def upload_file(self, src: Path, dst, skip_upload=False) -> str:
-        mime = filetype.guess_mime(src)
+        mime = find_mime_type(src)
         key = self.__class__.src_key(dst)
         if not skip_upload:
             bucket = app_config.s3.storage_bucket_name
