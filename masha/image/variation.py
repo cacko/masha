@@ -44,9 +44,8 @@ class VariationMeta(type):
         sd_pipe = StableDiffusionImageVariationPipeline.from_pretrained(
             cls.modelPath.as_posix(),
             safety_checker=None,
-        )
-        sd_pipe.enable_attention_slicing()  # type: ignore
-        return sd_pipe.to(cls.device)  # type: ignore
+        ).to(cls.device)
+        return sd_pipe
 
     def variation(
         cls,

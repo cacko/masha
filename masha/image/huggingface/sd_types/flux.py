@@ -128,11 +128,11 @@ class StableDiffusionFlux(BaseStableDiffusion, LoadersMFluxMixin):
             image_path, max(output_params.height, output_params.width)
         )
         result = self.pipeline(
-            image=load_image(image_path),
+            image=load_image(image_path, (output_params.width, output_params.height)),
             prompt=output_params.prompt,
             guidance_scale=output_params.guidance_scale,
-            width=output_params.width,
-            height=output_params.height,
+            width=width,
+            height=height,
         )
         return (result, output_params)
 

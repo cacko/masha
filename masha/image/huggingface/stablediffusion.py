@@ -181,6 +181,7 @@ class StableDiffusion(Diffusers):
                 if params.upscale:
                     image = self.__class__.upscale(image, scale=params.upscale)
                 pth = TempPath(f"{tmp_path.stem}{idx:02d}{tmp_path.suffix}")
+                print(pth)
                 image.save(pth.as_posix())
                 paths.append(pth)
         result = Image2ImageResult(image=paths, params=output_params, seed=seed)

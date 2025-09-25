@@ -28,6 +28,10 @@ class SynonimsConfig(BaseModel):
 class GenaiConfig(BaseModel):
     api_key: str
     model: str
+    
+class OpenAIConfig(BaseModel):
+    api_key: str
+    model: str
 
 class TextConfig(BaseModel):
     gemini: GeminiConfig
@@ -38,6 +42,7 @@ class TextConfig(BaseModel):
     cover_letter: CoverLetterConfig
     synonims: SynonimsConfig
     genai: GenaiConfig
+    openai: OpenAIConfig
 
 config_path = Path(__file__).parent / "config.yaml"
 data = yaml.full_load(config_path.read_text())

@@ -185,7 +185,7 @@ class StableDiffusionSD(BaseStableDiffusion, LoadersSDMixin):
             model_path.as_posix(),
             torch_dtype=torch.float16,
             **pipe_args,
-        )
+        ).to(self.__class__.device)
         try:
             assert self.scheduler
             scheduler = self.scheduler.from_config(
@@ -194,7 +194,6 @@ class StableDiffusionSD(BaseStableDiffusion, LoadersSDMixin):
             self.pipeline.scheduler = scheduler
         except AssertionError:
             pass
-        self.pipeline.to(self.__class__.device)
         logging.debug(f"MEM PIPE - {format_size(current_allocated_memory())}")
         try:
             self.loadLoraWeights()
@@ -202,7 +201,6 @@ class StableDiffusionSD(BaseStableDiffusion, LoadersSDMixin):
         except Exception as e:
             logging.exception(e)
             logging.info("failed")
-        self.pipeline.enable_attention_slicing
         logging.info(f"SCHEDULER {self.pipeline.scheduler.__class__.__name__}")
         logging.debug(f"SCHEDULER {self.pipeline.scheduler}")
         logging.debug(f"MEM LORA - {format_size(current_allocated_memory())}")

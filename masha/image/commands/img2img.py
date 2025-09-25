@@ -54,6 +54,8 @@ def img2img(
         TemplateConfig.categories_enum,  # type: ignore
         typer.Option("-tc", "--template_category"),
     ] = None,
+    width: Annotated[int, typer.Option("-w")] = 1024,
+    height: Annotated[int, typer.Option("-h")] = 1024
 ):
     StableDiffusion.is_superuser = True
     outdir = Path(output_directory)
@@ -73,8 +75,8 @@ def img2img(
         is_super_user=True,
         guidance_scale=guidance_scale,
         strength=strength,
-        height=1024,
-        width=1024,
+        height=height,
+        width=width,
         caption=caption
     )
     for instance, params in img2img_iterations(

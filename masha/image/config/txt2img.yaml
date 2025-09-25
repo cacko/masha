@@ -558,8 +558,8 @@ krea-dev:
   sd_type: mflux
   category: general,art,wall,img2img,mflux
   custom_params:
-    width: 512
-    height: 512
+    width: 1024
+    height: 1024
     guidance_scale: 4
     num_inference_steps: 20
     negative_prompt: 
@@ -568,10 +568,10 @@ dev-kontext:
   sd_type: mflux
   category: general,art,wall,img2img,face,mflux
   custom_params:
-    width: 512
-    height: 512
+    width: 1024
+    height: 1024
     guidance_scale: 4
-    num_inference_steps: 50
+    num_inference_steps: 20
     negative_prompt: 
 black-forest-labs/FLUX.1-schnell:
   option: flux-schnell

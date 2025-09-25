@@ -315,3 +315,10 @@ picasso:
   num_inference_steps: 24
   guidance_scale: 5
   strength: 0.3
+oil-painting:
+  model: f1c
+  prompt: >
+    Transform to oil painting with visible brushstrokes, thick paint texture
+  num_inference_steps: 20
+  starlight: 0.5
+  guidance_scale: 4.0

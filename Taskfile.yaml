@@ -97,9 +97,7 @@ tasks:
   restart:
     desc: stop
     cmds:
-      - task: stop
-      - sleep 10
-      - task: start
+      - sudo launchctl stop net.cacko.masha
     silent: true
 
   push:

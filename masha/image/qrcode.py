@@ -306,7 +306,6 @@ class QRCode(LoadersSDMixin, metaclass=QRCodeMeta):
 
         logging.info(f">> SCHDULER {self.pipeline.scheduler.__class__.__name__}")
         self.pipeline.to(device=device, dtype=torch.float16)
-        self.pipeline.enable_attention_slicing()
         self.image_pipe = StableDiffusionControlNetImg2ImgPipeline(
             **self.pipeline.components
         )

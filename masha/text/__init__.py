@@ -9,6 +9,7 @@ from masha.text.models import Payload
 from masha.text.skills import SkillExtractor
 import pycountry
 from masha.text.genai import Gemini
+from masha.text.openai import ChatGPT
 from masha.core.request import make_response
 from PIL import Image
 from io import BytesIO
@@ -28,7 +29,7 @@ Gemini.register(text_config.genai)
 TextGenerator.register(text_config.generator)
 SkillExtractor.register(text_config.skills)
 CoverLetter.register(text_config.cover_letter)
-
+ChatGPT.register(text_config.openai)
 
 router = APIRouter()
 cli = typer.Typer()
@@ -94,6 +95,13 @@ def gemini(
         img = Image.open(BytesIO(resp.content))
         print_term_image(image=asarray(img), height=30)
     print(res.content)
+    
+@cli.command()
+def chatgpt(
+    text: Annotated[list[str], typer.Argument()]
+):
+    res = ChatGPT.ask(" ".join(text))
+    print(res.output_text)
     
     
 @cli.command()

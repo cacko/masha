@@ -85,18 +85,8 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
             scale=params.scale,
         )
 
-    def get_txt2img_result(
-        self,
-        seed,
-    ):
-        self.init_txt2img_pipe()
-        output_params = self.__get_output_params(seed)
-        to_pipe = output_params.to_pipe_xl()
-        result = self.pipeline(
-            **to_pipe,
-            callback_on_step_end=self.__class__.interrupt_callback,
-        )
-        return (result, output_params)
+
+
 
     def get_face2img_result(self, seed, faceid_embeds, **kwds):
         self.init_face2img_pipe()
@@ -127,10 +117,9 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
             add_watermarker=False,
             torch_dtype=torch.float16,
             **pipe_args,
-        )
+        ).to(self.__class__.device)
         rich.print(self.pipeline.scheduler.config)
         assert self.pipeline
-        self.pipeline.to(self.__class__.device)
         try:
             assert self.scheduler
             scheduler = self.scheduler.from_config(
@@ -150,18 +139,6 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
             logging.exception(e)
             logging.warning("failed")
 
-    def get_img2img_result(self, seed, image_path: Path):
-        self.init_img2img_pipe()
-        output_params = self.__get_output_params(seed)
-        to_pipe = output_params.to_pipe_img2img_xl()
-        image = load_image(image_path=image_path, size=(1024, 1024))
-        result = self.pipeline(
-            **to_pipe,
-            image=image,
-            callback_on_step_end=self.__class__.interrupt_callback,
-        )
-        return (result, output_params)
-
     def set_img2img_pipeline(self, pipe_args):
         model_path = self.__class__.img2imgModelPath
         logging.info(f"MODEL PATH {model_path}")
@@ -171,8 +148,7 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
             model_path.as_posix(),
             torch_dtype=torch.float16,
             **pipe_args,
-        )
-        self.pipeline.to(device=self.__class__.device)
+        ).to(device=self.__class__.device)
         try:
             assert self.scheduler
             scheduler = self.scheduler.from_config(
@@ -190,6 +166,18 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
         except Exception as e:
             logging.exception(e)
             logging.warning("failed")
+            
+    def get_img2img_result(self, seed, image_path: Path):
+        self.init_img2img_pipe()
+        output_params = self.__get_output_params(seed)
+        to_pipe = output_params.to_pipe_img2img_xl()
+        image = load_image(image_path=image_path, size=(1024, 1024))
+        result = self.pipeline(
+            **to_pipe,
+            image=image,
+            callback_on_step_end=self.__class__.interrupt_callback,
+        )
+        return (result, output_params)
 
     def set_text2img_pipeline(self, pipe_args):
         model_path = self.__class__.modelPath
@@ -200,8 +188,8 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
             add_watermarker=False,
             torch_dtype=torch.float16,
             **pipe_args,
-        )
-        self.pipeline.to(device=self.__class__.device)
+        ).to(device=self.__class__.device)
+        # self.pipeline.enable_attention_slicing()
         self.pipeline.scheduler = self.scheduler.from_config(
             self.pipeline.scheduler.config, **self.scheduler_args
         )
@@ -215,3 +203,16 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
         except Exception as e:
             logging.exception(e)
             logging.warning("failed")
+
+    def get_txt2img_result(
+        self,
+        seed,
+    ):
+        self.init_txt2img_pipe()
+        output_params = self.__get_output_params(seed)
+        to_pipe = output_params.to_pipe_xl()
+        result = self.pipeline(
+            **to_pipe,
+            callback_on_step_end=self.__class__.interrupt_callback,
+        )
+        return (result, output_params)

@@ -14,7 +14,7 @@ def make_response(image_path: Optional[Path] = None, message: Optional[str] = No
 
 def make_multipart_response(image_path: Path, message: Optional[str] = None):
     assert image_path.exists()
-    mime = find_mime_type.guess(image_path.as_posix())
+    mime = find_mime_type(image_path.as_posix())
     assert mime
     m = MultipartEncoder(
         fields={
