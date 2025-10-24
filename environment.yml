@@ -29,9 +29,9 @@ dependencies:
     - compel==2.1.1
     - coreface==0.1.14
     - corefile==0.1.14
-    - coreimage==0.4.0
+    - coreimage==0.4.2
     - corelog==0.0.22
-    - diffusers==0.35.1
+    - diffusers==0.35.2
     - fastapi==0.117.1
     - firebase_admin==7.1.0
     - fuzzelinho==0.3.1
@@ -45,19 +45,25 @@ dependencies:
     - ip-adapter==0.1.0
     - lambo==10.0.8
     - langdetect==1.0.9
-    - mflux==0.10.0
+    - lap==0.5.12
+    - mflux==0.11.0
     - onnxruntime==1.22.1
+    - openai==1.109.1
     - opengraph-parse==0.0.6
     - pandas==2.3.2
+    - peft==0.17.1
     - psutil==7.1.0
     - pycountry==24.6.1
     - pydantic-settings==2.11.0
     - pyequilib==0.5.8
     - python-multipart==0.0.20
+    - shapely==2.1.2
     - stenogen==0.2.2
     - svglib==1.5.1
     - tensorflow==2.19.0
+    - tensorflow-metal==1.2.0
     - tf_keras==2.19.0
+    - transformers==4.57.1
     - ultralytics==8.3.203
     - uvicorn==0.37.0
     - uvloop==0.21.0

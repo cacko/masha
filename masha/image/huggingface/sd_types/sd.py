@@ -17,7 +17,7 @@ from pathlib import Path
 from masha.image.huggingface.lora.sd_loaders import LoadersSDMixin
 from rich import print
 from masha.image.config import image_config
-from ip_adapter.ip_adapter_faceid_separate import IPAdapterFaceIDPlus
+from ip_adapter.ip_adapter_faceid import IPAdapterFaceIDPlus
 
 
 class StableDiffusionSD(BaseStableDiffusion, LoadersSDMixin):

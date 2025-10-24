@@ -244,6 +244,7 @@ def img2img_iterations(
     category: Optional[str] = None,
     style: Optional[str] = None,
     all_styles: bool = False,
+    style_category: str = None,
     template: Optional[str] = None,
     all_templates: bool = False,
     template_category: str = None,
@@ -274,6 +275,14 @@ def img2img_iterations(
         assert templates
         auto_templates += [t.name for t in templates]
         auto_templates.remove(None)
+    except AssertionError:
+        pass
+    try:
+        assert style_category
+        s_categories = image_config.get_style_category(style_category)
+        assert s_categories
+        auto_styles += [s.name for s in s_categories]
+        auto_styles.remove(None)
     except AssertionError:
         pass
     if category:

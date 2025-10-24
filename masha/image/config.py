@@ -7,6 +7,7 @@ from corefile import filepath
 import yaml
 from masha.config import app_config
 import re
+from functools import reduce
 
 from masha.image.models import IncompatibleTemplate, SDModelType, Sex
 from masha.name.classifiers import Ethnicity
@@ -214,6 +215,8 @@ class StyleConfig(BaseModel, ApplyToParamsMixin):
     name: str
     prompt: str
     model: str
+    category: str
+    categories: ClassVar[set[str]] = set()
     guidance_scale: float = Field(default=20)
     num_inference_steps: int = Field(default=20)
     width: int = Field(default=640)
@@ -224,11 +227,27 @@ class StyleConfig(BaseModel, ApplyToParamsMixin):
     clip_skip: Optional[int] = None
     style_options: ClassVar[set[str]] = set()
     styles_enum: StrEnum = None
+    categories_enum: StrEnum = None
+
+    @staticmethod
+    def add_categories(values: list[str]):
+        StyleConfig.categories.update(map(str.strip, values))
+
+    @classmethod
+    def get_categories(cls) -> list[str]:
+        return StyleConfig.categories
+
+    def in_category(self, category: str) -> bool:
+        cats = map(str.strip, self.category.lower().split(","))
+        return category.lower() in list(cats)
+
 
     def __init__(self, **kwds):
         super().__init__(**kwds)
         StyleConfig.add_styles([kwds.get("name")])
+        StyleConfig.add_categories(kwds.get("category").split(","))
         StyleConfig.styles_enum = StrEnum("styles", StyleConfig.get_styles())
+        StyleConfig.categories_enum = StrEnum("categories", list(StyleConfig.categories))
 
     @staticmethod
     def add_styles(values: list[str]):
@@ -315,6 +334,11 @@ class StreetViewConfig(BaseModel):
     url: str
 
 
+class ArtConfig(BaseModel):
+    name: str
+    items: list[str]
+
+
 class ImageConfig(BaseModel):
     classify: ClassifyConfig
     variation: VariationConfig
@@ -334,6 +358,7 @@ class ImageConfig(BaseModel):
     deepface: DeepfaceConfig
     image2text: Image2TextConfig = None
     streetview: StreetViewConfig
+    # art: list[ArtConfig]
 
     def get_sd_config(self, name: str) -> Optional[SDConfig]:
         try:
@@ -355,6 +380,14 @@ class ImageConfig(BaseModel):
         try:
             assert self.templates
             return list(filter(lambda c: c.in_category(name), self.templates))
+        except AssertionError:
+            pass
+        return None
+    
+    def get_style_category(self, name: str) -> Optional[list[StyleConfig]]:
+        try:
+            assert self.styles
+            return list(filter(lambda c: c.in_category(name), self.styles))
         except AssertionError:
             pass
         return None
@@ -382,6 +415,9 @@ class ImageConfig(BaseModel):
         except AssertionError:
             pass
         return None
+    
+    # def get_styles(self) -> list[str]:
+    #     return reduce(lambda r,)
 
     @property
     def style_options(self) -> list[str]:

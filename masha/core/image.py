@@ -63,12 +63,13 @@ def add_tags(img_path, faces: list[tuple[Optional[list[int]], str]]) -> Image.Im
     return pil_image
 
 
-def resize(img_path: Path, max_size: int = 500):
+def resize(img_path: Path, max_size: int = 500, dst_path: Optional[Path] = None):
     img = Image.open(img_path.as_posix())
     img.thumbnail((max_size, max_size))
-    img.save(img_path.as_posix())
-
-
+    if not dst_path:
+        dst_path = img_path
+    img.save(dst_path.as_posix())
+    
 def show_tagged(img_path: Path, names: str = "", wait=10):
     img = cv2.imread(img_path.as_posix())
     window_name = names

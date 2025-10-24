@@ -54,8 +54,15 @@ def img2img(
         TemplateConfig.categories_enum,  # type: ignore
         typer.Option("-tc", "--template_category"),
     ] = None,
+    style_category: Annotated[
+        StyleConfig.categories_enum, typer.Option("-sc", "--style-category")
+    ] = None,
     width: Annotated[int, typer.Option("-w")] = 1024,
-    height: Annotated[int, typer.Option("-h")] = 1024
+    height: Annotated[int, typer.Option("-h")] = 1024,
+    aspect_ratio: Annotated[
+        Diffusers.resolutions_enum,
+        typer.Option("-r", "--aspect_ratio"),
+    ] = None,
 ):
     StableDiffusion.is_superuser = True
     outdir = Path(output_directory)
@@ -77,7 +84,8 @@ def img2img(
         strength=strength,
         height=height,
         width=width,
-        caption=caption
+        caption=caption,
+        aspect_ratio=aspect_ratio
     )
     for instance, params in img2img_iterations(
         inputParams=inputParams,
@@ -85,6 +93,7 @@ def img2img(
         category=category,
         style=style,
         all_styles=all_styles,
+        style_category=style_category,
         template=template,
         all_templates=all_templates,
         template_category=template_category,
@@ -151,12 +160,15 @@ async def api_img2img(
         logging.exception(e)
         raise HTTPException(500)
 
+
 @router.get("/img2img-options")
 async def api_img2img_options():
     return {
         "img2img": {
             "models": Diffusers.options_for_category("img2img"),
-            "templates": [t.name for t in image_config.get_template_category("img2img")],
-            "styles": [s.name for s in image_config.styles]
+            "templates": [
+                t.name for t in image_config.get_template_category("img2img")
+            ],
+            "styles": [s.name for s in image_config.styles],
         }
     }

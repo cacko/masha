@@ -1,5 +1,6 @@
 flat:
   model: dreamlcm
+  category: sd
   prompt: <lora:Vector_illustration:1>
   guidance_scale: 2
   strength: 0.3
@@ -7,12 +8,14 @@ flat:
   negative_prompt: (worst quality, low quality:1.4), (bad_prompt_version2:0.8), EasyNegative, badhandv4, text, name, letters, watermark
 cartoon:
   model: ultraspice
+  category: sdxl
   prompt: cartoon, striking, balanced, perfect composition, pristine, high resolution quality, high detailed,(Quentin Blake Style) <lora:QuentinBlakeStyle:1>
   guidance_scale: 5
   strength: 0.45
   num_inference_steps: 20
 drawing:
   model: dreamturbo
+  category: sdxl
   prompt: Inkdrawing by Kr355e <lora:SDXL_Inkdrawing_Directors_Cut_E:1>
   guidance_scale: 15
   strength: 0.45
@@ -25,12 +28,14 @@ pixar:
   strength: 0.5
   num_inference_steps: 80
   model: dyna
+  category: sdxl
 silhouette:
   prompt: Lotte Reiniger Style - A Lotte Reiniger animation <lora:LotteReinigerStyle:1>
   guidance_scale: 15
   strength: 0.5
   num_inference_steps: 20
   model: dreamturbo
+  category: sdxl
 chalk:
   prompt: ChalkBoardDrawing <lora:SDXL_ChalkBoardDrawing_LoRA_r8:1>
   guidance_scale: 2
@@ -38,6 +43,7 @@ chalk:
   num_inference_steps: 7
   model: ultraspice
   clip_skip: 1
+  category: sdxl
 colorswirl:
   prompt: ral-colorswirl <lora:ral-colorswirl-sd15:1>
   guidance_scale: 2
@@ -45,6 +51,7 @@ colorswirl:
   num_inference_steps: 20
   clip_skip: 2
   model: dreamlcm
+  category: sd
 dissolve:
   prompt: > 
     painting, [:style of vincent van gogh and leonardo da vinci:0.4] 
@@ -54,6 +61,7 @@ dissolve:
   num_inference_steps: 20
   clip_skip: 2
   model: dreamturbo
+  category: sdxl
 dante:
   prompt: (Gustave Dore Style) illustration using only black white and red colors <lora:GustaveDoreStyle:1>
   guidance_scale: 7
@@ -61,6 +69,7 @@ dante:
   num_inference_steps: 30
   clip_skip: 2
   model: dreamturbo
+  category: sdxl
 woodblock:
   prompt: woodblock print <lora:EldritchWoodblockPrint:1>
   model: dreamturbo
@@ -69,6 +78,7 @@ woodblock:
   clip_skip: 2
   strength: 0.5
   negative_prompt: 4k, uhd, masterpiece
+  category: sdxl
 colorfull:
   prompt: >
     (cartoon:1.5), colourful drawing, colourful
@@ -78,6 +88,7 @@ colorfull:
   clip_skip: 2
   model: juglight
   negative_prompt: (low quality, bad quality, worst quality:1.2)
+  category: sdxl
 tshirt:
   prompt: >
     Illustrated T-shirt, Fabric Texture, Bold Lineart, Dynamic Perspective, Sketch Style,
@@ -88,6 +99,7 @@ tshirt:
   clip_skip: 2
   model: juglight
   negative_prompt: bad art, ugly, deformed, watermark, duplicated
+  category: sdxl
 heavy-brush:
   prompt: >
     a hyper abstract painting using very heavy brush strokes, 
@@ -97,6 +109,7 @@ heavy-brush:
   num_inference_steps: 30
   clip_skip: 2
   model: paradox
+  category: sdxl
 soap:
   prompt: >
     made of ral-dshwshsop, by Zdzislaw Beksinski and by Marc Simonetti, (terragenous , Faded Polaroid Photo but extremely beautiful:1.4), (intricate details, masterpiece, best quality:1.4) , Fortnite Art Style, 3D cartoon, colorful, Fortnite Art Style <lora:ral-dshwshsop-sdxl:1>
@@ -105,6 +118,7 @@ soap:
   num_inference_steps: 30
   clip_skip: 2
   model: ultraspice
+  category: sdxl
   negative_prompt: >
     hair,base, plate,unaestheticXL_hk1,negativeXL_D,
     (worst quality, greyscale), watermark, username, signature, text, 
@@ -122,6 +136,7 @@ embroidered:
   num_inference_steps: 30
   clip_skip: 2
   model: ultraspice
+  category: sdxl
 dry-paint:
   prompt: > 
     ral-drptpl <lora:ral-drptpl-sdxl:1> 
@@ -130,6 +145,7 @@ dry-paint:
   num_inference_steps: 30
   clip_skip: 2
   model: ultraspice
+  category: sdxl
 frenchart:
   model: realvisxl-light
   prompt: >
@@ -139,6 +155,7 @@ frenchart:
   guidance_scale: 6
   num_inference_steps: 20
   negative_prompt: photo, ((color)), text
+  category: sdxl
 wlad:
   model: jugrun
   prompt: masterpiece,best quality,<lora:tbh203-sdxl:0.9>,illustration,style of Wlad Safronow, decaying peonies
@@ -152,6 +169,7 @@ wlad:
     lowres,bad anatomy,bad hands,text,error,missing fingers,extra digit,fewer digits,
     cropped,worst quality,low quality,normal quality,jpeg artifacts,signature,watermark,
     username,blurry,nsfw,
+  category: sdxl
 neo-punk:
   model: f1d
   prompt: >
@@ -162,6 +180,7 @@ neo-punk:
   clip_skip: 2
   width: 768
   height: 768
+  category: flux, flux_dev
 simply:
   model: f1d
   prompt: >
@@ -172,6 +191,7 @@ simply:
   clip_skip: 2
   width: 768
   height: 768
+  category: flux, flux_dev
 flux-pixar:
   model: f1d
   prompt: >
@@ -182,6 +202,7 @@ flux-pixar:
   clip_skip: 2
   width: 768
   height: 768
+  category: flux, flux_dev
 darkcomic:
   model: ultraspice
   prompt: //, darkcomic <lora:Dark_Comic_SDXL:1>
@@ -189,6 +210,7 @@ darkcomic:
   strength: 0.5
   num_inference_steps: 30
   clip_skip: 2
+  category: fsdxl
 puzzle:
   model: tvxl
   prompt: //, Puzzle_Fantasy <lora:Puzzle_Fantasy__XL:1>
@@ -196,6 +218,7 @@ puzzle:
   strength: 0.55
   num_inference_steps: 20
   clip_skip: 1
+  category: sdxl
 puppet:
   model: faetastic
   prompt: //, ArsMJStyle, Artisan Oddities Fantasy <lora:Felt_Puppet_Fantasy:1>
@@ -203,6 +226,7 @@ puppet:
   strength: 0.55
   num_inference_steps: 30
   clip_skip: 2
+  category: sdxl
 fantasia:
   model: dreamturbo
   prompt: //, Digital painting style, (brushstrokes:1.2), dark a sleek racing car at the starting line of a grand prix <lora:PainterlyFantasiaSDXL:1.2>
@@ -210,6 +234,7 @@ fantasia:
   strength: 0.5
   num_inference_steps: 30
   clip_skip: 2
+  category: sdxl
 3d-cartoon:
   model: f1d
   prompt: fff,3D chibi cartoon style, //, <lora:flux-lora-chibi-cartoon-style:1>
@@ -217,8 +242,10 @@ fantasia:
   strength: 0.3
   num_inference_steps: 30
   clip_skip: 2
+  category: flux, flux_dev
 claytoy:
   model: f1c
+  category: flux, flux_kontext
   prompt: >
     Turn this image into the Claytoy style. <InScene-v1.0:0.4> <Clay_Toy_lora_weights:0.4>
   num_inference_steps: 24
@@ -226,6 +253,7 @@ claytoy:
   strength: 0.4
 vector:
   model: f1c
+  category: flux, flux_kontext
   prompt: >
     Turn this image into the Vector style. <InScene-v1.0:0.4> <Vector_lora_weights:1>
   num_inference_steps: 24
@@ -233,6 +261,7 @@ vector:
   strength: 0.4
 rick-morty:
   model: f1c
+  category: flux, flux_kontext
   prompt: >
     Turn this image into the Rick Morty style. <InScene-v1.0:0.4> <Rick_Morty_lora_weights:1>
   num_inference_steps: 24
@@ -240,6 +269,7 @@ rick-morty:
   strength: 0.3
 jojo:
   model: f1c
+  category: flux, flux_kontext
   prompt: >
     Turn this image into the Jojo style. <InScene-v1.0:0.4> <Jojo_lora_weights:1>
   num_inference_steps: 24
@@ -247,6 +277,7 @@ jojo:
   strength: 0.3
 pop-art:
   model: f1c
+  category: flux, flux_kontext
   prompt: >
     Turn this image into the Pop Art style. <InScene-v1.0:0.4> <Pop_Art_lora_weights:1>
   num_inference_steps: 24
@@ -259,8 +290,10 @@ lego:
   num_inference_steps: 24
   guidance_scale: 5
   strength: 0.3
+  category: flux, flux_kontext
 oil-painting:
   model: f1c
+  category: flux, flux_kontext
   prompt: >
     Turn this image into the Oil Painting style. <InScene-v1.0:0.4> <Oil_Painting_lora_weights:1>
   num_inference_steps: 24
@@ -273,8 +306,10 @@ pixel:
   num_inference_steps: 24
   guidance_scale: 5
   strength: 0.3
+  category: flux, flux_kontext
 snoopy:
   model: f1c
+  category: flux, flux_kontext
   prompt: >
     Turn this image into the Snoopy style. <InScene-v1.0:0.4> <Snoopy_lora_weights:1>
   num_inference_steps: 24
@@ -282,6 +317,7 @@ snoopy:
   strength: 0.3
 fabric:
   model: f1c
+  category: flux, flux_kontext
   prompt: >
     Turn this image into  the Fabric style. <InScene-v1.0:0.4> <Fabric_lora_weights:1>
   num_inference_steps: 24
@@ -289,6 +325,7 @@ fabric:
   strength: 0.3
 ghibli:
   model: f1c
+  category: flux, flux_kontext
   prompt: >
     Turn this image into the Ghibli style. <InScene-v1.0:0.4> <Ghibli_lora_weights:1>
   num_inference_steps: 24
@@ -296,6 +333,7 @@ ghibli:
   strength: 0.3
 van-gogh:
   model: f1c
+  category: flux, flux_kontext
   prompt: >
     Turn this image into the Van Gogh style. <InScene-v1.0:0.4> <Van_Gogh_lora_weights:1>
   num_inference_steps: 24
@@ -303,6 +341,7 @@ van-gogh:
   strength: 0.3
 picasso:
   model: f1c
+  category: flux, flux_kontext
   prompt: >
     Turn this image into the Picasso style <InScene-v1.0:0.4> <Picasso_lora_weights:1>
   num_inference_steps: 24
@@ -310,6 +349,7 @@ picasso:
   strength: 0.3
 3d-chibi:
   model: f1c
+  category: flux, flux_kontext
   prompt: >
     Turn this image into 3d chibi style <InScene-v1.0:0.4> <3D_Chibi_lora_weights:1>
   num_inference_steps: 24
@@ -317,6 +357,7 @@ picasso:
   strength: 0.3
 oil-painting:
   model: f1c
+  category: flux, flux_kontext
   prompt: >
     Transform to oil painting with visible brushstrokes, thick paint texture
   num_inference_steps: 20

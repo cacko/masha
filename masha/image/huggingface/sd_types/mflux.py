@@ -1,14 +1,14 @@
 import cv2
 import rich
-from masha.core.image import get_width_height
+from masha.core.image import get_width_height, resize
 from masha.image.huggingface.lora.mflux_loaders import LoadersMFluxMixin
 from masha.image.huggingface.sd_types.base import BaseStableDiffusion
 from masha.image.models import OutputParams
 import torch
 from diffusers.pipelines.flux.pipeline_output import FluxPipelineOutput
 from diffusers import FluxPipeline
-from mflux.flux.flux import Flux1
-from mflux.kontext.flux_kontext import Flux1Kontext
+from mflux.models.flux.variants.txt2img.flux import Flux1
+from mflux.models.flux.variants.kontext.flux_kontext import Flux1Kontext
 from mflux.config.config import Config
 from mflux.config.model_config import ModelConfig
 import logging
@@ -21,21 +21,25 @@ import logging
 from ip_adapter.ip_adapter_faceid import IPAdapterFaceIDPlusXL
 from enum import StrEnum
 from stringcase import constcase
+from corefile import TempPath
+
 
 class FLUX_MODELS(StrEnum):
     SCHNELL = "dhairyashil/FLUX.1-schnell-mflux-v0.6.2-4bit"
     DEV = "dhairyashil/FLUX.1-dev-mflux-4bit"
     DEV_FILL = "black-forest-labs/FLUX.1-Fill-dev"
-    DEV_DEPTH =  "black-forest-labs/FLUX.1-Depth-dev"
-    DEV_REDUX =  "black-forest-labs/FLUX.1-Redux-dev"
+    DEV_DEPTH = "black-forest-labs/FLUX.1-Depth-dev"
+    DEV_REDUX = "black-forest-labs/FLUX.1-Redux-dev"
     LITE = "Freepik/flux.1-lite-8B-alpha"
     KREA_DEV = "filipstrand/FLUX.1-Krea-dev-mflux-4bit"
     DEV_KONTEXT = "akx/FLUX.1-Kontext-dev-mflux-4bit"
+
 
 def get_model_config(name: str) -> ModelConfig:
     cfg = ModelConfig.from_name(name)
     cfg.model_name = FLUX_MODELS[constcase(name)].value
     return cfg
+
 
 class StableDiffusionMFlux(BaseStableDiffusion, LoadersMFluxMixin):
     _params = dict(negative_prompt="blurry")
@@ -159,13 +163,15 @@ class StableDiffusionMFlux(BaseStableDiffusion, LoadersMFluxMixin):
         width, height = get_width_height(
             image_path, max(output_params.height, output_params.width)
         )
+        inferance_path = TempPath(f"{image_path.name}")
+        resize(image_path, max_size=max(width, height), dst_path=inferance_path)
         if isinstance(self.pipeline, Flux1Kontext):
             cfg = Config(
                 num_inference_steps=output_params.num_inference_steps,
                 height=height,
                 width=width,
                 guidance=output_params.guidance_scale,
-                image_path=image_path.as_posix(),
+                image_path=inferance_path.as_posix(),
             )
         else:
             cfg = Config(
@@ -173,7 +179,7 @@ class StableDiffusionMFlux(BaseStableDiffusion, LoadersMFluxMixin):
                 height=height,
                 width=width,
                 guidance=output_params.guidance_scale,
-                image_path=image_path.as_posix(),
+                image_path=inferance_path.as_posix(),
                 image_strength=output_params.strength,
             )
         image = self.pipeline.generate_image(
@@ -196,8 +202,8 @@ class StableDiffusionMFlux(BaseStableDiffusion, LoadersMFluxMixin):
             pass
         except Exception as e:
             logging.error(e)
-        if 'kontext' in str(model_path):
-            params.pop('model_config', None)
+        if "kontext" in str(model_path):
+            params.pop("model_config", None)
             flux = Flux1Kontext(**params)
         else:
             flux = Flux1(**params)
