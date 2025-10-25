@@ -180,6 +180,7 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
         return (result, output_params)
 
     def set_text2img_pipeline(self, pipe_args):
+        from diffusers import DiffusionPipeline
         model_path = self.__class__.modelPath
         logging.info(f"MODEL PATH {model_path}")
         assert model_path.is_file()
@@ -188,7 +189,7 @@ class StableDiffusionSDXL(BaseStableDiffusion, LoadersSDXLMixin):
             add_watermarker=False,
             torch_dtype=torch.float16,
             **pipe_args,
-        ).to(device=self.__class__.device)
+        ).to(self.__class__.device)
         # self.pipeline.enable_attention_slicing()
         self.pipeline.scheduler = self.scheduler.from_config(
             self.pipeline.scheduler.config, **self.scheduler_args

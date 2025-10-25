@@ -285,7 +285,7 @@ class QRCode(LoadersSDMixin, metaclass=QRCodeMeta):
                 controlnet=controlnet,
                 torch_dtype=torch.float16,
                 safety_checker=None,
-                use_safetensors=True,
+                use_safetensors=True
             )
         except AssertionError:
             self.pipeline = StableDiffusionControlNetPipeline.from_pretrained(
