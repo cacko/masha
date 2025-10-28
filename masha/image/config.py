@@ -335,8 +335,10 @@ class StreetViewConfig(BaseModel):
 
 
 class ArtConfig(BaseModel):
-    name: str
-    items: list[str]
+    form: list[str]
+    style: list[str]
+    technique: list[str]
+    palette: list[str]
 
 
 class ImageConfig(BaseModel):
@@ -358,7 +360,7 @@ class ImageConfig(BaseModel):
     deepface: DeepfaceConfig
     image2text: Image2TextConfig = None
     streetview: StreetViewConfig
-    # art: list[ArtConfig]
+    art: ArtConfig
 
     def get_sd_config(self, name: str) -> Optional[SDConfig]:
         try:
@@ -429,6 +431,9 @@ data = yaml.full_load(Path(p).read_text())
 for fp in filepath(config_root, suffixes=[".yaml", ".yml"]):
     node = fp.stem
     dc = yaml.full_load(fp.read_text())
-    data[node] = [dict(name=k, **items) for k, items in dc.items()]
+    try:
+        data[node] = [dict(name=k, **items) for k, items in dc.items()]
+    except TypeError:
+        data[node] = dc
 
 image_config = ImageConfig(**data)

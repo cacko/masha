@@ -1,7 +1,6 @@
 import logging
 from pathlib import Path
 from typing import Optional
-import torch
 from PIL import Image
 from PIL.ImageOps import exif_transpose
 from os import environ
@@ -37,35 +36,37 @@ class ImageCaption(object, metaclass=ImageCaptionMeta):
         self.__processor = None
         self.__model = None
 
+    def __path(self):
+        if "/" in self.__config.model:
+            return self.__config.model
+        return (self.__class__.dataRoot / self.__config.model).as_posix()
+
     @property
     def processor(self) -> AutoProcessor:
         if not self.__processor:
-            pth = self.__class__.dataRoot / self.__config.model
-            self.__processor = AutoProcessor.from_pretrained(pth.as_posix())
+            self.__processor = AutoProcessor.from_pretrained(self.__path())
         return self.__processor
 
     @property
     def model(self) -> BlipForConditionalGeneration:
         if not self.__model:
-            pth = self.__class__.dataRoot / self.__config.model
-            self.__model = BlipForConditionalGeneration.from_pretrained(
-                pth.as_posix()
-            )
+            self.__model = BlipForConditionalGeneration.from_pretrained(self.__path())
         return self.__model
 
     def get_answer(self, image: Path):
-        raw_image = Image.open(image.as_posix()).convert(
-            "RGB"
-        )
+        raw_image = Image.open(image.as_posix()).convert("RGB")
         exif_transpose(raw_image, in_place=True)
         processor = self.processor
         model = self.model
-        device = self.__class__.device
 
         # unconditional image captioning
         inputs = processor(raw_image, return_tensors="pt")
 
         out = model.generate(**inputs)
-        result = processor.decode(out[0], skip_special_tokens=True).replace("arafed", "").strip()
+        result = (
+            processor.decode(out[0], skip_special_tokens=True)
+            .replace("arafed", "")
+            .strip()
+        )
         logging.info(f"CAPTION={result}")
         return result

@@ -34,7 +34,7 @@ face2img:
   default_model: juglight
   face_store: /Volumes/Devo/mldata/faces
 img2caption:
-  model: blip-large-long-cap
+  model: unography/blip-large-long-cap
 deepface:
   age: age_model_weights.h5
   race: race_model_single_batch.h5

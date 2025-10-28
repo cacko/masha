@@ -204,6 +204,7 @@ class StableDiffusionMFlux(BaseStableDiffusion, LoadersMFluxMixin):
             logging.error(e)
         if "kontext" in str(model_path):
             params.pop("model_config", None)
+            logging.info(params)
             flux = Flux1Kontext(**params)
         else:
             flux = Flux1(**params)

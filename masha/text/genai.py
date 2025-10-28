@@ -8,11 +8,13 @@ from typing import Optional
 from pydantic import BaseModel
 import rich
 
+
 class Recipe(BaseModel):
     name: str
     teams: list[str]
     goals: int
     games: int
+
 
 from masha.text.config import GenaiConfig
 
@@ -43,8 +45,10 @@ class GeminiMeta(type):
     def model_name(cls) -> str:
         return cls.__cfg.model
 
-    def ask(cls, query: str, source: Optional[str] = None) -> GeminiResponse:
-        return cls().do_ask(query=query, source=source)
+    def ask(
+        cls, query: str, source: Optional[str] = None, fpath: Optional[Path] = None
+    ) -> GeminiResponse:
+        return cls().do_ask(query=query, source=source, fpath=fpath)
 
     def ask_image(cls, img_path: Path, query: str):
         return cls().do_ask_image(img_path=img_path, query=query)
@@ -87,19 +91,27 @@ class Gemini(object, metaclass=GeminiMeta):
     def get_chat(self, source):
         if source not in self.__chat:
             self.__chat[source] = self.__client.chats.create(
-                model="gemini-2.5-flash"
+                model=self.__class__.model_name
             )
         return self.__chat[source]
 
-    def do_ask(self, query: str, source: Optional[str] = None) -> GeminiResponse:
-
+    def do_ask(
+        self, query: str, source: Optional[str] = None, fpath: Optional[Path] = None
+    ) -> GeminiResponse:
+        
+        contents = query
+        
+        if fpath:
+            uploaded = self.__client.files.upload(file=fpath)
+            contents = [uploaded, query]
+            
         if source:
             chat = self.get_chat(source)
-            res = chat.send_message(query)
+            res = chat.send_message(contents)
             return GeminiResponse(content=res.text)
 
         response = self.__client.models.generate_content(
-            model=self.__class__.model_name, contents=query
+            model=self.__class__.model_name, contents=contents
         )
 
         # md = markdown.Markdown()
@@ -135,7 +147,7 @@ class Gemini(object, metaclass=GeminiMeta):
                 # "response_schema": list[Recipe],
             },
         )
-        
+
         # md = markdown.Markdown()
         # # Now let's test it out:
         # html = md.convert(' '.join(response.text))

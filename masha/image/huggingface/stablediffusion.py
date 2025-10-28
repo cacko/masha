@@ -140,7 +140,7 @@ class StableDiffusion(Diffusers):
             assert res
             for idx, image in enumerate(res.images):
                 if params.upscale:
-                    image = self.__class__.upscale(image, 4)
+                    image = self.__class__.upscale(image, params.upscale)
                 pth = TempPath(f"{tmp_path.stem}{idx:02d}{tmp_path.suffix}")
                 image.save(pth.as_posix())
                 assert pth.exists()

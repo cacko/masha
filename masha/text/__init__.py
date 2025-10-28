@@ -87,9 +87,7 @@ def gemini(
     text: Annotated[list[str], typer.Argument()],
     file: Annotated[Path, typer.Option("-f", "--file")] = None,
 ):
-    if file:
-        res = Gemini.ask(file.read_text(), source="localhost")
-    res = Gemini.ask(" ".join(text), source="localhost")
+    res = Gemini.ask(" ".join(text), source="localhost", fpath=file)
     if res.images:
         resp = requests.get(res.images[0])
         img = Image.open(BytesIO(resp.content))

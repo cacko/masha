@@ -1,498 +1,497 @@
-art:
-  form:
-    - Glitch Art art
-    - Digital Painting art
-    - Acrylic Paint art
-    - Algorithmic art
-    - Animation art
-    - Art glass art
-    - Assemblage art
-    - Augmented reality art
-    - Batik art
-    - Beadwork art
-    - Body painting art
-    - Bookbinding art
-    - Cast paper art
-    - Ceramics art
-    - Bronze art
-    - Charcoal art
-    - Collage art
-    - Collagraphy art
-    - Colored pencil art
-    - Computer-generated imagery (cgi) art
-    - Crochet art
-    - Decoupage art
-    - Digital sculpture art
-    - Foam carving art
-    - Found objects art
-    - Fresco art
-    - Glass art
-    - Gouache art
-    - Graffiti art
-    - Ice art
-    - Ink wash painting art
-    - Installation art
-    - Interactive media art
-    - Lenticular printing art
-    - Light projection art
-    - Lithography art
-    - Marble art
-    - Metal art
-    - Metalpoint art
-    - Miniature painting art
-    - Mixed media art
-    - Monotype printing art
-    - Neon art
-    - Oil painting art
-    - Origami art
-    - Papier-mache art
-    - Pastel art
-    - Pen and ink art
-    - Plastic arts
-    - Polymer clay art
-    - Printmaking art
-    - Puppetry art
-    - Pyrography art
-    - Quilling art
-    - Quilting art
-    - Recycled art
-    - Resin art
-    - Sand art
-    - Sound art
-    - Silverpoint art
-    - Spray paint art
-    - Stone art
-    - Tempera art
-    - Tattoo art
-    - Video art
-    - Watercolor art
-    - Wax art
-    - Wood art
-  style:
-    - 1950s pulp sci-fi cover
-    - 2d game art
-    - 3d vr painting
-    - 8k resolution
-    - anime
-    - artistic photograph
-    - baroque painting
-    - byzantine mosaic
-    - chiaroscuro painting
-    - depiction
-    - depth of field
-    - digital painting
-    - dutch golden age
-    - filmed in imax
-    - fine art
-    - flat shading
-    - flemish baroque
-    - fresco painting
-    - gouache painting
-    - graffiti
-    - grisaille painting
-    - highly detailed
-    - hyperrealism
-    - impasto painting
-    - low-poly
-    - luminism painting
-    - marvel comics
-    - matte painting
-    - mixed media
-    - oil painting
-    - panorama
-    - parallax
-    - pastel painting
-    - pencil sketch
-    - perspective painting
-    - playstation 5 screenshot
-    - pop art
-    - rendered in cinema4d
-    - rendered in maya
-    - rendered in zbrush
-    - rtx on
-    - schematic
-    - sculpture
-    - sfumato painting
-    - shot on 70mm
-    - sotto in su
-    - storybook illustration
-    - surrealist
-    - surveillance footage
-    - tempera painting
-    - tilt shift
-    - trompe l’oeil
-    - ukiyo-e
-    - unreal engine render
-    - vector image
-    - veduta painting
-    - visionary hypermaximalism
-    - volumetric lighting
-    - vray tracing
-    - watercolor painting
-  technique:
-    - acrylic painting technique
-    - airbrush painting tool
-    - aquatint etching technique
-    - blender painting tool
-    - bold textural effect
-    - bold textural influence
-    - brush painting tool
-    - brush technique detail
-    - brush technique variety
-    - brushstroke variety
-    - canvas painting surface
-    - chalk drawing tool
-    - charcoal drawing tool
-    - coarse paint application
-    - coarse paint layer
-    - collagraph printmaking
-    - color blend result
-    - color blend technique
-    - complex textural composition
-    - complex textural mix
-    - conté crayon drawing tool
-    - conte drawing medium
-    - delicate textural detail
-    - delicate textural touch
-    - dry brush application
-    - dry brush effect
-    - dry pastel drawing tool
-    - drypoint printmaking
-    - dynamic textural character
-    - dynamic textural flow
-    - embossed textural depth
-    - embossed textural mark
-    - encaustic painting technique
-    - engraving print technique
-    - eraser drawing tool
-    - etching print process
-    - fine paint application
-    - fine paint layer
-    - glazing effect result
-    - glazing technique used
-    - graphite drawing medium
-    - hard pastel drawing tool
-    - heavy textural component
-    - heavy textural element
-    - impasto
-    - ink drawing tool
-    - intaglio engraving process
-    - knife painting tool
-    - light textural component
-    - light textural element
-    - linocut print technique
-    - lithography printing method
-    - mezzotint engraving method
-    - mixed media artistic approach
-    - monotype print technique
-    - oil painting method
-    - oil pastel drawing tool
-    - palette knife application
-    - palette knife painting tool
-    - palette painting tool
-    - pastel drawing medium
-    - raised textural dimension
-    - raised textural height
-    - screen printing method
-    - scumbling textural effect
-    - scumbling texture result
-    - serigraphy screen printing
-    - sgraffito scratch technique
-    - simple textural approach
-    - simple textural expression
-    - smooth paint surface
-    - smooth surface finish
-    - soft pastel drawing tool
-    - sponge painting tool
-    - static textural form
-    - static textural pattern
-    - stencil printing method
-    - stippling brush technique
-    - tempera painting medium
-    - textural approach style
-    - textural design pattern
-    - textural imprint design
-    - textural layer effects
-    - textural mix variety
-    - textural movement flow
-    - textural relief detail
-    - textured paint surface
-    - textured surface layer
-    - thick paint layer
-    - thick, textured, raised, paint
-    - thin paint layer
-    - water-soluble pencils drawing tool
-    - watercolor painting medium
-    - woodcut printmaking
-  type:
-    - abstract expressionism
-    - abstraction
-    - airbrush painting
-    - altered books
-    - animation
-    - antique restoration
-    - applique
-    - architecture
-    - architextural art
-    - art brut
-    - art cars
-    - art deco
-    - art informel
-    - art nouveau
-    - arts and crafts
-    - assemblage
-    - assemblage (art)
-    - baroque
-    - batik
-    - batiking
-    - beading
-    - blacksmithing
-    - block printing
-    - body art
-    - body piercing
-    - bodypainting
-    - bonsai
-    - bookbinding
-    - butter sculptures
-    - byzantine
-    - cabinetmaking
-    - calligraphy
-    - car painting
-    - cardmaking
-    - carpentry
-    - ceramics
-    - chain mail
-    - collage
-    - color field painting
-    - conceptual art
-    - constructivism
-    - crewelwork
-    - crochet
-    - crocheting
-    - cubism
-    - dada
-    - de stijl
-    - decalcomania
-    - decoupage
-    - digital art
-    - dollhouse building
-    - dollmaking
-    - drawing
-    - earthworks
-    - embroidery
-    - enameling
-    - engraving
-    - environmental art
-    - etching
-    - face painting
-    - faceting
-    - fauvism
-    - felting
-    - feminist art
-    - filigree
-    - film
-    - fimo
-    - finger painting
-    - flash mobs
-    - fletching
-    - folk art
-    - forge
-    - found object art
-    - furniture making
-    - futurism
-    - gilding
-    - glass art
-    - glassblowing
-    - glazing
-    - goldsmithing
-    - gothic
-    - gourdcraft
-    - graffiti
-    - guerilla gardening
-    - gunsmithing
-    - hard-edge painting
-    - henna painting
-    - ice sculpture
-    - ikebana
-    - impressionism
-    - indigenous art
-    - inlay
-    - installation
-    - installation art
-    - intarsia
-    - jewellery making
-    - jewelry making
-    - kirigami
-    - knitting
-    - lace making
-    - lacemaking
-    - lacquer work
-    - land art
-    - lapidary
-    - latch hooking
-    - lathe work
-    - leatherworking
-    - lyrical abstraction
-    - macrame
-    - macramé
-    - mannerism
-    - marquetry
-    - metal art
-    - metal embossing
-    - metal engraving
-    - metalsmithing
-    - metalwork
-    - minimalism
-    - modelmaking
-    - mosaic
-    - mosaics
-    - naturalism
-    - needlepoint
-    - neo-expressionism
-    - new media art
-    - op art
-    - origami
-    - outsider art
-    - paint by number
-    - paintballing
-    - painting
-    - paper marbling
-    - papercutting
-    - patination
-    - performance art
-    - photography
-    - pop art
-    - postimpressionism
-    - postminimalism
-    - postmodern art
-    - pottery
-    - printmaking
-    - pyrography
-    - quilling
-    - quilting
-    - readymades
-    - realism
-    - religious art
-    - renaissance
-    - repoussé and chasing
-    - reverse graffiti
-    - rococo
-    - sandcasting
-    - scrapbooking
-    - screen printing
-    - sculpture
-    - signwriting
-    - silversmithing
-    - snow sculpture
-    - spinning
-    - spray painting
-    - staining
-    - stencil graffiti
-    - stenciling
-    - stencilling
-    - sticker art
-    - stoner art
-    - street art
-    - street installations
-    - suprematism
-    - surrealism
-    - tapestry
-    - tattooing
-    - textile art
-    - tie dyeing
-    - tiling
-    - tole painting
-    - transfers
-    - tribal art
-    - video
-    - video art
-    - weaving
-    - wheatpasting
-    - whittling
-    - wood art
-    - woodcarving
-    - woodturning
-    - woodworking
-    - yarn bombing
-  palette:
-    - (autumn harvest palette)
-    - (autumn leaves palette)
-    - (autumnal bliss palette)
-    - (beach house palette)
-    - (berry tones palette)
-    - (black and white chic palette)
-    - (bold and beautiful palette)
-    - (bold and bright palette)
-    - (bright and bold palette)
-    - (bright and sunny palette)
-    - (bright lights palette)
-    - (candy shop palette)
-    - (citrus crush palette)
-    - (city lights palette)
-    - (city skyline palette)
-    - (classic elegance palette)
-    - (coastal escape palette)
-    - (cosmic colors palette)
-    - (cotton candy palette)
-    - (country charm palette)
-    - (dark and moody palette)
-    - (desert oasis palette)
-    - (desert sunset palette)
-    - (earth tones palette)
-    - (enchanted forest palette)
-    - (enchanted garden palette)
-    - (fiesta palette)
-    - (fire and ice palette)
-    - (fresh picked palette)
-    - (gentle breeze palette)
-    - (glitter and glam palette)
-    - (greenery palette)
-    - (ice cream shop palette)
-    - (industrial chic palette)
-    - (jewel tones palette)
-    - (mellow yellows palette)
-    - (midnight sky palette)
-    - (minimalist palette)
-    - (modern neutrals palette)
-    - (monochrome mood palette)
-    - (moroccan nights palette)
-    - (muted tones palette)
-    - (nautical palette)
-    - (ocean breeze palette)
-    - (ocean depths palette)
-    - (oceanfront palette)
-    - (oceanic depths palette)
-    - (pastel dreams palette)
-    - (pastel perfection palette)
-    - (peacock feathers palette)
-    - (rainbow brights palette)
-    - (retro pop palette)
-    - (romantic evening palette)
-    - (romantic roses palette)
-    - (rustic charm palette)
-    - (seaside escape palette)
-    - (soft and subtle palette)
-    - (soothing hues palette)
-    - (spring blooms palette)
-    - (spring garden palette)
-    - (starry night palette)
-    - (summer sorbet palette)
-    - (summer sunshine palette)
-    - (sunset at the beach palette)
-    - (sunset dreams palette)
-    - (vintage beach palette)
-    - (vintage rose palette)
-    - (wildflower fields palette)
-    - (winter wonderland palette)
-    - (winter woods palette)
-photography:
-  style:
-    - high fashion photography
-    - avant garde photography
-    - fashion photography
-    - portrait photography
-    - landscape photography
-    - documentary photography
-    - street photography
-    - action photography
-    - vintage photography"
+form:
+  - Glitch Art art
+  - Digital Painting art
+  - Acrylic Paint art
+  - Algorithmic art
+  - Animation art
+  - Art glass art
+  - Assemblage art
+  - Augmented reality art
+  - Batik art
+  - Beadwork art
+  - Body painting art
+  - Bookbinding art
+  - Cast paper art
+  - Ceramics art
+  - Bronze art
+  - Charcoal art
+  - Collage art
+  - Collagraphy art
+  - Colored pencil art
+  - Computer-generated imagery (cgi) art
+  - Crochet art
+  - Decoupage art
+  - Digital sculpture art
+  - Foam carving art
+  - Found objects art
+  - Fresco art
+  - Glass art
+  - Gouache art
+  - Graffiti art
+  - Ice art
+  - Ink wash painting art
+  - Installation art
+  - Interactive media art
+  - Lenticular printing art
+  - Light projection art
+  - Lithography art
+  - Marble art
+  - Metal art
+  - Metalpoint art
+  - Miniature painting art
+  - Mixed media art
+  - Monotype printing art
+  - Neon art
+  - Oil painting art
+  - Origami art
+  - Papier-mache art
+  - Pastel art
+  - Pen and ink art
+  - Plastic arts
+  - Polymer clay art
+  - Printmaking art
+  - Puppetry art
+  - Pyrography art
+  - Quilling art
+  - Quilting art
+  - Recycled art
+  - Resin art
+  - Sand art
+  - Sound art
+  - Silverpoint art
+  - Spray paint art
+  - Stone art
+  - Tempera art
+  - Tattoo art
+  - Video art
+  - Watercolor art
+  - Wax art
+  - Wood art
+style:
+  - 1950s pulp sci-fi cover
+  - 2d game art
+  - 3d vr painting
+  - 8k resolution
+  - anime
+  - artistic photograph
+  - baroque painting
+  - byzantine mosaic
+  - chiaroscuro painting
+  - depiction
+  - depth of field
+  - digital painting
+  - dutch golden age
+  - filmed in imax
+  - fine art
+  - flat shading
+  - flemish baroque
+  - fresco painting
+  - gouache painting
+  - graffiti
+  - grisaille painting
+  - highly detailed
+  - hyperrealism
+  - impasto painting
+  - low-poly
+  - luminism painting
+  - marvel comics
+  - matte painting
+  - mixed media
+  - oil painting
+  - panorama
+  - parallax
+  - pastel painting
+  - pencil sketch
+  - perspective painting
+  - playstation 5 screenshot
+  - pop art
+  - rendered in cinema4d
+  - rendered in maya
+  - rendered in zbrush
+  - rtx on
+  - schematic
+  - sculpture
+  - sfumato painting
+  - shot on 70mm
+  - sotto in su
+  - storybook illustration
+  - surrealist
+  - surveillance footage
+  - tempera painting
+  - tilt shift
+  - trompe l’oeil
+  - ukiyo-e
+  - unreal engine render
+  - vector image
+  - veduta painting
+  - visionary hypermaximalism
+  - volumetric lighting
+  - vray tracing
+  - watercolor painting
+technique:
+  - acrylic painting technique
+  - airbrush painting tool
+  - aquatint etching technique
+  - blender painting tool
+  - bold textural effect
+  - bold textural influence
+  - brush painting tool
+  - brush technique detail
+  - brush technique variety
+  - brushstroke variety
+  - canvas painting surface
+  - chalk drawing tool
+  - charcoal drawing tool
+  - coarse paint application
+  - coarse paint layer
+  - collagraph printmaking
+  - color blend result
+  - color blend technique
+  - complex textural composition
+  - complex textural mix
+  - conté crayon drawing tool
+  - conte drawing medium
+  - delicate textural detail
+  - delicate textural touch
+  - dry brush application
+  - dry brush effect
+  - dry pastel drawing tool
+  - drypoint printmaking
+  - dynamic textural character
+  - dynamic textural flow
+  - embossed textural depth
+  - embossed textural mark
+  - encaustic painting technique
+  - engraving print technique
+  - eraser drawing tool
+  - etching print process
+  - fine paint application
+  - fine paint layer
+  - glazing effect result
+  - glazing technique used
+  - graphite drawing medium
+  - hard pastel drawing tool
+  - heavy textural component
+  - heavy textural element
+  - impasto
+  - ink drawing tool
+  - intaglio engraving process
+  - knife painting tool
+  - light textural component
+  - light textural element
+  - linocut print technique
+  - lithography printing method
+  - mezzotint engraving method
+  - mixed media artistic approach
+  - monotype print technique
+  - oil painting method
+  - oil pastel drawing tool
+  - palette knife application
+  - palette knife painting tool
+  - palette painting tool
+  - pastel drawing medium
+  - raised textural dimension
+  - raised textural height
+  - screen printing method
+  - scumbling textural effect
+  - scumbling texture result
+  - serigraphy screen printing
+  - sgraffito scratch technique
+  - simple textural approach
+  - simple textural expression
+  - smooth paint surface
+  - smooth surface finish
+  - soft pastel drawing tool
+  - sponge painting tool
+  - static textural form
+  - static textural pattern
+  - stencil printing method
+  - stippling brush technique
+  - tempera painting medium
+  - textural approach style
+  - textural design pattern
+  - textural imprint design
+  - textural layer effects
+  - textural mix variety
+  - textural movement flow
+  - textural relief detail
+  - textured paint surface
+  - textured surface layer
+  - thick paint layer
+  - thick, textured, raised, paint
+  - thin paint layer
+  - water-soluble pencils drawing tool
+  - watercolor painting medium
+  - woodcut printmaking
+# type:
+#   - abstract expressionism
+#   - abstraction
+#   - airbrush painting
+#   - altered books
+#   - animation
+#   - antique restoration
+#   - applique
+#   - architecture
+#   - architextural art
+#   - art brut
+#   - art cars
+#   - art deco
+#   - art informel
+#   - art nouveau
+#   - arts and crafts
+#   - assemblage
+#   - assemblage (art)
+#   - baroque
+#   - batik
+#   - batiking
+#   - beading
+#   - blacksmithing
+#   - block printing
+#   - body art
+#   - body piercing
+#   - bodypainting
+#   - bonsai
+#   - bookbinding
+#   - butter sculptures
+#   - byzantine
+#   - cabinetmaking
+#   - calligraphy
+#   - car painting
+#   - cardmaking
+#   - carpentry
+#   - ceramics
+#   - chain mail
+#   - collage
+#   - color field painting
+#   - conceptual art
+#   - constructivism
+#   - crewelwork
+#   - crochet
+#   - crocheting
+#   - cubism
+#   - dada
+#   - de stijl
+#   - decalcomania
+#   - decoupage
+#   - digital art
+#   - dollhouse building
+#   - dollmaking
+#   - drawing
+#   - earthworks
+#   - embroidery
+#   - enameling
+#   - engraving
+#   - environmental art
+#   - etching
+#   - face painting
+#   - faceting
+#   - fauvism
+#   - felting
+#   - feminist art
+#   - filigree
+#   - film
+#   - fimo
+#   - finger painting
+#   - flash mobs
+#   - fletching
+#   - folk art
+#   - forge
+#   - found object art
+#   - furniture making
+#   - futurism
+#   - gilding
+#   - glass art
+#   - glassblowing
+#   - glazing
+#   - goldsmithing
+#   - gothic
+#   - gourdcraft
+#   - graffiti
+#   - guerilla gardening
+#   - gunsmithing
+#   - hard-edge painting
+#   - henna painting
+#   - ice sculpture
+#   - ikebana
+#   - impressionism
+#   - indigenous art
+#   - inlay
+#   - installation
+#   - installation art
+#   - intarsia
+#   - jewellery making
+#   - jewelry making
+#   - kirigami
+#   - knitting
+#   - lace making
+#   - lacemaking
+#   - lacquer work
+#   - land art
+#   - lapidary
+#   - latch hooking
+#   - lathe work
+#   - leatherworking
+#   - lyrical abstraction
+#   - macrame
+#   - macramé
+#   - mannerism
+#   - marquetry
+#   - metal art
+#   - metal embossing
+#   - metal engraving
+#   - metalsmithing
+#   - metalwork
+#   - minimalism
+#   - modelmaking
+#   - mosaic
+#   - mosaics
+#   - naturalism
+#   - needlepoint
+#   - neo-expressionism
+#   - new media art
+#   - op art
+#   - origami
+#   - outsider art
+#   - paint by number
+#   - paintballing
+#   - painting
+#   - paper marbling
+#   - papercutting
+#   - patination
+#   - performance art
+#   - photography
+#   - pop art
+#   - postimpressionism
+#   - postminimalism
+#   - postmodern art
+#   - pottery
+#   - printmaking
+#   - pyrography
+#   - quilling
+#   - quilting
+#   - readymades
+#   - realism
+#   - religious art
+#   - renaissance
+#   - repoussé and chasing
+#   - reverse graffiti
+#   - rococo
+#   - sandcasting
+#   - scrapbooking
+#   - screen printing
+#   - sculpture
+#   - signwriting
+#   - silversmithing
+#   - snow sculpture
+#   - spinning
+#   - spray painting
+#   - staining
+#   - stencil graffiti
+#   - stenciling
+#   - stencilling
+#   - sticker art
+#   - stoner art
+#   - street art
+#   - street installations
+#   - suprematism
+#   - surrealism
+#   - tapestry
+#   - tattooing
+#   - textile art
+#   - tie dyeing
+#   - tiling
+#   - tole painting
+#   - transfers
+#   - tribal art
+#   - video
+#   - video art
+#   - weaving
+#   - wheatpasting
+#   - whittling
+#   - wood art
+#   - woodcarving
+#   - woodturning
+#   - woodworking
+#   - yarn bombing
+palette:
+  - (autumn harvest palette)
+  - (autumn leaves palette)
+  - (autumnal bliss palette)
+  - (beach house palette)
+  - (berry tones palette)
+  - (black and white chic palette)
+  - (bold and beautiful palette)
+  - (bold and bright palette)
+  - (bright and bold palette)
+  - (bright and sunny palette)
+  - (bright lights palette)
+  - (candy shop palette)
+  - (citrus crush palette)
+  - (city lights palette)
+  - (city skyline palette)
+  - (classic elegance palette)
+  - (coastal escape palette)
+  - (cosmic colors palette)
+  - (cotton candy palette)
+  - (country charm palette)
+  - (dark and moody palette)
+  - (desert oasis palette)
+  - (desert sunset palette)
+  - (earth tones palette)
+  - (enchanted forest palette)
+  - (enchanted garden palette)
+  - (fiesta palette)
+  - (fire and ice palette)
+  - (fresh picked palette)
+  - (gentle breeze palette)
+  - (glitter and glam palette)
+  - (greenery palette)
+  - (ice cream shop palette)
+  - (industrial chic palette)
+  - (jewel tones palette)
+  - (mellow yellows palette)
+  - (midnight sky palette)
+  - (minimalist palette)
+  - (modern neutrals palette)
+  - (monochrome mood palette)
+  - (moroccan nights palette)
+  - (muted tones palette)
+  - (nautical palette)
+  - (ocean breeze palette)
+  - (ocean depths palette)
+  - (oceanfront palette)
+  - (oceanic depths palette)
+  - (pastel dreams palette)
+  - (pastel perfection palette)
+  - (peacock feathers palette)
+  - (rainbow brights palette)
+  - (retro pop palette)
+  - (romantic evening palette)
+  - (romantic roses palette)
+  - (rustic charm palette)
+  - (seaside escape palette)
+  - (soft and subtle palette)
+  - (soothing hues palette)
+  - (spring blooms palette)
+  - (spring garden palette)
+  - (starry night palette)
+  - (summer sorbet palette)
+  - (summer sunshine palette)
+  - (sunset at the beach palette)
+  - (sunset dreams palette)
+  - (vintage beach palette)
+  - (vintage rose palette)
+  - (wildflower fields palette)
+  - (winter wonderland palette)
+  - (winter woods palette)
+# photography:
+#   style:
+#     - high fashion photography
+#     - avant garde photography
+#     - fashion photography
+#     - portrait photography
+#     - landscape photography
+#     - documentary photography
+#     - street photography
+#     - action photography
+#     - vintage photography"
