@@ -182,7 +182,7 @@ async def api_face2img_options():
         "safe": {
             "models": Diffusers.options_for_category("face"),
             "templates": [t.name for t in image_config.get_template_category("face")],
-            "styles": [s.name for s in image_config.styles]
+            "styles": [s.name for s in image_config.styles],
         },
         "nsfw": {
             "models": Diffusers.options_for_category("face-nsfw"),
@@ -192,15 +192,17 @@ async def api_face2img_options():
         },
     }
 
+
 @router.get("/face-options")
 async def api_face_options():
     return {
         "face": {
             "models": Diffusers.options_for_category("face"),
             "templates": [t.name for t in image_config.get_template_category("face")],
-            "styles": [s.name for s in image_config.styles]
+            "styles": [s.name for s in image_config.styles],
         },
     }
+
 
 @router.post("/face2img/{prompt}")
 async def api_face2img(
@@ -210,6 +212,7 @@ async def api_face2img(
 ):
     try:
         tmp_path = await uploaded_file(file)
+        logging.warning(f"{tmp_path} -> {tmp_path.exists()}")
         form_data = json.loads(data)
         logging.info(tmp_path)
         logging.info(form_data)

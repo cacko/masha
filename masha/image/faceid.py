@@ -1,6 +1,5 @@
 import logging
 from typing import Optional
-
 from masha.image.caption import ImageCaption
 from masha.image.classify import Gender as GenderClassifier, Ethnic as EthnicClassifier
 from masha.image.deepface import AgeClient
@@ -42,6 +41,7 @@ class FaceId:
     @classmethod
     def create(cls, input: Path, output: Path = None, overwrite=True):
         try:
+            logging.warning(f"{input} -> {input.exists()}")
             obj = cls(image_path=input, out_path=output)
             assert obj.__create(overwrite=overwrite)
             return obj

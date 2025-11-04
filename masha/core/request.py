@@ -28,7 +28,7 @@ def make_multipart_response(image_path: Path, message: Optional[str] = None):
 
 async def uploaded_file(file: UploadFile) -> TempPath:
     tmp_path = TempPath(f"uploaded_file_{file.filename}")
-    logging.warning(tmp_path)
     data = await file.read()
     tmp_path.write_bytes(data)
+    logging.warning(f"{tmp_path} > {tmp_path.exists()}")
     return tmp_path

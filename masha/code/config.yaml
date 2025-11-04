@@ -1,5 +1,5 @@
 summarization:
-  model: T5-commit-message-generator
+  model: google/gemma-7b-it
 instruct:
   model: Qwen/Qwen3-Coder-30B-A3B-Instruct
 instruct_python:
