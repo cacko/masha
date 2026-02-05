@@ -7,6 +7,7 @@ from . import img2img
 from . import qr
 from . import caption
 from . import ask
+from . import wallies
 
 __all__ = [
     "pixel",
@@ -17,5 +18,6 @@ __all__ = [
     "img2img",
     "qr",
     "caption",
-    "ask"
+    "ask",
+    "wallies"
 ]

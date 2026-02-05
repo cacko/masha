@@ -1,35 +1,29 @@
 from enum import StrEnum
-import gc
 import json
-from diffusers import (
-    DiffusionPipeline,
-    EulerAncestralDiscreteScheduler,
-    DPMSolverMultistepScheduler,
-    UniPCMultistepScheduler,
-    DDIMScheduler,
-    DPMSolverSDEScheduler,
-    DEISMultistepScheduler,
-    DPMSolverSinglestepScheduler,
-    ScoreSdeVeScheduler,
-    SchedulerMixin,
-    LCMScheduler,
-    KDPM2AncestralDiscreteScheduler,
-    EDMDPMSolverMultistepScheduler,
-    EulerDiscreteScheduler,
-    LMSDiscreteScheduler,
-)
+from diffusers import EulerAncestralDiscreteScheduler
+from diffusers import DPMSolverMultistepScheduler
+from diffusers import UniPCMultistepScheduler
+from diffusers import DDIMScheduler
+from diffusers import DPMSolverSDEScheduler
+from diffusers import DEISMultistepScheduler
+from diffusers import DPMSolverSinglestepScheduler
+from diffusers import ScoreSdeVeScheduler
+from diffusers import SchedulerMixin
+from diffusers import KDPM2AncestralDiscreteScheduler
+from diffusers import EDMDPMSolverMultistepScheduler
+from diffusers import EulerDiscreteScheduler
+
 import torch
 from masha.config import app_config
 from queue import Queue
 from pathlib import Path
 from os import environ
-from typing import NoReturn, Optional, Any
+from typing import Optional, Any
 from pydantic import BaseModel
 from masha.image.config import image_config
 from PIL import Image
 from masha.image.upscale import Upscale
 from masha.image.models import ImageResult, PipelineParams, PipelineType, Resolutions
-import diffusers
 from faker import Faker
 from faker.factory import logger
 from stringcase import snakecase
@@ -37,7 +31,7 @@ import logging
 from itertools import chain
 from masha.pipelines import TORCH_DEVICE
 
-diffusers.logging.set_verbosity_error()
+
 logger.setLevel(logging.INFO)
 
 AVAILABLE_MEMORY_THRESHOLD = 4843545600
@@ -53,7 +47,7 @@ DEFAULT_IMAGE_FORMAT = IMAGE_FORMAT.PNG
 
 
 class PipeItem(BaseModel, arbitrary_types_allowed=True):
-    pipe: DiffusionPipeline
+    pipe: any
     model: Path
 
 
@@ -123,14 +117,6 @@ class DiffusersType(type):
             return cls.modelPath
 
     @property
-    def lcmPath(cls) -> Optional[Path]:
-        try:
-            assert cls.lcm
-            return cls.dataRoot / cls.lcm
-        except AssertionError:
-            return None
-
-    @property
     def pipelineClass(cls) -> PipelineType:
         try:
             cfg_path = cls.modelPath / "model_index.json"
@@ -157,11 +143,11 @@ class DiffusersType(type):
     @property
     def loraxlPath(cls) -> Path:
         return cls.dataRoot / image_config.lora.root_xl
-    
+
     @property
     def lorafluxPath(cls) -> Path:
         return cls.dataRoot / image_config.lora.root_flux
-    
+
     @property
     def loraqwenPath(cls) -> Path:
         return cls.dataRoot / image_config.lora.root_qwen
@@ -334,14 +320,10 @@ class Diffusers(object, metaclass=DiffusersType):
                     return DPMSolverSDEScheduler
                 case "ScoreSdeVeScheduler":
                     return ScoreSdeVeScheduler
-                case "LCMScheduler":
-                    return LCMScheduler
                 case "KDPM2AncestralDiscreteScheduler":
                     return KDPM2AncestralDiscreteScheduler
                 case "EDMDPMSolverMultistepScheduler":
                     return EDMDPMSolverMultistepScheduler
-                case "LMSDiscreteScheduler":
-                    return LMSDiscreteScheduler
                 case _:
                     return EulerAncestralDiscreteScheduler
         except AssertionError:

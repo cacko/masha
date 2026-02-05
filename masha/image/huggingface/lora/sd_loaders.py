@@ -1,17 +1,9 @@
 import logging
-from pathlib import Path
-from safetensors.torch import load_file, safe_open
+from safetensors.torch import safe_open
 import os
-import torch
-from diffusers import LCMScheduler
-from diffusers.pipelines import StableDiffusionPipeline
-from masha.image.models import PipelineParams
-import torch
-from diffusers import LCMScheduler
 from diffusers.pipelines import StableDiffusionPipeline
 import logging
 from masha.image.huggingface.utils import get_embeddings, get_lora_models
-from pathlib import Path
 from masha.image.config import image_config
 from diffusers.models.modeling_utils import load_state_dict
 
@@ -52,10 +44,6 @@ class LoadersSDMixin(object):
                     )
                     adapter_names.append(adapter_name)
                     adapter_weights.append(wgt)
-                    if adapter_name.startswith("lcm"):
-                        self.pipeline.scheduler = LCMScheduler.from_config(
-                            self.pipeline.scheduler.config
-                        )
                 except Exception as e:
                     logging.error(e)
             self.pipeline.set_adapters(

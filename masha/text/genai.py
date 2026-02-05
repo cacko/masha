@@ -55,25 +55,11 @@ class GeminiMeta(type):
 
     def ask_json(cls, query: str, source: Optional[str] = None) -> GeminiResponse:
         return cls().do_ask_json(query=query, source=source)
-
-
-import markdown
-from markdown.treeprocessors import Treeprocessor
-from markdown.extensions import Extension
-
-# class ImgExtractor(Treeprocessor):
-#     def run(self, doc):
-#         "Find all images and append to markdown.images. "
-#         self.md.images = []
-#         for image in doc.findall('.//img'):
-#             self.md.images.append(image.get('src'))
-
-# # Then tell markdown about it
-
-# class ImgExtExtension(Extension):
-#     def extendMarkdown(self, md):
-#         img_ext = ImgExtractor(md)
-#         md.treeprocessors.register(img_ext, 'img_ext', 15)
+    
+    def ask_schema(
+        cls, query: str, schema: BaseModel
+    ):
+        return cls().do_ask_schema(query=query, schema=schema)
 
 
 class Gemini(object, metaclass=GeminiMeta):
@@ -156,3 +142,14 @@ class Gemini(object, metaclass=GeminiMeta):
 
         resp = GeminiResponse(content=response.text)
         return resp
+    
+    def do_ask_schema(self, query: str, schema: BaseModel):
+        response = self.__client.models.generate_content(
+            model=self.__class__.model_name,
+            contents=query,
+            config=types.GenerateContentConfig(
+                response_mime_type="application/json",
+                response_schema=schema
+            )
+        )
+        return response.parsed

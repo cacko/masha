@@ -1,4 +1,4 @@
-from transformers import AutoModelWithLMHead, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer
 from masha.code.config import SummarizationConfig
 from masha.pipelines.summarizaion import Summarization, Summarized
 from masha.core import perftime
@@ -66,7 +66,7 @@ class CodeSummarization(Summarization, metaclass=CodeSummarizationMeta):
     def model(self):
         if not self._model:
             with perftime("load summarization model"):
-                self._model = AutoModelWithLMHead.from_pretrained(
+                self._model = AutoModelForCausalLM.from_pretrained(
                     self.modelPath.as_posix(),
                 )
         return self._model

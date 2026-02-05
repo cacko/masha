@@ -6,7 +6,6 @@ from transformers import (
 from torch.utils.data import DataLoader, TensorDataset
 import torch
 from scipy.special import softmax
-import warnings
 from masha.core import perftime
 from masha.pipelines import BasePipeline
 

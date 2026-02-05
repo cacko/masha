@@ -1,13 +1,11 @@
 import logging
 from pathlib import Path
-
 from corestring import round2
 import torch
 from diffusers.utils import load_image
 from masha.image.upscale import Upscale
 from masha.pipelines import BasePipeline, TORCH_DEVICE
 from masha.pipelines.image_clasify.models import ClassifyResult
-from masha.core import perftime
 from transformers import AutoImageProcessor, AutoModelForImageClassification, pipeline
 from PIL import Image
 

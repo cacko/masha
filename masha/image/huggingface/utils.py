@@ -17,6 +17,8 @@ from itertools import product
 from masha.name.classifiers import Ethnicity
 from masha.image.huggingface.lora import LORA_PATTERN
 import torch
+from masha.image.diffusers import Diffusers
+from random import choice
 
 TI_PATTERN = re.compile(r"\<inversion:([^>]+):([\d.]+)\>", re.DOTALL)
 EM_PATTERN = re.compile(r"embedding:([^\s,:]+)")
@@ -195,7 +197,7 @@ def txt2img_iterations(
     if all_templates:
         auto_templates = Diffusers.templates
     if not models:
-        models = [None]
+        models = [choice(Diffusers.options)]
     for mdl, current_auto_prompt, current_template in product(
         models, auto_prompts, auto_templates
     ):

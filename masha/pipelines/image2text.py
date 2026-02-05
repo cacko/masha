@@ -1,13 +1,10 @@
 from pathlib import Path
-import warnings
 from hashlib import blake2b
 from typing import Optional
 from cachable import Cachable
 from cachable.storage.meta import StorageMeta
 from cachable.storage.redis import RedisStorage
 from transformers import (
-    AutoTokenizer,
-    ImageToTextPipeline,
     Pipeline,
     pipeline,
 )

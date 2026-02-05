@@ -9,8 +9,8 @@ from diffusers.pipelines.flux.pipeline_output import FluxPipelineOutput
 from diffusers import FluxPipeline
 from mflux.models.flux.variants.txt2img.flux import Flux1
 from mflux.models.flux.variants.kontext.flux_kontext import Flux1Kontext
-from mflux.config.config import Config
-from mflux.config.model_config import ModelConfig
+from mflux.models.common.config import Config
+from mflux.models.common.config import ModelConfig
 import logging
 from masha.image.huggingface.utils import (
     get_compel_prompts_xl,
@@ -166,7 +166,7 @@ class StableDiffusionMFlux(BaseStableDiffusion, LoadersMFluxMixin):
         inferance_path = TempPath(f"{image_path.name}")
         resize(image_path, max_size=max(width, height), dst_path=inferance_path)
         if isinstance(self.pipeline, Flux1Kontext):
-            cfg = Config(
+            cfg = dict(
                 num_inference_steps=output_params.num_inference_steps,
                 height=height,
                 width=width,
@@ -174,7 +174,7 @@ class StableDiffusionMFlux(BaseStableDiffusion, LoadersMFluxMixin):
                 image_path=inferance_path.as_posix(),
             )
         else:
-            cfg = Config(
+            cfg = dict(
                 num_inference_steps=output_params.num_inference_steps,
                 height=height,
                 width=width,
@@ -185,7 +185,7 @@ class StableDiffusionMFlux(BaseStableDiffusion, LoadersMFluxMixin):
         image = self.pipeline.generate_image(
             seed=output_params.seed,
             prompt=output_params.prompt,
-            config=cfg,
+            **cfg
         )
         return (FluxPipelineOutput(images=[image.image]), output_params)
 
@@ -220,7 +220,7 @@ class StableDiffusionMFlux(BaseStableDiffusion, LoadersMFluxMixin):
         image = self.pipeline.generate_image(
             seed=output_params.seed,
             prompt=output_params.prompt,
-            config=Config(
+            **dict(
                 num_inference_steps=output_params.num_inference_steps,
                 height=output_params.height,
                 width=output_params.width,

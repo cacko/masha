@@ -2,10 +2,7 @@ from pathlib import Path
 from corestring import to_int
 from masha.image.diffusers import DEFAULT_IMAGE_FORMAT, IMAGE_FORMAT, Diffusers
 import logging
-from diffusers import (
-    DiffusionPipeline,
-    SemanticStableDiffusionPipeline,
-)
+from diffusers import SemanticStableDiffusionPipeline
 from masha.image.models import Face2ImageResult, Image2ImageResult, PipelineParams
 from typing import Optional
 import torch
@@ -25,7 +22,7 @@ import weakref
 class StableDiffusion(Diffusers):
     option = "default"
     params: Optional[PipelineParams] = None
-    pipeline: Optional[DiffusionPipeline] = None
+    pipeline: Optional[any] = None
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

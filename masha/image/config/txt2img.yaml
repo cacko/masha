@@ -150,45 +150,6 @@ sdvn53dcutewave_v1VAE.safetensors:
     height: 768
     negative_prompt: >
       (worst quality, low quality,nsfw,nipple, pussy:1.5)
-animatix_v1LCM.safetensors:
-  option: animatix
-  scheduler_class: LCMScheduler
-  sd_type: sd
-  category: cartoon,lora,sd1,lcm,qr,img2img
-  custom_params:
-    num_inference_steps: 10
-    guidance_scale: 2
-    clip_skip: 2
-    width: 512
-    height: 768
-    negative_prompt: >
-      EasyNegative, drawn by bad-artist, sketch by bad-artist-anime, (bad_prompt:0.8),
-      (artist name, signature, watermark:1.4), (ugly:1.2),
-      (worst quality, poor details:1.4), bad-hands-5, badhandv4, blurry,
-dreamshaper_8LCM.safetensors:
-  option: dreamlcm
-  scheduler_class: LCMScheduler
-  sd_type: sd
-  category: cartoon,lora,sd1,lcm,qr,face,img2img
-  custom_params:
-    num_inference_steps: 15
-    guidance_scale: 2
-    clip_skip: 2
-    width: 512
-    height: 768
-    negative_prompt: (kid, child, childlike, loli), BadDream UnrealisticDream
-absolutereality_lcm.safetensors:
-  option: absolute
-  scheduler_class: LCMScheduler
-  sd_type: sd
-  category: cartoon,lora,sd1,lcm,qr,img2img
-  custom_params:
-    num_inference_steps: 15
-    guidance_scale: 2
-    clip_skip: 2
-    width: 512
-    height: 768
-    negative_prompt: BadDream, UnrealisticDream
 sd_xl_base_1.0.safetensors:
   option: xl
   sd_type: sdxl
@@ -244,15 +205,6 @@ SDXLFaetastic_v24.safetensors:
     negative_prompt: text, watermark, blur, blurry
     width: 768
     height: 1162
-PixArt-XL-2-1024-MS:
-  option: pixart
-  sd_type: pixart
-  category: pixart
-  custom_params:
-    width: 1024
-    height: 1024
-    num_inference_steps: 20
-    guidance_scale: 4.5
 dynavisionXLAllInOneStylized_releaseV0610Bakedvae.safetensors:
   option: dyna
   sd_type: sdxl
@@ -573,53 +525,53 @@ dev-kontext:
     guidance_scale: 4
     num_inference_steps: 20
     negative_prompt: 
-black-forest-labs/FLUX.1-schnell:
-  option: flux-schnell
-  sd_type: flux
-  category: general,art,wall,img2img,flux
-  custom_params:
-    width: 768
-    height: 1024
-    guidance_scale: 0
-    num_inference_steps: 2
-    negative_prompt: 
-black-forest-labs/FLUX.1-dev:
-  option: flux-dev
-  sd_type: flux
-  category: general,art,wall,img2img,mflux
-  custom_params:
-    width: 512
-    height: 512
-    guidance_scale: 3.5
-    num_inference_steps: 20
-    negative_prompt: 
-black-forest-labs/FLUX.1-Krea-dev:
-  option: flux-krea
-  sd_type: flux
-  category: general,art,wall,img2img,flux
-  custom_params:
-    width: 512
-    height: 512
-    guidance_scale: 4
-    num_inference_steps: 20
-    negative_prompt: 
-black-forest-labs/FLUX.1-Kontext-dev:
-  option: flux-kontext
-  sd_type: flux
-  category: general,art,wall,img2img,face,flux
-  custom_params:
-    width: 512
-    height: 512
-    guidance_scale: 4
-    num_inference_steps: 50
-    negative_prompt: 
-Qwen/Qwen-Image:
-  option: qwen
-  sd_type: qwen
-  category: general,art,wall,img2img,face,qwen
-  custom_params:
-    width: 512
-    height: 512
-    guidance_scale: 4
-    num_inference_steps: 50
-    negative_prompt: 
+# black-forest-labs/FLUX.1-schnell:
+#   option: flux-schnell
+#   sd_type: flux
+#   category: general,art,wall,img2img,flux
+#   custom_params:
+#     width: 768
+#     height: 1024
+#     guidance_scale: 0
+#     num_inference_steps: 2
+#     negative_prompt: 
+# black-forest-labs/FLUX.1-dev:
+#   option: flux-dev
+#   sd_type: flux
+#   category: general,art,wall,img2img,mflux
+#   custom_params:
+#     width: 512
+#     height: 512
+#     guidance_scale: 3.5
+#     num_inference_steps: 20
+#     negative_prompt: 
+# black-forest-labs/FLUX.1-Krea-dev:
+#   option: flux-krea
+#   sd_type: flux
+#   category: general,art,wall,img2img,flux
+#   custom_params:
+#     width: 512
+#     height: 512
+#     guidance_scale: 4
+#     num_inference_steps: 20
+#     negative_prompt: 
+# black-forest-labs/FLUX.1-Kontext-dev:
+#   option: flux-kontext
+#   sd_type: flux
+#   category: general,art,wall,img2img,face,flux
+#   custom_params:
+#     width: 512
+#     height: 512
+#     guidance_scale: 4
+#     num_inference_steps: 50
+#     negative_prompt: 
+# Qwen/Qwen-Image:
+#   option: qwen
+#   sd_type: qwen
+#   category: general,art,wall,img2img,face,qwen
+#   custom_params:
+#     width: 512
+#     height: 512
+#     guidance_scale: 4
+#     num_inference_steps: 50
+#     negative_prompt: 

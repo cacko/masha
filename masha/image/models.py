@@ -16,6 +16,7 @@ from masha.name.classifiers import Ethnicity
 import shlex
 from masha.image.huggingface.lora import clean_lora
 from fuzzelinho import extract
+from random import choice
 
 
 class IncompatibleTemplate(Exception):
@@ -278,30 +279,20 @@ class Sex(Choices, StrEnum):
 
 
 class PipelineType(StrEnum):
-    KANDINSKY = "KandinskyV22Pipeline"
-    KANDINSKY3 = "Kandinsky3Pipeline"
     SD = "StableDiffusionPipeline"
     SDXL = "StableDiffusionXLPipeline"
     COREML = "CoreMLStableDiffusionPipeline"
-    PIXART = "PixArtAlphaPipeline"
-    LCM = "LatentConsistencyModelPipeline"
     SDXL_TURBO = ""
     SD3 = "StableDiffusion3Pipeline"
     FLUX = "FluxPipeline"
     MFLUX = "FluxPipeline"
-    QWEN = "QwenImagePipeline"
 
 
 class SDModelType(StrEnum):
-    KANDINSKY = "kandinsky"
-    KANDINSKY3 = "kandinsky3"
     SD = "sd"
     SDXL = "sdxl"
     SD3 = "sd3"
     COREML = "coreml"
-    PIXART = "pixart"
-    LCM = "lcm"
-    OPENDALLE = "opendalle"
     FLUX = "flux"
     MFLUX = "mflux"
     QWEN = "qwen"
@@ -741,7 +732,6 @@ class Category(StrEnum):
     FANTASY = "fantasy"
     NATURE = "nature"
     HORROR = "horror"
-    WHATEVER = "whatever"
 
     @classmethod
     def values(cls):
@@ -750,6 +740,10 @@ class Category(StrEnum):
     @classmethod
     def guess(cls, name: str):
         return extract(name, cls.values())
+    
+    @classmethod
+    def random(cls):
+        return choice(list(cls))
     
 
 

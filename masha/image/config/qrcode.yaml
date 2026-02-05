@@ -30,7 +30,7 @@ castle:
     8k ultra hd
   negative_prompt: blurry
 landscape:
-  model: dreamlcm
+  model: dreamturbo
   control_net: qrCodeMonster
   guidance_scale: 2
   num_inference_steps: 10
@@ -63,7 +63,7 @@ tito:
     BadDream, FastNegativeV2, signature,
     (leaning_against_wall:1.3), (hat:1.3), (umbrella:1.2), nsfw
 food:
-  model: dreamlcm
+  model: dreamturbo
   control_net: qrCodeMonster
   guidance_scale: 2
   num_inference_steps: 12

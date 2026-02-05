@@ -140,14 +140,6 @@ fake_poster:
     //, 3dmm style,(masterpiece, top quality, best quality, official art, beautiful and aesthetic:1.2), <lora:3DMM_V12:1>
   models:
     - cutecartoon
-# pepo:
-#   category: style, face,img2img
-#   for_gender: female
-#   prompt: >
-#     <lora:P2p0:0.8> 1girl, white mini skirt, as pvc figure, looking at viewer, perfect hands, big breast, wide hips, thick thighs, upper body, cowboy shot, clean scene, white background, high detailed, masterpiece
-#   models:
-#     - dreamlcm
-#   upscale: 2
 rembrandt:
   category: style,img2img
   scheduler_class: DPMSolverSDEScheduler
@@ -1187,9 +1179,6 @@ perfect-text:
     A perfect text title of a fire with the words "// ", 
     movie themed, sharp, detailed, epic cinematic image, 
     artistic style, creative style, perfection, cinematic style, 
-      q1w2e3
-      
-    
     <lora:perfect text title style v21:>
   custom_params:
     guidance_scale: 3.6
@@ -1198,3 +1187,10 @@ perfect-text:
     width: 768
     height: 768
     strength: 0.4
+shirt:
+  category: t-shirt, flux
+  models:
+    - f1c
+  prompt: >
+    //, T-shirt design. isolated on a transparent background. 
+    The design should be highly suitable for screen printing on apparel.

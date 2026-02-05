@@ -1,5 +1,5 @@
 flat:
-  model: dreamlcm
+  model: dreamturbo
   category: sd
   prompt: <lora:Vector_illustration:1>
   guidance_scale: 2
@@ -50,7 +50,7 @@ colorswirl:
   strength: 0.3
   num_inference_steps: 20
   clip_skip: 2
-  model: dreamlcm
+  model: dreamturbo
   category: sd
 dissolve:
   prompt: > 

@@ -4,11 +4,8 @@ from masha.image.huggingface.sd_types.base import BaseStableDiffusion
 from masha.image.models import OutputParams
 import torch
 from diffusers import (
-    UNet2DConditionModel,
-    LCMScheduler,
     StableDiffusion3Img2ImgPipeline,
     StableDiffusion3Pipeline,
-    SD3Transformer2DModel,
 )
 import logging
 from humanfriendly import format_size

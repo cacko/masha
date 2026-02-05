@@ -1,6 +1,5 @@
 import json
 from uuid import uuid4
-import requests
 from pathlib import Path
 from corefile import TempPath
 from masha.core.request import make_multipart_response, make_response, uploaded_file
@@ -11,20 +10,17 @@ from masha.image.upscale import Upscale
 from coreimage.terminal import print_term_image
 from masha.image.diffusers import Diffusers
 from coreimage.find import find_images
-from masha.image.console import cmd_upload
 from masha.image.qrcode import QRCode, register_qrcodes
 from .prompt import register_prompts
 
 from .models import (
     Resolutions,
-    UploadRequest,
     Category,
     VariationPipelineParams,
 )
 import logging
 from masha.image.config import image_config
-from urllib.request import urlretrieve
-from corefile import find_mime_extension
+
 from .huggingface.scripts import (
     convert_vae as script_convert_vae,
     convert_ckpt as script_convert_ckpt,
@@ -33,7 +29,6 @@ from .huggingface.scripts import (
 )
 from .cli import cli
 from .router import router
-from typing import Optional
 
 from fastapi import Request, HTTPException, File, UploadFile, Form
 import typer
@@ -183,49 +178,6 @@ async def api_upscale(
         return make_multipart_response(res_path)
     except AssertionError:
         raise HTTPException(404)
-
-
-@router.post("/upload2wallies/{image}")
-async def api_upload2wallies(
-    request: Request, image: Annotated[str, Path(title="prompt")]
-):
-    try:
-        data = await request.json()
-        assert data
-        upload_params = UploadRequest(**data)
-        image_path = Path(image)
-        res = requests.get(f"http://192.168.0.10:43211/api/artwork/{image_path.stem}")
-        if res.status_code == 200:
-            raise AssertionError
-        tmp_path = TempPath(f"{uuid4().hex}{image_path.suffix}")
-        urlretrieve(upload_params.image_url, tmp_path.as_posix())
-        if upload_params.upscale:
-            tmp_path = Upscale.upscale(tmp_path)
-        mime, extension = find_mime_extension(tmp_path.as_posix())
-        fp = tmp_path.open("rb")
-        assert mime
-        params = dict(
-            files=dict(
-                file=(f"{tmp_path.stem}.{extension}", fp, mime, {"Expires": "0"})
-            ),
-            data=dict(category=upload_params.category, botyo_id=image_path.stem),
-        )
-        logging.info(data)
-        res = requests.post(
-            "http://192.168.0.10:43211/api/artworks", **params  # type: ignore
-        )
-        return res.json()
-    except AssertionError:
-        raise HTTPException(404)
-
-
-@cli.command()
-def upload(
-    path: Annotated[list[str], typer.Argument()],
-    category: Annotated[Optional[Category], typer.Option("-c", "--category")] = None,
-    upscale: Annotated[bool, typer.Option("-u", "--upscale")] = False,
-):
-    cmd_upload(path=path, category=category, upscale=upscale)
 
 
 @router.get("/options")

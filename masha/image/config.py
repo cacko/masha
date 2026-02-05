@@ -95,7 +95,6 @@ class SDConfig(BaseModel, arbitrary_types_allowed=True):
     sd_type: SDModelType
     option: str
     category: str
-    lcm: Optional[str] = None
     coreml: Optional[bool] = Field(default=False)
     scheduler_class: Optional[str] = None
     scheduler_args: Optional[dict[str, any]] = Field(default={})
@@ -339,6 +338,7 @@ class ArtConfig(BaseModel):
     style: list[str]
     technique: list[str]
     palette: list[str]
+    type: list[str]
 
 
 class ImageConfig(BaseModel):
