@@ -16,7 +16,7 @@ from coreimage.qrcode import get_qrcode, ERROR
 from corestring import to_token, truncate, clean_newlines
 from corefile import TempPath
 from masha.image.diffusers import Diffusers
-from masha.image.huggingface.utils import get_compel_prompts_xl, load_image
+from masha.image.huggingface.utils import load_image
 from masha.image.prompt import Prompt
 import gc
 from torch.mps import (

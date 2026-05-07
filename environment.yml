@@ -26,7 +26,6 @@ dependencies:
     - appnope==0.1.4
     - boto3==1.40.37
     - cachable==0.3.54
-    - compel==2.1.1
     - coreface==0.1.14
     - corefile==0.1.14
     - coreimage==0.4.2

@@ -11,7 +11,6 @@ from humanfriendly import format_size
 from torch.mps import current_allocated_memory
 from masha.image.huggingface.utils import (
     load_image,
-    get_compel_prompts,
 )
 from pathlib import Path
 from masha.image.huggingface.lora.sd_loaders import LoadersSDMixin
@@ -54,8 +53,6 @@ class StableDiffusionSD(BaseStableDiffusion, LoadersSDMixin):
         generator = torch.Generator(self.__class__.device).manual_seed(seed)
         prompt_embeds, negative_prompt_embeds = (
             (None, None)
-            if not use_compel
-            else get_compel_prompts(self.pipeline, prompt, negative_prompt)
         )
         return OutputParams(
             prompt=prompt,

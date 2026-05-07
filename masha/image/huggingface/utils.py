@@ -6,7 +6,6 @@ from corefile import filepath
 from PIL import Image
 from diffusers.utils import load_image as diffusers_load_image
 import logging
-from compel import Compel, ReturnedEmbeddingsType, DiffusersTextualInversionManager
 from masha.image.config import EmbeddingConfig
 from masha.image.models import Embedding, IncompatibleTemplate, PipelineParams, Sex
 from masha.image.diffusers import Diffusers, DiffusersType
@@ -84,69 +83,6 @@ def load_image(image_path: Path, size: Optional[tuple[float]] = None) -> Image.I
     if size:
         image.thumbnail(size)
     return image
-
-
-def get_compel_prompts(pipe, prompt=None, negative_prompt=None):
-    prompt_embeds, negative_prompt_embeds = None, None
-    textual_inversion_manager = DiffusersTextualInversionManager(pipe)
-    compel = Compel(
-        tokenizer=pipe.tokenizer,
-        text_encoder=pipe.text_encoder,
-        truncate_long_prompts=True,
-        textual_inversion_manager=textual_inversion_manager,
-    )
-    if prompt:
-        parsed = compel.parse_prompt_string(prompt)
-        prompt_embeds, _ = compel.build_conditioning_tensor_for_conjunction(parsed)
-    if negative_prompt:
-        negative_prompt_embeds = compel(negative_prompt)
-    if all([prompt, negative_prompt]):
-        [
-            prompt_embeds,
-            negative_prompt_embeds,
-        ] = compel.pad_conditioning_tensors_to_same_length(
-            [prompt_embeds, negative_prompt_embeds]
-        )
-    return prompt_embeds, negative_prompt_embeds
-
-
-@torch.no_grad()
-def get_compel_prompts_xl(pipe, prompt=None, negative_prompt=None):
-    compel = Compel(
-        tokenizer=[pipe.tokenizer, pipe.tokenizer_2],
-        text_encoder=[pipe.text_encoder, pipe.text_encoder_2],
-        returned_embeddings_type=ReturnedEmbeddingsType.PENULTIMATE_HIDDEN_STATES_NON_NORMALIZED,
-        requires_pooled=[False, True],
-    )
-    (
-        prompt_embeds,
-        pooled_prompt_embeds,
-        negative_prompt_embeds,
-        negative_pooled_prompt_embeds,
-    ) = (
-        None,
-        None,
-        None,
-        None,
-    )
-    if prompt:
-        prompt_embeds, pooled_prompt_embeds = compel(prompt)
-    if negative_prompt:
-        negative_prompt_embeds, negative_pooled_prompt_embeds = compel(negative_prompt)
-    if all([prompt, negative_prompt]):
-        [
-            prompt_embeds,
-            negative_prompt_embeds,
-        ] = compel.pad_conditioning_tensors_to_same_length(
-            [prompt_embeds, negative_prompt_embeds]
-        )
-    return (
-        prompt_embeds,
-        pooled_prompt_embeds,
-        negative_prompt_embeds,
-        negative_pooled_prompt_embeds,
-    )
-
 
 def txt2img_iterations(
     inputParams: dict,

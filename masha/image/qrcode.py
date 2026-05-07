@@ -18,7 +18,6 @@ from coreimage.qrcode import get_qrcode, ERROR
 from corestring import clean_newlines, to_token, truncate
 from corefile import TempPath
 from masha.image.diffusers import Diffusers, DiffusersType
-from masha.image.huggingface.utils import get_compel_prompts
 from masha.image.models import PipelineParams
 from masha.image.prompt import Prompt
 import gc
@@ -320,14 +319,7 @@ class QRCode(LoadersSDMixin, metaclass=QRCodeMeta):
         temp_name = truncate(to_token(prompt), size=30, ellipsis="")
         temp_path = TempPath(f"{self.name}{temp_name}{seed}{uuid4().hex}.jpg")
         logging.info(f">> SEED: {seed}")
-        prompt_embeds, negative_prompt_embeds = None, None
-        with torch.no_grad():
-            prompt_embeds, negative_prompt_embeds = get_compel_prompts(
-                pipe=self.pipeline, prompt=self.prompt, negative_prompt=self.negative_prompt
-            )
         control_params = dict(
-            prompt_embeds=prompt_embeds,
-            negative_prompt_embeds=negative_prompt_embeds,
             num_inference_steps=self.num_inference_steps,
             generator=generator,
             guidance_scale=self.guidance_scale,

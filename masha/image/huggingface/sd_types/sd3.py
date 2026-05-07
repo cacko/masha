@@ -12,7 +12,6 @@ from humanfriendly import format_size
 from torch.mps import current_allocated_memory
 from masha.image.huggingface.utils import (
     load_image,
-    get_compel_prompts_xl,
 )
 from pathlib import Path
 from masha.image.config import image_config
@@ -56,10 +55,6 @@ class StableDiffusion3(BaseStableDiffusion, LoadersSD3Mixin):
             negative_pooled_prompt_embeds,
         ) = (
             (None, None, None, None)
-            if no_compel
-            else get_compel_prompts_xl(
-                self.txt2img_pipe, prompt, negative_prompt=negative_prompt
-            )
         )
 
         return OutputParams(
